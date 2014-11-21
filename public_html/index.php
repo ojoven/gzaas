@@ -17,18 +17,15 @@ set_include_path(
 	);
 
 define('URL_BASE', 'http://gzaas.local.host/');
+
 define('DEFAULT_LANGUAGE_CODE', 'ES');
-
 define('RANDOM_GZAAS_NUM_BASE', 5);
-
 define('ERROR_KEY', "error");
-
 define('GZAAS_MAX_SIZE', 1024);
 define('LAUNCHER_MAX_SIZE', 115);
 define('GZAAS_MAX_NEW_LINES', 30);
 define('MAX_HOR_VER_SHADOW', 6);
 define('MAX_BLUR_SHADOW', 6);
-
 
 define('URL_WTF_EN', "http://localhost/gzaasproject/about/wtf-is-gzaas");
 define('URL_COM_EN', "http://localhost/gzaasproject/about/the-community/");
@@ -39,12 +36,11 @@ date_default_timezone_set('Europe/Madrid');
 /**
 * Salt for general hashing (security)
 */
-define('GENERIC_SALT', 'asdDSasd4asdAd1GH4sdWsd1');
+define('GENERIC_SALT', 'definehereyourowngenericsalt');
 /**
 * Define application environment
 */
-if( !defined('APPLICATION_ENV') )
-{
+if( !defined('APPLICATION_ENV') ) {
 	define('APPLICATION_ENV', 'development');
 }
 /** Zend_Application */
