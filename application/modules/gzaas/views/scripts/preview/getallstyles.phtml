@@ -1,0 +1,69 @@
+<STYLE TYPE="text/css" MEDIA=screen>
+
+
+.all_option {
+    background-image: url("http://gzaas.com/images/allstyles.png");
+}
+
+
+
+</STYLE>
+
+<div id="all_options_title">
+    <?php echo $this->translate('select.style.gallery.title');?>
+    <span class="close">X</span>
+</div>
+<div id="all_options_content">
+	<?php 
+	$count = 0;
+	foreach ($this->styles as $style){
+		?>
+		<div class="all_option_supra">
+			<span class="all_option_name"><?php echo $style['description']?></span>		
+			<span class="all_option" style="padding:0px;height:33px;background-position: -1px -<?php echo ($count*34)?>px">
+				<span class="add_hashtag"><?php echo $this->translate('use.it');?></span>
+				<span class="hash_key"><?php echo $style['style']; ?></span>
+				<span class="meta_key"><?php echo 50; ?></span>
+			</span>
+		</div>
+
+	<?php 
+	$count++;
+	}?>
+	<div class="clear"></div>
+	<div id="all_options_credits">
+		<div class="content">
+			<span class="title">Gzaaser! You can take part:</span>
+			<a href="#" class="link_external" target="_blank">Send us your styles suggestions</a>
+		</div>
+		<div class="content">&nbsp;</div>		
+	</div>	
+</div>
+
+
+	
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		$(".all_option_supra").hover(function(e){
+				$(this).find('span[class="add_hashtag"]').show();
+			},
+			function(e){
+				$(this).find('span[class="add_hashtag"]').hide();
+		});			
+
+		$(".all_option_supra").click(function(e){
+			hashtag = $(this).find('span[class="hash_key"]').html();
+			$('#style').val(hashtag);
+			$('#refresh_button').click();	
+		});		
+
+		$("#all_options_title .close").click(function(e){
+			$("#mask,#all_options_container").hide();
+			return false;
+		});			
+
+	});
+
+	</script>

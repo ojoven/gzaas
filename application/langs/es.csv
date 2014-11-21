@@ -1,0 +1,276 @@
+?#TRANSLATION-CASTELLANO;
+
+slogan;Mis mensajes, a pantalla completa.
+gzaas.excl;gzaas!
+
+meta.description;Sorprende a tus amigos creando mensajes con estilo a pantalla completa y enviándoselos por Facebook, Twitter o correo electrónico. Pruébalo, les sacarás algo más que una sonrisa.
+meta.keywords;gzaas, mensaje, pantalla completa, impacto, tamaño, maximizado, estilo, fuente, tipografía, color, textura, enviar, compartir, disfrutar.
+meta.title;Mis mensajes, a pantalla completa.
+
+meta.description.gzaas;gzaas! Detrás de este link hay un mensaje que está esperando que tú lo leas. ¿Qué será, qué será? Sólo lo sabrás si pinchas en el enlace...
+meta.title.gzaas;¡Toma pedazo mensaje!
+meta.description.preview;gzaas! Elige tu estilo, personalízalo con fuentes, colores, texturas y sombras y envíaselo a tus amigos. ¡Los sorprenderás!
+meta.title.preview;Vista previa y edición.
+
+?#HOME;
+
+gzaas.it;"&iexcl;gzaas&eacute;alo!"
+title.gzaas.it;estilo aleatorio...
+
+view.examples;"ver ejemplos fant&aacute;sticos >"
+title.view.examples;"&iexcl;Disfruta con lo que otros han gzaaseado!"
+
+wtf;"&iquest;qu&eacute; es gzaas?"
+title.wtf;"&iexcl;haz click aqu&iacute; para saber la respuesta!"
+
+gzaas.is;"<span id='info_gzaas_sub1'>un gzaas es un mensaje</span><span class='tick'>sorprendente</span><span class='tick'>a pantalla completa</span><br/><span id='info_gzaas_sub3'>&iexcl;Una nueva manera de impactar a tus amigos!</span><div id='h_line'>&nbsp;</div><span id='info_gzaas_sub4'>&iquest;C&oacute;mo lo utilizo?<br/></span><span class='tick'>1.</span>Escribe tu mensaje&nbsp;&nbsp;<span class='tick'>2.</span>Dale estilo&nbsp;&nbsp;<span class='tick'>3.</span>Comparte el link que te devolvemos"
+
+close.try;"&iexcl;cierra esta ventana y empieza a disfrutarlo!"
+
+
+?#HEADER_FOOTER;
+?#header.login;"Inicia sesi&oacute;n"
+?#header.logout;"Cerrar sesi&oacute;n"
+?#header.favorites;Favoritos
+?#header.my.gzaases;Mis gzaases
+?#header.become.gzaaser;"&iexcl;S&eacute; un gzaaser!"
+
+join.the.gzaasers;"&Uacute;nete a los gzaasers"
+
+
+?#PREVIEW;
+
+share.it;"&iexcl;Comp&aacute;rtelo!"
+title.share.it;"Haz click aqu&iacute; para obtener el link para compartir"
+
+generating.link;generando link...
+title.generating.link;generando link...espera por favor
+
+new.gzaas;"&iexcl;nuevo gzaas!"
+title.new.gzaas;crea un nuevo gzaas desde cero
+
+new.gs.title;"&iexcl;gzaaseado!"
+new.gs.title.subtitle;(es el momento de compartirlo con tus amigos)
+new.gs.subtitle.public;Comparte el siguiente enlace:
+new.gs.subtitle.private;"Copia el link y env&iacute;aselo a un amigo"
+new.gs.subtitle.launcher;"&iexcl;Comparte tu creatividad con el mundo!"
+new.gs.share.it;"Sorpr&eacute;ndeles..."
+new.gs.private;"este gzaas solo ser&aacute; accesible por aqu&eacute;l a qui&eacute;n env&iacute;es el link"
+
+title.share.twitter;"Twitt&eacute;alo"
+title.share.facebook;"Publ&iacute;calo en tu muro"
+
+see.result;Mira el resultado
+title.see.result;"&iexcl;Mira el resultado! (abre una nueva ventana)"
+
+preview.go.home;inicio
+title.preview.go.home;vuelve a inicio
+
+gzaasing;gzaaseando...
+title.gzaasing;gzaaseando... espera, por favor
+
+
+
+use.it;"&iexcl;usa esta!"
+close.it;cerrar ventana
+
+?#SHARING OPTIONS;
+?#you.are.sharing.public;"&iexcl;Est&aacute;s compartiendo este gzaas con el mundo!"
+?#you.are.sharing.private;"&iexcl;Env&iacute;a este gzaas s&oacute;lo a quien t&uacute; deseas!"
+
+sharing.options;"Opciones de compartici&oacute;n"
+make.it.more.shareable;"Hazlo m&aacute;s social a&ntilde;adiendo "
+a.launcher;un lanzador
+
+?#public;"p&uacute;blico"
+?#private;privado
+?#public.mayus;"P&uacute;blico"
+?#private.mayus;Privado
+
+
+
+menu.fonts;Fuentes
+menu.font.color;Color de Fuente
+menu.background.color;Color de Fondo
+menu.background.pattern;Texturas de Fondo
+menu.shadows;"Sombras a&ntilde;adidas"
+menu.shadow.color;Color de sombra
+menu.shadow;Sombra
+add.new.shadow;"A&ntilde;adir nueva sombra"
+add.shadow;"A&ntilde;adir"
+new.shadow;Nueva sombra
+
+horizontal;Horizontal
+vertical;Vertical
+blur;Difuminado
+color;Color
+menu.shadows.color;Color de sombra
+
+menu.styles;Estilos
+
+menu.fonts.mt;fuentes
+menu.font.color.mt;A
+menu.background.color.mt;CF
+menu.background.pattern.mt;TF
+menu.shadow.mt;S
+menu.styles.mt;estilos
+
+most.loved;Destacados
+see.all;ver todos
+
+select.font.gallery.title;"&iexcl;Selecciona una fuente de nuestra maravillosa galer&iacute;a!!"
+select.pattern.gallery.title;"&iexcl;Selecciona una textura de nuestra maravillosa galer&iacute;a!"
+select.style.gallery.title;"&iexcl;Selecciona un estilo de nuestra maravillosa galer&iacute;a!"
+
+fonts.thanks;Puedes utilizar estas fuentes gracias a:
+patterns.thanks;Puedes utilizar estas texturas gracias a:
+
+and.conjunction;y
+
+see.all.font.credits;"ver lista dise&ntilde;adores de fuentes"
+see.all.pattern.credits;"ver lista dise&ntilde;adores de texturas"
+
+gzaaser.take.part;"Gzaaser! T&uacute; puedes tomar parte:"
+
+send.font.suggestions;"Env&iacute;anos sugerencias para a&ntilde;adir nuevas fuentes"
+send.pattern.suggestions;"Env&iacute;anos sugerencias para a&ntilde;adir nuevas texturas"
+send.style.suggestions;"Env&iacute;anos sugerencias para a&ntilde;adir nuevos estilos"
+
+see.sharing.options;selecciona la visibilidad del gzaas
+get.more.info;"m&aacute;s informaci&oacute;n"
+characters.left;caracteres restantes
+expand.form;"ampl&iacute;a"
+expand.form.2;reduce
+
+refresh;"recarga la p&aacute;gina"
+
+add.launcher.title;"&iexcl;A&ntilde;ade un lanzador!"
+make.gzaas.sharejoying;"(y haz que tu gzaas! sea m&aacute;s viral y creativo)"
+what.is.launcher;"&iquest;Qu&eacute; es un lanzador?"
+set.launcher;establecer lanzador
+launcher.no.launcher;[sin lanzador]
+
+where.to.gzaas;"&iquest;d&oacute;nde lo puedo compartir?"
+
+
+
+?#SEE GS;
+
+random.gzaas;"explora gzaas aleatorios &gt;"
+
+?#send;Enviar
+
+header.create.new.gzaas;"&iexcl;Crea un nuevo gzaas!"
+dialog.create.new.gzaas;"&iexcl;Crea un nuevo gzaas!"
+dialog.using.style;(usando el mismo estilo del gzaas actual)
+
+?#TOUR( FOLLOWING VERSIONS);
+
+?#title tours;
+
+?#this.is.a.message;"A continuaci&oacute;n, un mensaje del equipo de gzaas"
+?#title.tour.1.1;Hagamos de
+?#title.tour.1.2;un lugar mejor
+?#title.tour.2;"Conoce a quien est&aacute; detr&aacute;s de"
+?#hashtour.1;#disfrutagzaas
+?#hashtour.2;#detrasdegzaas
+
+?#enjoyingzaas;
+
+?#tour.1.message.1;"Utiliza tu sentido com&uacute;n y tu buen gusto a la hora de crear tus gzaas"
+?#tour.1.message.2;A nadie le gusta el SPAM.<br/>Utiliza gzaas de manera inteligente.
+?#tour.1.message.3;"Este estilo de mensaje, &iexcl;nos gusta!"
+?#tour.1.message.4;"Este estilo de mensaje da&ntilde;a los ojos. <br/>No fastidies, colega."
+?#tour.1.message.5;"No utilices gzaas para mensajes racistas, hom&oacute;fobos o que da&ntilde;en la integridad de las personas."
+
+
+?#credits;
+
+?#tour.2.message.1;gzaas ha sido concebido por <br/>Mikel Torres Ugarte
+?#tour.2.message.2;"inestimable colaboraci&oacute;n de <br/>Bruno Garc&iacute;a Echegaray"
+?#tour.2.message.3;"el buen gusto del dise&ntilde;ador <br/>Sebasti&aacute;n Garc&iacute;a"
+?#tour.2.message.4;Credits 4
+?#tour.2.message.5;Credits 5
+
+?#take.the.tour;Recorre este tour
+?#continue.exploring;"Contin&uacute;a explorando &gt;"
+
+
+
+?#ERRORS/MESSAGES;
+
+error.max.size;Te has pasado con los caracteres utilizados, amigo.
+error.max.lines;"No se aceptan mensajes de m&aacute;s de 30 l&iacute;neas.<br/>Ni haciendo copy-paste, hamijo ;).<br/>Ay&uacute;danos a hacer de gzaas un lugar m&aacute;s seguro"
+error.gzaas.blank;"&iquest;Nada que decir? Ay&uacute;danos a hacer de gzaas un lugar m&aacute;s seguro."
+error.newgs.exception;Algo no fue bien...prueba creando un nuevo gzaas
+error.same.color;No se puede usar el mismo color para la fuente y para el fondo
+error.no.style;"&iquest;Arial, blanco, negro? Si no hay estilo, no hay gzaas..."
+error.no.valid.visibility; "Ooops, Àd&oacute;nde te has metido? No te vemos con tu capa de invisibilidad..."
+
+oops;"&iexcl;Ups!"
+
+message.gzaas.blank;"&iquest;Qu&eacute; tal si escribes algo antes de compartirlo?"
+message.no.style;"&iquest;Y si le das algo de estilo al mensaje?"
+message.same.color;"&iexcl;Ojo! Est&aacute;s usando el mismo color para la fuente que para el fondo..."
+
+
+?#menu info inicio (DEPRECATED);
+
+menu.info.wtf;?
+menu.info.create;crea un gzaas
+menu.info.share;"comp&aacute;rtelo"
+menu.info.join;"&uacute;nete"
+menu.info.about;about
+menu.info.terms;"t&eacute;rminos"
+
+
+info.content.wtf.1;"un gzaas es un mensaje mol&oacute;n y a pantalla completa que se esconde tras un link"
+info.content.wtf.2;"He aqu&iacute; un ejemplo..."
+
+info.content.create.1;crear un gzaas es muy sencillo
+info.content.create.2;1. Escribe tu mensaje
+info.content.create.3;2. Dale estilo con fuentes, colores y fondos
+info.content.create.4;"3. Comp&aacute;rtelo"
+
+info.content.share.1;tu gzaas! es un link
+info.content.share.2;En el editor, pincha en
+info.content.share.3; para obtenerlo
+
+info.content.share.4;"C&oacute;pialo y p&eacute;galo donde quieras:"
+info.content.share.5;correo
+info.content.share.6;foros
+
+
+
+info.content.join.1;"gzaas est&aacute; en las redes sociales"
+info.content.join.2;Nuevas fuentes, nuevas texturas, nuevos estilos
+info.content.join.3;gzaas en twitter
+info.content.join.4;gzaas en facebook
+
+info.content.about.1; es un proyecto loco de
+info.content.about.2;"No est&aacute; solo"
+info.content.about.3;"ver cr&eacute;ditos"
+info.content.about.4;"&iexcl;dale volumen a tus altavoces y saca las palomitas!"
+
+
+info.content.terms.1;"gzaas! no se hace responsable del uso que puedan hacer de esta web sus usuarios. As&iacute; pues, el &uacute;nico responsable de un gzaas (link/mensaje) es el usuario que lo ha creado."
+info.content.terms.2;"Trabajamos para que los mensajes creados no resulten ofensivos ni falten contra las personas, ya sean por razones de sexo, raza o religi&oacute;n."
+info.content.terms.3;"Para saber c&oacute;mo lo hacemos cont&aacute;ctanos en weare@gzaas.com"
+info.content.terms.4;"Desde el equipo de gzaas! promovemos el buen uso de la aplicaci&oacute;n. &iexcl;S&eacute; creativo, s&eacute; inteligente!"
+
+
+?#SOCIAL (FOLLOWING VERSIONS);
+
+register.become.a.gzaaser;"&iexcl;Convi&eacute;rtete en un gzaaser!"
+register.username;Nombre de usuario
+register.password;"Contrase&ntilde;a"
+register.email;"Correo electr&oacute;nico"
+register.agree.terms.conditions;"Estoy de acuerdo con los t&eacute;rminos y condiciones"
+register.create.account;crear mi cuenta
+
+login.enter.title;"Accede, &iexcl;ponte a jugar!"
+login.remember;"Recu&eacute;rdame en este ordenador"
+login.enter;Accede
+login.lost.pass;"&iquest;has olvidado tu contrase&ntilde;a?"
+
+activate.account.mail.subject;Activa tu cuenta en gzaas
