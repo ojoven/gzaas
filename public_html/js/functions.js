@@ -56,7 +56,11 @@ function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage)
 {
 	setNewGzaasMessageSizeOnOverflowed();
 	setTimeout('adaptSizesAndSpacesToWindowResolution()',timeToAdaptToResolution);
-	setTimeout('showGzaasMessage()',timeToShowMessage);
+	if (typeof screenshot != "undefined" && screenshot) {
+		showGzaasMessage();
+	} else {
+		setTimeout('showGzaasMessage()',timeToShowMessage);
+	}
 }
 
 // Adapt message to screen

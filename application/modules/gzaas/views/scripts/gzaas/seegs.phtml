@@ -21,7 +21,9 @@ else {
 	$iLikeLanguage = 'locale=en_US&';
 }
 ?>
-<STYLE TYPE="text/css" MEDIA=all>
+<style type="text/css" media=all>
+/** @import url(<?php echo $features['font']['stylesheet']; ?>); **/
+<?php echo $this->fontstyles; ?>
 
 #gzaas_screen {
 
@@ -61,7 +63,7 @@ overflow:hidden;
 }
 
 
-</STYLE>
+</style>
 
 <div id="header">
 	<div id="header-bar-outer">
@@ -166,6 +168,7 @@ overflow:hidden;
 <script type="text/javascript">
 
 var createGzaas = "<?php echo $this->translate('create.gzaas');?>";
-var page = "seegzaas"
+var page = "seegzaas";
+var screenshot = <?php echo (isset($this->fontstyles)) ? "true" : "false"; ?>;
 </script>
 

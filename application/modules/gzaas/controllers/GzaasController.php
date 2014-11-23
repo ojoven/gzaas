@@ -47,6 +47,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 	{
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
+		$screenshot = $this->getRequest()->getParam("screenshot");
 
 		$gzaasModel = new Gzaas_Model_Gzaas();
 		$gzaas = $gzaasModel->renderGzaas($urlKey);
@@ -56,7 +57,11 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 
 		$this->view->message = $gzaas['message']['message'];
 		$this->view->features = $gzaas['features'];
-		$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);
+		if (!$screenshot) {
+			$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);
+		} else {
+			$this->view->fontstyles = $this->_retrieveAndParseFontFaceCss($gzaas['features']['font']['stylesheet']);
+		}
 		$this->view->launcher = $gzaas['launcher'];
 		$this->view->twitterMessage = $gzaas['twitterMessage'];
 		$this->view->url = $gzaas['url'];
@@ -83,6 +88,16 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 		if ($fontFeatures['fontFace']==1) {
 			$this->view->headLink()->appendStylesheet($fontFeatures['stylesheet']);
 		}
+	}
+
+	private function _retrieveAndParseFontFaceCss($stylesheet) {
+		$content = file_get_contents('http:' . $stylesheet);
+
+		$array = explode('src:',$content);
+		$aux = explode('),',$array[count($array) - 1]);
+		$newstylesheet = $array[0] . 'src:' . $aux[count($aux)-1];
+
+		return $newstylesheet;
 	}
 
 	private function _setSearchEngineRobotsFromGzaasVisibility($gzaasVisibility)
