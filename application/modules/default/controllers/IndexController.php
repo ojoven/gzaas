@@ -1,12 +1,10 @@
 <?php
 require_once 'Zend/Cache.php';
 
-class IndexController extends Zend_Controller_Action
-{
+class IndexController extends Zend_Controller_Action {
 
+	public function init() {
 
-	public function init()
-	{
 		$this->view->baseUrl = $this->_request->getBaseUrl();
 		$this->view->baseImage = PUBLIC_WEB_PATH.'/images/';
 		$this->view->setHelperPath(LIBRARY_PATH.'/Zend/View/Helper', 'NF_View_Helper');
@@ -21,8 +19,8 @@ class IndexController extends Zend_Controller_Action
 		$this->view->headTitle()->append($metaTitle);
 	}
 
-	public function indexAction()
-	{
+	public function indexAction() {
+
 		$this->view->titulo = "gzaas!";
 		$languageCode = Zend_Registry::get('languageCode');
 		$this->view->languageCode = $languageCode;

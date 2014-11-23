@@ -630,8 +630,6 @@ class Api_ApiController extends Zend_Controller_Action {
 		// We take the different parameter options
 		$parameters = $this->_getAllParams();
 		$gzaasIncludes = $parameters['gzaasIncludes'];
-		$launcherIncluded = $parameters['launcherIncluded'];
-		$launcherIncludes = $parameters['launcherIncludes'];
 		$fonts = $parameters['fonts'];
 		$colors = $parameters['colors'];
 		$backcolors = $parameters['backcolors'];

@@ -1,10 +1,9 @@
 <?php
 
-class Gzaas_Model_Meta
-{
+class Gzaas_Model_Meta {
 
-	public function getFacebookMeta($urlKey)
-	{
+	public function getFacebookMeta($urlKey) {
+
 		$facebookMeta = "";
 		$metaproperty = '<meta property="';
 		$metacontent = 'content="';

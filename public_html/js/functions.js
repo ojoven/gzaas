@@ -24,7 +24,6 @@ const gzaasLeftMarginPercentage = '5%';
 const previewMenuLeftMargin = 0.15;
 
 const menu = $("#menuUsed").val();
-var launcherUsed = $("#launcherUsed").val();
 
 // Times and animations
 const timeToGzaasFadeIn = 150;
@@ -44,7 +43,6 @@ var oldWindowWidth = $(window).width();
 var menuOpacity=1;
 
 var maxSize = 40;
-var launcherMaxSize = 20;
 var maxNewLines = 10;
 
 
@@ -167,8 +165,6 @@ function initializeHome() {
 function initializeSeeGzaas()
 {
 	_renderGzaasMessage(timeToAdaptToResolutionOnSeeGzaas,timeToShowMessageOnSeeGzaas);
-	_showLauncherScreenIfLauncherUsed();
-	_resolveConflictBetweenLauncherScreenAndMenu();
 	_showMenuAndSidebarWithDelay(menuSidebarShowDelayTime,menuSidebarFadeTime);
 	initializeSeeGzaasEvents();
 }
@@ -184,37 +180,6 @@ function initializeSeeGzaasEvents()
 }
 
 // See gzaas functions
-function _showLauncherScreenIfLauncherUsed()
-{
-	_resolutionLauncher();
-	$("#launcher_layer").show();
-	$("#launcher_layer .container .gzaas_logo").click(function(){
-		$("#launcher_layer").fadeOut(150);
-		show(2300,150);
-	});
-}
-
-function _resolutionLauncher()
-{
-	windowHeight = $(window).height();
-	launcherHeight = $("#launcher_layer .container").height();
-	marginTopLauncher = (windowHeight/2)-(launcherHeight/2);
-	$("#launcher_layer .container").css('top',marginTopLauncher+'px');
-}
-
-function _resolveConflictBetweenLauncherScreenAndMenu()
-{
-	if ((menu!=1) && (launcherUsed=="0")) {
-		$("#screen_layer").show();
-		$("#screen_layer").click(function(e){
-			$("#header").slideDown(150);
-			$("#footer").slideDown(150);
-			$("#right_sidebar").fadeIn(150);
-			$(this).fadeOut(150);
-		});
-	}
-}
-
 function _showMenuAndSidebarWithDelay(time,fade) {
 	setTimeout(function(){
 		_showMenuAndSidebar(fade);
@@ -321,7 +286,7 @@ function initializePreview()
 function _setFromHomeOptions() {
 	if (from=="home") {
 		setTimeout(function(){
-		    $("footer,header,#preview_header").animate({opacity:1}, 400);
+				$("footer,header,#preview_header").animate({opacity:1}, 400);
 		},1500);
 		setTimeout('attention()',4500);
 	}
@@ -357,14 +322,6 @@ function initializePreviewEvents()
 	// Finish and create gzaas
 	_setEventFinishAndCreateGzaas();
 	_setEventNewGzaas();
-
-	// Launcher events
-	_setEventClickOnLauncherMenuOption();
-	_setEventLauncherCharCount();
-	_setEventLimitLauncherTextMaxSize();
-	_setEventKeyDownOnLauncher();
-	_setEventClickOnCloseLauncherContainer();
-	_setEventClickOnAddLauncher();
 
 	// Animations
 	_setEventAnimateHoverOnExternalLink();
@@ -569,8 +526,6 @@ function _setEventFinishAndCreateGzaas()
 			data.shadows = $("#shadows").val();
 			data.style = $("#style").val();
 			data.visibility = $("#visibility").val();
-			data.launcher = $("#launcher").val();
-
 			data.message = message;
 
 			if (!_checkValidStyleFeatures(data)) {
@@ -584,7 +539,7 @@ function _setEventFinishAndCreateGzaas()
 				flagNewGs = 1;
 				$(this).hide();
 				$("#in_new_gs_preview").show();
-				$("#metatags_container,footer .vr, #to_launcher, #preview_form_container").hide();
+				$("#metatags_container,footer .vr, #preview_form_container").hide();
 
 				var urlNewGzaas = urlBase+'/gzaas/newgs/';
 				console.log(data);
@@ -690,71 +645,6 @@ function _setEventKeyUpOnForm()
 			limitedText = text.substr(0,maxSize);
 			$(this).val(limitedText);
 		}
-	});
-}
-
-// Launcher events
-function _setEventLauncherCharCount()
-{
-	$("#launcher_aux").charCount({
-		allowed: launcherMaxSize,
-		warning: launcherMaxSize-10,
-		css: 'launcher_counter',
-		counterText: ''
-	});
-}
-
-function _setEventClickOnCloseLauncherContainer()
-{
-	$("#add_launcher_container .title .close").click(function(){
-		$("#add_launcher_container").hide();
-	});
-}
-
-function _setEventLimitLauncherTextMaxSize()
-{
-	$("#launcher_aux").keyup(function(e) {
-		text = $(this).val();
-		if (text.length > launcherMaxSize) {
-			limitedText = text.substr(0,launcherMaxSize);
-			$(this).val(limitedText);
-		}
-	});
-}
-
-function _setEventKeyDownOnLauncher()
-{
-	$("#launcher_aux").keydown(function(e) {
-		if (e.which == '13') {
-			$('#add_launcher').click();
-			e.preventDefault();
-		}
-	});
-}
-
-function _setEventClickOnLauncherMenuOption()
-{
-	$("#to_launcher").click(function(){
-		$("#add_launcher_container").show();
-	});
-}
-
-function _setEventClickOnAddLauncher()
-{
-	$("#add_launcher").click(function() {
-		launcher = $("#launcher_aux").val();
-		$("#launcher").val(launcher);
-		if (launcher=='') {launcherText = nolauncher; } else { launcherText = launcher; }
-		$("#launcher_preview .launcher").fadeOut(150, function(){
-			$("#launcher_preview .launcher").html(launcherText);
-			$("#launcher_preview .launcher").fadeIn();
-			$("#launcher_preview").fadeIn();
-		});
-		$("#tick_launcher").fadeIn(450,function(){
-			setTimeout(function(){
-				$("#tick_launcher").fadeOut(450)
-			},1400);
-		});
 	});
 }
 
@@ -984,7 +874,7 @@ function getPage() {
 $(document).ready(function(){
 
 	if (getPage()=="preview") {
-	    initializePreview();
+			initializePreview();
 	}
 
 	if (getPage()=="seegzaas") {

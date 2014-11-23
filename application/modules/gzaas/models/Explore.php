@@ -1,18 +1,17 @@
 <?php
 
-class Gzaas_Model_Explore
-{
+class Gzaas_Model_Explore {
 
 	// Random explore
-	public function getRandomUrl()
-	{
+	public function getRandomUrl() {
+
 		$randomUrlKey = $this->_getRandomUrlKey();
 		$randomUrl = URL_BASE.'/'.$randomUrlKey;
 		return $randomUrl;
 	}
 
-	private function _getRandomUrlKey()
-	{
+	private function _getRandomUrlKey() {
+
 		$messageModelDbTable = new Gzaas_Model_DbTable_Message();
 		$numTotalMessages = $messageModelDbTable->getNumTotalMessages();
 		$randomPosition = rand(0,$numTotalMessages-1);
@@ -21,10 +20,9 @@ class Gzaas_Model_Explore
 		return $urlKey;
 	}
 
-
 	// New gzaas
-	public function createNewUrlKey()
-	{
+	public function createNewUrlKey() {
+
 		$repeated = true;
 		$messageModel = new Gzaas_Model_Message();
 
@@ -43,8 +41,8 @@ class Gzaas_Model_Explore
 		return $urlKey;
 	}
 
-	private function _keyGenerator($minlength, $maxlength, $useupper, $usespecial, $usenumbers)
-	{
+	private function _keyGenerator($minlength, $maxlength, $useupper, $usespecial, $usenumbers) {
+
 		$key = '';
 		$charset = "abcdefghijklmnopqrstuvwxyz";
 		if ($useupper) $charset .= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

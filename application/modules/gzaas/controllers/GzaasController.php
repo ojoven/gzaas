@@ -2,12 +2,12 @@
 require_once "Zend/Controller/Action.php";
 require_once "Zend/Loader.php";
 
-class Gzaas_GzaasController extends Zend_Controller_Action
-{
+class Gzaas_GzaasController extends Zend_Controller_Action {
+
 	private $_metaTitle;
 
-	function init()
-	{
+	function init() {
+
 		$this->_redirector = $this->_helper->getHelper('Redirector');
 
 		$this->view->baseUrl = $this->_request->getBaseUrl();
@@ -23,8 +23,8 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 		$this->view->headMeta()->setName('keywords', $metaKeyWords);
 	}
 
-	public function newgsAction()
-	{
+	public function newgsAction() {
+
 		$parameters = $this->getRequest()->getPost();
 		$gzaasModel = new Gzaas_Model_Gzaas();
 		$validParameters = true;
@@ -43,8 +43,8 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 	}
 
 
-	public function seegsAction()
-	{
+	public function seegsAction() {
+
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
 		$screenshot = $this->getRequest()->getParam("screenshot");
@@ -62,20 +62,18 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 		} else {
 			$this->view->fontstyles = $this->_retrieveAndParseFontFaceCss($gzaas['features']['font']['stylesheet']);
 		}
-		$this->view->launcher = $gzaas['launcher'];
 		$this->view->twitterMessage = $gzaas['twitterMessage'];
 		$this->view->url = $gzaas['url'];
 		$this->view->menu = $menu;
 		$this->_setSearchEngineRobotsFromGzaasVisibility($gzaas['message']['visibility']);
-		$this->_setHeadTitleFromLauncherUsed($gzaas['launcher']);
 		$this->_setFacebookMeta($urlKey);
 		$this->_setUserLanguageCode();
 
 		$this->render();
 	}
 
-	public function randomexploreAction()
-	{
+	public function randomexploreAction() {
+
 		$exploreModel = new Gzaas_Model_Explore();
 		$randomUrl = $exploreModel->getRandomUrl();
 
@@ -83,8 +81,8 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 	}
 
 	// Private methods
-	private function _setFontHeadStylesheetIfFontFaceUsed($fontFeatures)
-	{
+	private function _setFontHeadStylesheetIfFontFaceUsed($fontFeatures) {
+
 		if ($fontFeatures['fontFace']==1) {
 			$this->view->headLink()->appendStylesheet($fontFeatures['stylesheet']);
 		}
@@ -100,8 +98,8 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 		return $newstylesheet;
 	}
 
-	private function _setSearchEngineRobotsFromGzaasVisibility($gzaasVisibility)
-	{
+	private function _setSearchEngineRobotsFromGzaasVisibility($gzaasVisibility) {
+
 		switch ($gzaasVisibility) {
 			case 0:
 				$this->view->headMeta()->setName('robots', 'NOINDEX,NOFOLLOW'); break;
@@ -110,29 +108,17 @@ class Gzaas_GzaasController extends Zend_Controller_Action
 		}
 	}
 
-	private function _setHeadTitleFromLauncherUsed($launcher)
-	{
-		if (!$launcher['used']){
-			$this->view->headTitle()->append($this->_metaTitle);
-		} else {
-			$this->view->headTitle()->append($launcher);
-		}
-	}
+	private function _setFacebookMeta($urlKey) {
 
-	private function _setFacebookMeta($urlKey)
-	{
 		$metaModel = new Gzaas_Model_Meta();
 		$facebookMeta = $metaModel->getFacebookMeta($urlKey);
 		$this->view->facebook = $facebookMeta;
 	}
 
-	private function _setUserLanguageCode()
-	{
+	private function _setUserLanguageCode() {
+
 		$languageCode = Zend_Registry::get('languageCode');
 		$this->view->languageCode = $languageCode;
 	}
-
-
-
 
 }

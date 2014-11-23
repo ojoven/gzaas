@@ -1,11 +1,11 @@
 <?php
 
-class Gzaas_Model_Visitgs
-{
+class Gzaas_Model_Visitgs {
+
 	const URL_RESUME = "gzaas.com";
 
-	public function addVisit($idMessage)
-	{
+	public function addVisit($idMessage) {
+
 		$ipUser = $_SERVER['REMOTE_ADDR'];
 		if (isset($_SERVER['HTTP_REFERER'])) {
 			$urlFrom = $_SERVER['HTTP_REFERER'];
@@ -27,6 +27,7 @@ class Gzaas_Model_Visitgs
 	}
 
 	private function _isVisitInternalFromGzaas($urlFrom) {
+
 		// Does the user come from outside Gzaas?
 		$findme = self::URL_RESUME;
 		$pos = strpos($urlFrom, $findme);

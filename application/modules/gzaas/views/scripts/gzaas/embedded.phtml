@@ -1,10 +1,7 @@
-<?php 
+<?php
 $message = $this->message;
 $features = $this->features;
 $screenFeatures = $this->screenFeatures;
-if ($this->launcherUsed){
-	$launcher = $this->launcher;
-}
 $info = $this->info;
 
 $languageCode = $this->languageCode;
@@ -17,11 +14,11 @@ else {
 ?>
 <STYLE TYPE="text/css" MEDIA=screen>
 
-#gzaas_screen { 
+#gzaas_screen {
 
 position: absolute;
 text-align:center;
-    
+
 font-size: <?php echo $features['fontSize'];?>px;
 font-family: <?php echo $features['fontFamily'];?>, Verdana, Arial;
 letter-spacing: -<?php echo $features['letterSpacing'];?>px;
@@ -53,17 +50,7 @@ background: <?php if ($features['backgroundImage']!=''){echo $features['backgrou
 
 
 
-<div id="gzaas_screen"><?php echo $message;?></div>   
-
-
-<?php if ($this->launcherUsed) {?>
-    <div id="launcher_layer_embed">
-    	<div class="container">
-    		<span class="launcher"><?php echo $launcher;?></span>
-    		<img class="gzaas_logo" src="<?php echo $this->baseImage?>gzaas_logo.png" alt="gzaas" width="150px"/>
-    	</div>
-    </div>
-<?php }?>
+<div id="gzaas_screen"><?php echo $message;?></div>
 
 <script type="text/javascript">
 
@@ -86,7 +73,7 @@ function overflowed(){
 	topBottomHeight = 10;
 	windowHeight = $(window).height();
 	freeSpaceHeight = windowHeight - topBottomHeight;
-		
+
 	if (divHeight>freeSpaceHeight){
 		oldFontSize = (parseInt(oldFontSize) * freeSpaceHeight) / divHeight;
 		oldLetterSpacing = (parseInt(oldLetterSpacing) * freeSpaceHeight) / divHeight;
@@ -96,7 +83,7 @@ function overflowed(){
 	}
 
 
-	// CONTROL OVERFLOW HORIZONTAL	
+	// CONTROL OVERFLOW HORIZONTAL
 	divWidth = $("#gzaas_screen").width();
 	windowWidth = $(window).width();
 	topLeftRight = 25;
@@ -113,20 +100,20 @@ function overflowed(){
 
 	$("#gzaas_screen").css('width','89%');
 	$("#gzaas_screen").css('left','5%');
-	
+
 }
 
 function expandFont(newFontSize,newLetterSpacing,newLineHeight){
 
 	$("#gzaas_screen").css('font-size',newFontSize+'px');
 	$("#gzaas_screen").css('letter-spacing','-'+newLetterSpacing+'px');
-	$("#gzaas_screen").css('lineHeight',newLineHeight+'px');	
+	$("#gzaas_screen").css('lineHeight',newLineHeight+'px');
 }
 
 function resolution(){
 
 	oldWidth = oldWindowWidth;
-	
+
 	windowWidth = $(window).width();
 	windowHeight = $(window).height();
 
@@ -143,58 +130,29 @@ function resolution(){
 
 }
 
-function resolutionLauncher() {
-	windowHeight = $(window).height();
-	launcherHeight = $("#launcher_layer_embed .container").height();
-	marginTopLauncher = (windowHeight/2)-(launcherHeight/2);
-	$("#launcher_layer_embed .container").css('top',marginTopLauncher+'px');	
-}
-
 function gzShow(){
 
-	<?php if ($this->launcherUsed) {?>
-	// Launcher container
-	$("#launcher_layer_embed .container .gzaas_logo").click(function(){
-		$("#launcher_layer_embed").hide();
-		$("#gzaas_screen").fadeIn(150);
-	});
-	<?php }
-	else {?>	
 	$("#gzaas_screen").fadeIn(150);
-	<?php }?>
 	/*
 	if (browserName=="Microsoft Internet Explorer"){
 		setTimeout(function(){
 			$("#gs_head_left, #random_explore, #go_home_gzaas").fadeIn(1300);
-			},2700);	
+			},2700);
 	}
 	else {
 		setTimeout(function(){
 			$("#gs_head_left, #random_explore, #go_home_gzaas").animate({opacity:1}, 1300);
-			},2700);	
+			},2700);
 	}
 	*/
 
 }
 
-
-	
-
-
-
 $(document).ready(function(){
 
-<?php if ($this->launcherUsed) {?>
-// Launcher container
-resolutionLauncher();
-<?php }?>
-	
-overflowed();	
-setTimeout('resolution()',1000);
-setTimeout('gzShow()',2000);
-
-
-
+	overflowed();
+	setTimeout('resolution()',1000);
+	setTimeout('gzShow()',2000);
 });
 </script>
 

@@ -478,12 +478,6 @@ footer .vr {
 	margin: 6px;
 }
 
-#add_launcher_container {
-width:400px;
-/* width:420px online; */
-}
-
-
 
 /******************************************
 
@@ -614,42 +608,6 @@ border: 4px solid #f76118;
 	top: 0;
 	z-index: -1;
 }
-
-#launcher_layer {
-	background: #fcfcfc;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
-	z-index: 1000;
-}
-
-#launcher_layer .container {
-	position: absolute;
-	left: 5%;
-	width: 89%;
-	text-align: center;
-}
-
-#launcher_layer .container .launcher {
-	display: block;
-	float: left;
-	font-family: 'Chewy';
-	font-size: 50px;
-	line-height: 60px;
-	margin-left: 5%;
-	width: 89%;
-}
-
-#launcher_layer .container .gzaas_logo {
-	cursor: pointer;
-	display: block;
-	float: left;
-	margin-left: 44%;
-	width: 130px;
-}
-
 
 
 /******************************************
@@ -1130,27 +1088,6 @@ a.preview_top_button:hover {
 
 
 /* TEXT EDIT AREA */
-#to_launcher {
-	background: url(../images/launcher.png) no-repeat scroll 4px 5px #DDDDDD;
-	border: medium none;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
-	color: #000000;
-	float: left;
-	font-family: 'Chewy';
-	font-size: 18px;
-	height: 31px;
-	margin: 5px 3px 0 0;
-	text-align: center;
-	width: 31px;
-	cursor: default;
-}
-
-#to_launcher:hover {
-	background: url(../images/launcher.png) no-repeat scroll 4px 5px #bbb;
-}
-
 #gs_form_preview {
 	border-radius: 12px;
 	-moz-border-radius: 12px;
@@ -1222,49 +1159,6 @@ a.preview_top_button:hover {
 		#bbb;
 }
 
-/* DIALOG LAUNCHER CONTAINER */
-.launcher_counter {
-	color: #CCCCCC;
-	cursor: default;
-	float: right;
-	font-size: 10px;
-	margin-right: -4%;
-	position: relative;
-	right: 6%;
-	top: -60px;
-	width:18px;
-}
-
-#tick_launcher {
-	display: none;
-	background: url(../images/tick.png) no-repeat scroll 0 0 transparent;
-	float: right;
-	margin: 18px 8px 0;
-	width: 20px;
-}
-
-#launcher_preview {
-	display: none;
-	float: left;
-	margin: -2px 0 10px;
-}
-
-#launcher_preview .launcher_preview_title {
-	background: url("../images/launcher.png") no-repeat scroll right center
-		transparent;
-	font-size: 12px;
-	padding: 4px 27px 3px 0;
-}
-
-#launcher_preview .launcher {
-	padding: 0 5px 0 2px;
-}
-
-#launcher_preview .gzaas_launcher {
-	color: #ff7618;
-}
-
-
 /* RESPONSE DIALOGS */
 #url_result {
 	display: none;
@@ -1273,17 +1167,6 @@ a.preview_top_button:hover {
 	font-family: Arial;
 	font-size: 20px;
 	font-weight: 700;
-	width: 95%;
-}
-
-#url_launcher_result {
-	border: 4px solid #F0F0F0;
-	color: #444444;
-	display: none;
-	font-family: Arial;
-	font-size: 14px;
-	font-weight: 700;
-	padding: 7px;
 	width: 95%;
 }
 
@@ -1445,40 +1328,6 @@ a.preview_top_button:hover {
 ******************************************/
 
 
-#launcher_layer_embed .container {
-	position: absolute;
-	left: 5%;
-	width: 89%;
-	text-align: center;
-}
-
-#launcher_layer_embed {
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	left: 0;
-	top: 0;
-	background: #fcfcfc;
-	z-index: 998;
-}
-
-#launcher_layer_embed .container .launcher {
-	display: block;
-	float: left;
-	font-family: 'Chewy';
-	font-size: 20px;
-	margin-left: 5%;
-	width: 89%;
-}
-
-#launcher_layer_embed .container .gzaas_logo {
-	cursor: pointer;
-	display: block;
-	float: left;
-	margin-left: 30%;
-	width: 130px;
-}
-
 #gallery_container {
 	float: left;
 	margin-top: 80px;
@@ -1498,9 +1347,9 @@ a.preview_top_button:hover {
 	font-family: 'Chewy';
 	src: url('chewy-webfont.eot');
 	src: url('chewy-webfont.eot?iefix') format('eot'),
-		 url('chewy-webfont.woff') format('woff'),
-		 url('chewy-webfont.ttf') format('truetype'),
-		 url('chewy-webfont.svg#webfont32O2wKg8') format('svg');
+		url('chewy-webfont.woff') format('woff'),
+		url('chewy-webfont.ttf') format('truetype'),
+		url('chewy-webfont.svg#webfont32O2wKg8') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

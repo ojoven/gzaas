@@ -144,14 +144,6 @@ class My_Routers
 		$router->addRoute('chargefont', $routeChargeFont);
 
 
-		/* INFO PREVIEW */
-		//gzaas - The launcher
-		$routeLauncherInfo = new Zend_Controller_Router_Route_Static('launcherinfo',
-			array('module' => 'gzaas','controller' => 'preview', 'action' => 'launcherinfo')
-		);
-		$router->addRoute('launcherinfo', $routeLauncherInfo);
-
-
 		/* INFO HOME */
 		//gzaas - info
 		$routeInfo = new Zend_Controller_Router_Route_Static('info',

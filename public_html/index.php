@@ -22,7 +22,6 @@ define('DEFAULT_LANGUAGE_CODE', 'ES');
 define('RANDOM_GZAAS_NUM_BASE', 5);
 define('ERROR_KEY', "error");
 define('GZAAS_MAX_SIZE', 1024);
-define('LAUNCHER_MAX_SIZE', 115);
 define('GZAAS_MAX_NEW_LINES', 30);
 define('MAX_HOR_VER_SHADOW', 6);
 define('MAX_BLUR_SHADOW', 6);

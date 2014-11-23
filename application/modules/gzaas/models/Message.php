@@ -1,7 +1,7 @@
 <?php
 
-class Gzaas_Model_Message
-{
+class Gzaas_Model_Message {
+
 	const NOT_FROM_API = 0;
 	const IN_BLACK_LIST = 0;
 	const DEFAULT_VISIBILITY = 1;
@@ -50,14 +50,14 @@ class Gzaas_Model_Message
 
 	private function _getDefaultMessageParameters() {
 
-        $defaultMessageParameters['ip'] = $_SERVER['REMOTE_ADDR'];
-        $defaultMessageParameters['languageUser'] = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+		$defaultMessageParameters['ip'] = $_SERVER['REMOTE_ADDR'];
+		$defaultMessageParameters['languageUser'] = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
 		$defaultMessageParameters['date'] = date("Y-m-d H:i:s");
-        $defaultMessageParameters['api'] = self::NOT_FROM_API;
-        $defaultMessageParameters['inblacklist'] = self::IN_BLACK_LIST;
-        $defaultMessageParameters['visibility'] = self::DEFAULT_VISIBILITY;
+		$defaultMessageParameters['api'] = self::NOT_FROM_API;
+		$defaultMessageParameters['inblacklist'] = self::IN_BLACK_LIST;
+		$defaultMessageParameters['visibility'] = self::DEFAULT_VISIBILITY;
 
-        return $defaultMessageParameters;
+		return $defaultMessageParameters;
 	}
 
 	private function _addLineBreaksMessage($message) {
@@ -67,6 +67,5 @@ class Gzaas_Model_Message
 		}
 		return $message;
 	}
-
 
 }
