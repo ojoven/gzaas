@@ -1,12 +1,13 @@
 <?php
 
-class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
-{
-	protected $_name = 'styles';
+class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract {
 
-	public function getFeaturedStyles()
-	{
-		$columns = "idS, style, description, font, color, backColor, shadow, pattern, designer, urlBackDesigner, featured";
+	protected $_name = 'styles';
+	protected $_fields = 'idS, style, description, font, color, backColor, shadow, pattern, designer, urlBackDesigner, featured';
+
+	public function getFeaturedStyles() {
+
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "publicUse = 1 AND featured = 1";
 		$orderMethod = "description ASC";
@@ -18,9 +19,9 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 		return $featuredStyles;
 	}
 
-	public function getStyles()
-	{
-		$columns = "idS, style, description, font, color, backColor, shadow, pattern, designer, urlBackDesigner, featured";
+	public function getStyles() {
+
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "publicUse = 1";
 		$orderMethod = "description ASC";
@@ -33,9 +34,9 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 	}
 
 	// LIMITED (API calls)
-	public function getLimitedFeaturedStyles($numResults)
-	{
-		$columns = "idS, style, description, font, color, backColor, shadow, pattern, designer, urlBackDesigner, featured";
+	public function getLimitedFeaturedStyles($numResults) {
+
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "publicUse = 1 AND featured = 1";
 		$orderMethod = "description ASC";
@@ -48,9 +49,9 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 		return $limitedFeaturedStyles;
 	}
 
-	public function getLimitedStyles($numResults)
-	{
-		$columns = "idS, style, description, font, color, backColor, shadow, pattern, designer, urlBackDesigner, featured";
+	public function getLimitedStyles($numResults) {
+
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "publicUse = 1";
 		$orderMethod = "description ASC";
@@ -63,8 +64,8 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 		return $limitedStyles;
 	}
 
-	public function getIdStyles()
-	{
+	public function getIdStyles() {
+
 		$columns = "idS";
 		$table = $this->_name;
 		$condition = "publicUse = 1";
@@ -80,10 +81,11 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 
 		$columns = "idS";
 		$table = $this->_name;
-		$condition = "style = '" . $style . "'";
+		$condition = "style = :style";
+		$data = array('style'=>$style);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$idStyle = $this->_db->fetchOne($query);
+		$idStyle = $this->_db->fetchOne($query,$data);
 
 		return $idStyle;
 	}

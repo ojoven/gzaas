@@ -1,11 +1,11 @@
 <?php
 
-class Gzaas_Model_DbTable_Patternmessage extends Zend_Db_Table_Abstract
-{
+class Gzaas_Model_DbTable_Patternmessage extends Zend_Db_Table_Abstract {
+
 	protected $_name = 'pattern_message';
 
-	public function addPatternMessage($idPattern,$idMessage)
-	{
+	public function addPatternMessage($idPattern,$idMessage) {
+
 		$newPatternMessage = array (
 			'idP' => $idPattern,
 			'idM' => $idMessage
@@ -13,11 +13,12 @@ class Gzaas_Model_DbTable_Patternmessage extends Zend_Db_Table_Abstract
 		$this->insert($newPatternMessage);
 	}
 
-	public function getIdPatternFromMessage($idMessage)
-	{
+	public function getIdPatternFromMessage($idMessage) {
+
 		$columns = "idP";
 		$table = $this->_name;
-		$condition = "idM = ".$idMessage;
+		$condition = "idM = :idM";
+		$data = array('idM'=>$idMessage);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
 		$idPattern = $this->_db->fetchOne($query);

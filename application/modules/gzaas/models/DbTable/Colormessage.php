@@ -1,11 +1,11 @@
 <?php
 
-class Gzaas_Model_DbTable_Colormessage extends Zend_Db_Table_Abstract
-{
+class Gzaas_Model_DbTable_Colormessage extends Zend_Db_Table_Abstract {
+
 	protected $_name = 'color_message';
 
-	public function addColorMessage($color,$idM)
-	{
+	public function addColorMessage($color,$idM) {
+
 		$newColorMessage = array (
 			'color' => $color,
 			'idM' => $idM
@@ -13,14 +13,15 @@ class Gzaas_Model_DbTable_Colormessage extends Zend_Db_Table_Abstract
 		$this->insert($newColorMessage);
 	}
 
-	public function getColorFromMessage($idMessage)
-	{
+	public function getColorFromMessage($idMessage) {
+
 		$columns = "color";
 		$table = $this->_name;
-		$condition = "idM = ".$idMessage;
+		$condition = "idM = :idM";
+		$data = array('idM' => $idMessage);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$color = $this->_db->fetchOne($query);
+		$color = $this->_db->fetchOne($query,$data);
 
 		return $color;
 	}

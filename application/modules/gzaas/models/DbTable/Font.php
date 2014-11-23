@@ -1,12 +1,12 @@
 <?php
 
-class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
-{
+class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract {
+
 	protected $_name = 'fonts';
 	protected $_fields = 'idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured';
 
-	public function getFeaturedFonts()
-	{
+	public function getFeaturedFonts() {
+
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1 AND featured = 1";
@@ -19,8 +19,8 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 		return $featuredFonts;
 	}
 
-	public function getFonts()
-	{
+	public function getFonts() {
+
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1";
@@ -37,30 +37,31 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 
 		$columns = $this->_fields;
 		$table = $this->_name;
-		$condition = "inUse = 1 AND font = '".$fontHashtag."'";
+		$condition = "inUse = 1 AND font = :font";
+		$data = array('font'=>$fontHashtag);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$idFont = $this->_db->fetchRow($query);
+		$idFont = $this->_db->fetchRow($query,$data);
 
 		return $idFont;
 	}
 
-	public function getIdFontByHashtag($fontHashtag)
-	{
+	public function getIdFontByHashtag($fontHashtag) {
+
 		$columns = "idF";
 		$table = $this->_name;
-		$condition = "inUse = 1 AND font = '".$fontHashtag."'";
+		$condition = "inUse = 1 AND font = :font";
+		$data = array('font'=>$fontHashtag);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$idFont = $this->_db->fetchOne($query);
+		$idFont = $this->_db->fetchOne($query,$data);
 
 		return $idFont;
 	}
 
 	// LIMITED (API Feature)
+	public function getLimitedFeaturedFonts($numResults) {
 
-	public function getLimitedFeaturedFonts($numResults)
-	{
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1 AND featured = 1";
@@ -74,9 +75,8 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 		return $limitedFeaturedFonts;
 	}
 
+	public function getLimitedFonts($numResults) {
 
-	public function getLimitedFonts($numResults)
-	{
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1";
@@ -91,9 +91,8 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 	}
 
 	// FONT CREDITS (Blog / Project Credits Area)
+	public function getFontCredits() {
 
-	public function getFontCredits()
-	{
 		$columns = "fontFace, description, designer, urlDesigner1, urlDesigner2";
 		$table = $this->_name;
 		$condition = "inUse = 1";

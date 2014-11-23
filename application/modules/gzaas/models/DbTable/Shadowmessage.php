@@ -1,11 +1,11 @@
 <?php
 
-class Gzaas_Model_DbTable_Shadowmessage extends Zend_Db_Table_Abstract
-{
+class Gzaas_Model_DbTable_Shadowmessage extends Zend_Db_Table_Abstract {
+
 	protected $_name = 'shadow_message';
 
-	public function addShadowMessage($shadow,$idM)
-	{
+	public function addShadowMessage($shadow,$idM) {
+
 		$newShadowMessage = array (
 			'shadow' => $shadow,
 			'idM' => $idM
@@ -13,14 +13,15 @@ class Gzaas_Model_DbTable_Shadowmessage extends Zend_Db_Table_Abstract
 		$this->insert($newShadowMessage);
 	}
 
-	public function getShadowsFromMessage($idMessage)
-	{
+	public function getShadowsFromMessage($idMessage) {
+
 		$columns = "shadow";
 		$table = $this->_name;
-		$condition = "idM = ".$idMessage;
+		$condition = "idM = :idM";
+		$data = array('idM'=>$idMessage);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$shadows = $this->_db->fetchOne($query);
+		$shadows = $this->_db->fetchOne($query,$data);
 		return $shadows;
 	}
 

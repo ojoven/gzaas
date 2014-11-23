@@ -1,7 +1,7 @@
 <?php
 
-class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract
-{
+class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract {
+
 	protected $_name = 'messages';
 	protected $_fields = 'id, message, urlKey, visibility, languageUser';
 

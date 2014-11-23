@@ -1,24 +1,25 @@
 <?php
 
-class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
-{
+class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract {
+
 	protected $_name = 'patterns';
 	protected $_fields = 'idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured';
 
-	public function getPatternByHashtag($patternHashtag)
-	{
+	public function getPatternByHashtag($patternHashtag) {
+
 		$columns = $this->_fields;
 		$table = $this->_name;
-		$condition = "pattern = '" . $patternHashtag."'";
+		$condition = "pattern = :pattern";
+		$data = array('pattern'=>$patternHashtag);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$pattern = $this->_db->fetchRow($query);
+		$pattern = $this->_db->fetchRow($query,$data);
 
 		return $pattern;
 	}
 
-	public function getFeaturedPatterns()
-	{
+	public function getFeaturedPatterns() {
+
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "featured = 1";
@@ -32,8 +33,8 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 	}
 
 
-	public function getPatterns()
-	{
+	public function getPatterns() {
+
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$orderMethod = "pattern ASC";
@@ -45,23 +46,23 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 		return $patterns;
 	}
 
-	public function getIdPatternByHashtag($patternHashtag)
-	{
+	public function getIdPatternByHashtag($patternHashtag) {
+
 		$columns = "idP";
 		$table = $this->_name;
-		$condition = "pattern = '".$patternHashtag."'";
+		$condition = "pattern = :pattern";
+		$data = array('pattern'=>$patternHashtag);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$idPattern = $this->_db->fetchOne($query);
+		$idPattern = $this->_db->fetchOne($query,$data);
 
 		return $idPattern;
 	}
 
 
 	// LIMITED (API Feature)
+	public function getLimitedFeaturedPatterns($numResults) {
 
-	public function getLimitedFeaturedPatterns($numResults)
-	{
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "featured = 1";
@@ -76,8 +77,8 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 	}
 
 
-	public function getLimitedPatterns($numResults)
-	{
+	public function getLimitedPatterns($numResults) {
+
 		$columns = $this->_fields;
 		$table = $this->_name;
 		$orderMethod = "pattern ASC";
@@ -90,8 +91,8 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 		return $limitedPatterns;
 	}
 
-	public function getPatternCredits()
-	{
+	public function getPatternCredits() {
+
 		$columns = "idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2";
 		$table = $this->_name;
 		$orderMethod = "pattern ASC";
