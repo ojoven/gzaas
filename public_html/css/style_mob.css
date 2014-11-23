@@ -1,0 +1,373 @@
+/********************************************************
+						CSS Generales
+*********************************************************/
+
+body {
+	margin: 0;
+	padding: 0;
+	font: 12px Helvetica;
+	-webkit-text-size-adjust: none;
+	background-repeat: repeat;
+	background-position: 0 0;
+	background: #fcfcfc; 
+
+}
+
+ul {
+	margin: 0;
+	padding: 0 20px 0 20px;
+	list-style-type: circle;
+	list-style-position: outside;
+}
+
+ol {
+	margin: 0;
+	padding: 0 25px 0 20px;
+	list-style-type: decimal;
+	list-style-position: outside;
+}
+
+a {
+	text-decoration: none;
+}
+
+input {
+	max-width: 96%;
+}
+
+hidden_form {
+display:none;
+}
+
+.content {
+	margin-top: 15px;
+	position: relative;
+}
+
+
+
+#wrapper {
+    height: 378px; /* If iPhone devices */
+    margin: -15px auto 20px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 95%;
+    z-index: 1;
+}
+
+#scroller {
+	float:left;
+	width:100%;
+	padding:0;
+
+}	
+
+#title {
+    height: 145px;
+}
+
+#img_title {
+    display:none;
+}
+
+#subtitle {
+    color: #FFC933;
+    font-family: 'Chewy',verdana,arial;
+    font-size: 20px;
+    margin: -38px 0 11px 60px;
+}
+
+#gs_form {
+    -moz-border-radius: 14px 14px 14px 14px;
+    border: 3px solid #999;
+    font-family: 'ContraRegular',Helvetica,Verdana,Arial;
+    font-size: 18px;
+    height: 80px;
+    overflow: auto;
+    padding: 4px;
+    width: 90%;
+    z-index: 999;
+}
+
+
+#new_gs_container {
+    display: none;
+}
+
+
+#feedback_return {
+    display: none;
+    font-family: 'ContraRegular',Helvetica,Verdana,Arial;
+    margin-top: -6px;
+    padding: 14px;
+    text-align: center;
+}
+
+.buttons_home {
+    width: 100%;
+    text-align:center;
+}
+
+
+#in_new_gs {
+display:none;
+width:85%;
+margin-top:5px;
+}
+
+
+#repeat_new_gs {
+display:none;
+width:85%;
+margin-top:7px;
+font-family: 'Lobster13Regular',Arial,sans-serif;
+font-size:16px;
+}
+
+
+
+#url_result {
+    border: 4px solid #999;
+    clear: both;
+    color: #444444;
+    font-family: Helvetica,Verdana,Arial;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: -6px;
+    width: 95%;
+}
+
+.social_home {
+    margin: 0px 3px;
+    font-family: 'Lobster13Regular', Helvetica, Verdana, Arial;
+	float:left;
+	width:24%;
+	padding:22px 0px;
+}
+
+#to_new_gs {
+    background: #F76118;
+    border: medium none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+    font-family: 'Chewy',Helvetica,Verdana,Arial;
+    font-size: 25px;
+    margin: 6px 4.5% 0;
+    padding: 10px 0;
+    width: 91%;
+}
+
+
+#footer {
+    font: 16px/16px 'Chewy',Arial,sans-serif;
+    width: 100%; 
+    border-top:1px solid #eee;
+	background: #111;
+	background: -moz-linear-gradient(center top, #222, #000);
+	background: -webkit-gradient(linear, center bottom, center top, from(#000), to(#222));
+	height:42px;
+    color:#fcfcfc;
+    text-align:center;
+    z-index: 999;
+	padding:0;
+}
+
+.footer_option {
+color:#fcfcfc;
+padding:15px 5px;
+margin:0;
+}
+
+
+#to_home {
+width:20%;
+float:left;
+border-right:1px solid #eee;	
+}
+
+#to_keyboard {
+width:20%;
+float:left;
+border-right:1px solid #eee;	
+}
+
+#to_styles {
+width:20%;
+float:left;
+border-right:1px solid #eee;	
+}
+
+#to_share_it {
+text-align:center;
+display:block;
+color:#ffc933;
+font-size:20px;
+}
+
+#options_container {
+display:none;
+float:left;
+margin:5%;
+width:90%;
+height:90%;
+border:2px solid #fff;
+border-radius:4px;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+background:rgba(255,255,255,0.9);
+z-index:9999;
+}
+
+#close_options_container {
+font-size:18px;
+background:#ddd;
+padding:10px;
+cursor:pointer;
+}
+
+.preview_option {
+    display: none;
+    height: 80%;
+    margin: 26px 5px 5px;
+}
+
+
+.preview_option .title {
+font-size:14px;
+font-style:oblique;
+display:block;
+}
+
+.preview_option .content {
+margin:5px;
+}
+
+#preview_message_textarea {
+width:80%;
+margin:2px 10% 10px;
+display:block;
+clear:both;
+}
+
+#refresh_button {
+background:#ddd;
+padding:15px;
+border:none;
+-moz-border-radius:4px;
+-webkit-border-radius:4px;
+border-radius:4px;
+font-family:'Chewy', verdana, arial, sans-serif;
+font-size:20px;
+cursor:pointer;
+}
+
+#styles_option {
+
+}
+
+#share_it_option {
+
+}
+
+
+	
+
+#random_explore {
+width:20%;
+float:right;
+border-left:1px solid #eee;
+}
+
+#styles {
+width:35%;
+float:left;
+border-right:1px solid #eee;
+}
+
+#mail_it {
+width:15%;
+float:right;
+border-left:1px solid #eee;	
+}
+
+#tweet_it {
+width:15%;
+float:right;
+border-left:1px solid #eee;	
+}
+
+#fb_it {
+width:15%;
+float:right;
+
+}
+
+
+
+#wrapper_seegs {
+	width: 100%;
+	margin:0px auto 0px auto;
+	text-align:center;
+	
+	height:356px;		/* Of course you need to specify the object height */
+
+	position:relative;	/* On older OS versions "position" and "z-index" must be defined (absolute | relative), */
+	z-index:1;			/* it seems that recent webkit is less picky and works anyway. */
+	overflow:hidden;
+	}
+	
+#styles_wrapper {
+z-index:999;
+width:100%;
+height:383px;
+display:none;
+}
+
+
+
+.style_option {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #ccc;
+    border-bottom:none;
+    color: #444444;
+    display: block;
+    font: 19px 'Lobster13Regular';
+    padding: 12px;
+}
+
+.style_key {
+display:none;	
+}
+
+.hidden_form {
+display:none;	
+}
+
+#featured_styles_container {
+    margin: 10px auto;
+    width: 230px;
+}
+
+.featured_style {
+    background-color: #FFFFFF;
+    border: 1px solid #999999;
+    border-radius: 4px 4px 4px 4px;
+    display: block;
+    float: left;
+    height: 50px;
+    margin: 5px;
+    width: 100px;
+}
+
+.featured_style_background {
+    background-image: url(../images/fstyles.png);
+    border-radius: 4px 4px 4px 4px;
+    float: left;
+    height: 32px;
+    margin: 9px 5px;
+    width: 90px;
+}
+
