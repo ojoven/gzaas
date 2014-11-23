@@ -1,9 +1,9 @@
 <?php
 
-class Api_Model_Apikey extends Zend_Db_Table_Abstract  
+class Api_Model_Apikey extends Zend_Db_Table_Abstract
 {
-    protected $_name = 'apikey';
-    
+    protected $_name = 'apikeys';
+
     /* Add a new ApiKey */
   	public function addApiKey($apiKey)
     {
@@ -16,13 +16,13 @@ class Api_Model_Apikey extends Zend_Db_Table_Abstract
 		);
     	$this->insert($newApiKey);
     }
-	
+
     /* Get valid ApiKey */
   	public function validApiKey($apiKey)
     {
-    	$apiKey = $this->_db->fetchOne("SELECT apiKey FROM apikey where apiKey = '".$apiKey."'");
+    	$apiKey = $this->_db->fetchOne("SELECT apiKey FROM apikeys where apiKey = '".$apiKey."'");
 		return $apiKey;
-    }	
-  
-    
+    }
+
+
 }

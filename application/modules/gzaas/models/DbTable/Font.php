@@ -3,10 +3,11 @@
 class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 {
 	protected $_name = 'fonts';
+	protected $_fields = 'idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured';
 
 	public function getFeaturedFonts()
 	{
-		$columns = "idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1 AND featured = 1";
 		$orderMethod = "font ASC";
@@ -20,7 +21,7 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 
 	public function getFonts()
 	{
-		$columns = "idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1";
 		$orderMethod = "font ASC";
@@ -30,6 +31,18 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 		$fonts = $stmt->fetchAll();
 
 		return $fonts;
+	}
+
+	public function getFontByHashtag($fontHashtag) {
+
+		$columns = $this->_fields;
+		$table = $this->_name;
+		$condition = "inUse = 1 AND font = '".$fontHashtag."'";
+
+		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
+		$idFont = $this->_db->fetchRow($query);
+
+		return $idFont;
 	}
 
 	public function getIdFontByHashtag($fontHashtag)
@@ -48,7 +61,7 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 
 	public function getLimitedFeaturedFonts($numResults)
 	{
-		$columns = "idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1 AND featured = 1";
 		$orderMethod = "font ASC";
@@ -64,7 +77,7 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract
 
 	public function getLimitedFonts($numResults)
 	{
-		$columns = "idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "inUse = 1";
 		$orderMethod = "font ASC";

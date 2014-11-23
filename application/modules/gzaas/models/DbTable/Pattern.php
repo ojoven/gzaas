@@ -3,22 +3,23 @@
 class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 {
 	protected $_name = 'patterns';
+	protected $_fields = 'idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured';
 
 	public function getPatternByHashtag($patternHashtag)
 	{
-		$patterns = $this->getPatterns();
-		foreach ($patterns as $patternDb){
-			if ($patternDb['pattern']==$patternHashtag){
-				$pattern = $patternDb;
-				break;
-			}
-		}
+		$columns = $this->_fields;
+		$table = $this->_name;
+		$condition = "pattern = '" . $patternHashtag."'";
+
+		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
+		$pattern = $this->_db->fetchRow($query);
+
 		return $pattern;
 	}
 
 	public function getFeaturedPatterns()
 	{
-		$columns = "idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "featured = 1";
 		$orderMethod = "pattern ASC";
@@ -33,7 +34,7 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 
 	public function getPatterns()
 	{
-		$columns = "idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$orderMethod = "pattern ASC";
 
@@ -61,7 +62,7 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 
 	public function getLimitedFeaturedPatterns($numResults)
 	{
-		$columns = "idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$condition = "featured = 1";
 		$orderMethod = "pattern ASC";
@@ -77,7 +78,7 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract
 
 	public function getLimitedPatterns($numResults)
 	{
-		$columns = "idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured";
+		$columns = $this->_fields;
 		$table = $this->_name;
 		$orderMethod = "pattern ASC";
 		$limit = "0,".$numResults;
