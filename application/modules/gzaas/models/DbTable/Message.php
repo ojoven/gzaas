@@ -3,10 +3,10 @@
 class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract
 {
 	protected $_name = 'messages';
+	protected $_fields = 'id, message, urlKey, visibility, languageUser';
 
+	public function addMessage($message) {
 
-	public function addMessage($message)
-	{
 		$newMessage = array (
 			'message' => stripSlashes($message['message']),
 			'visibility' => $message['visibility'],
@@ -22,20 +22,21 @@ class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract
 		return $idMessage;
 	}
 
-	public function getMessage($urlKey)
-	{
-		$columns = "id, message, urlKey, visibility, languageUser";
+	public function getMessage($urlKey) {
+
+		$columns = $this->_fields;
 		$table = $this->_name;
-		$condition = "urlKey = '".$urlKey."'";
+		$condition = "urlKey = :urlKey";
+		$data = array('urlKey' => $urlKey);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$message = $this->_db->fetchRow($query);
+		$message = $this->_db->fetchRow($query,$data);
 
 		return $message;
 	}
 
-	public function getNumTotalMessages()
-	{
+	public function getNumTotalMessages() {
+
 		$columns = "COUNT(id) AS numTotalMessages";
 		$table = $this->_name;
 		$condition = "visibility = 1 AND inblacklist = 0";
