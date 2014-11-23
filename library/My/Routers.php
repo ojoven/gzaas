@@ -1,11 +1,10 @@
 <?php
-class My_Routers
-{
-	public function __construct()
-	{
+class My_Routers {
+
+	public function __construct() {
+
 		$frontController = Zend_Controller_Front::getInstance();
 		$router = $frontController->getRouter();
-
 
 		//gzaas - UrlKey
 		$routeGs = new Zend_Controller_Router_Route_Regex(
@@ -187,28 +186,26 @@ class My_Routers
 		$router->addRoute('patterncredits', $routePatternCredits);
 
 
-
 		// SOCIAL
-
-		//Login - P�gina de login
+		//Login
 		$routeLogin = new Zend_Controller_Router_Route_Static('login',
 			array('module' => 'default','controller' => 'auth', 'action' => 'login')
 		);
 		$router->addRoute('login', $routeLogin);
 
-		//Logout - P�gina de logout
+		//Logout
 		$routeLogout = new Zend_Controller_Router_Route_Static('logout',
 			array('module' => 'default','controller' => 'auth', 'action' => 'logout')
 		);
 		$router->addRoute('logout', $routeLogout);
 
-		//Registrarse - P�gina de registro
+		//Register
 		$routeRegisterPage = new Zend_Controller_Router_Route_Static('becomeagzaaser',
 			array('module' => 'default','controller' => 'auth', 'action' => 'becomeagzaaser')
 		);
 		$router->addRoute('becomeagzaaser', $routeRegisterPage);
 
-		//Registrarse - Form action
+		//Register / Form
 		$routeRegister = new Zend_Controller_Router_Route_Static('register',
 			array('module' => 'default','controller' => 'auth', 'action' => 'register')
 		);
