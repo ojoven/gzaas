@@ -33,7 +33,6 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 	}
 
 	// LIMITED (API calls)
-
 	public function getLimitedFeaturedStyles($numResults)
 	{
 		$columns = "idS, style, description, font, color, backColor, shadow, pattern, designer, urlBackDesigner, featured";
@@ -75,6 +74,18 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract
 		$idStyles = $this->_db->fetchCol($query);
 
 		return $idStyles;
+	}
+
+	public function isValidStyle($style) {
+
+		$columns = "idS";
+		$table = $this->_name;
+		$condition = "style = '" . $style . "'";
+
+		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
+		$idStyle = $this->_db->fetchOne($query);
+
+		return $idStyle;
 	}
 
 }

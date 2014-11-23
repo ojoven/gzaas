@@ -7,16 +7,18 @@ class Api_ApiController extends Zend_Controller_Action {
 
 	function init() {
 
+	}
 
-    }
+	/** GET API KEY **/
+	public function getapikeyAction() {
 
-	public function getapikeyAction()
-	{
+		$this->_setJsonHeader();
+
 		$parameters = $this->_getAllParams();
-		$web = $parameters['web'];
+		$web = (isset($parameters['web'])) ? $parameters['web'] : false;
 		$web = htmlspecialchars($web, ENT_NOQUOTES);
 		$web = stripSlashes($web);
-		$contact = $parameters['contact'];
+		$contact = (isset($parameters['contact'])) ? $parameters['contact'] : false;
 		$contact = htmlspecialchars($contact, ENT_NOQUOTES);
 		$contact = stripSlashes($contact);
 		$date = date("Y-m-d H:i:s");
@@ -24,311 +26,275 @@ class Api_ApiController extends Zend_Controller_Action {
 		$apiKey = $this->keyGenerator(10,12,1,0,1);
 
 		$apiKeyComplete = array(
-		'apiKey' => $apiKey,
-		'web' => $web,
-		'contact' => $contact,
-		'date' => $date,
-		'deleted' => $deleted
+			'apiKey' => $apiKey,
+			'web' => $web,
+			'contact' => $contact,
+			'date' => $date,
+			'deleted' => $deleted
 		);
 
 		try {
 			$apiModel = new Api_Model_Apikey();
 			$apiModel->addApiKey($apiKeyComplete);
 			$valid = 1;
-			$buffer = '{
-					"valid":'.$valid.',
-					"apiKey":"'.$apiKey.'"
-					}';
-			echo $buffer;
-			}
-
-		catch (exception $e) {
-			$valid = 0;
-			$errorMessage = 'Service unavailabe. Try again later.';
-			$buffer = '{
-					"valid":'.$valid.',
-					"errorMessage":"'.$apiKey.'"
-					}';
-			echo $buffer;
+			$response['valid'] = true;
+			$response['apiKey'] = $apiKey;
+			echo json_encode($response);
 		}
 
-		// no renderizar (AJAX)
+		catch (exception $e) {
+			$errorMessage = 'Service unavailabe. Please try again later.';
 
+			$response['valid'] = false;
+			$response['errorMessage'] = $errorMessage;
+			echo json_encode($response);
+		}
+
+		// don't render (AJAX)
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout->disableLayout();
+	}
+
+	/** GET FONTS **/
+	public function fontsAction() {
+
+		$this->_setJsonHeader();
+
+		// GET / POST
+		$method = $_SERVER['REQUEST_METHOD'];
+
+		// We take the different parameter options
+		$parameters = $this->_getAllParams();
+		$numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
+		$nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
+
+		$fontModel = new Gzaas_Model_DbTable_Font();
+		if (!$numResults) {
+			if (!$nowFeatured) {
+				$fonts = $fontModel->getFonts();
+			} else {
+				$fonts = $fontModel->getFeaturedFonts();
+			}
+		} else {
+			if (!$nowFeatured) {
+				$fonts = $fontModel->getLimitedFonts($numResults);
+			} else {
+				$fonts = $fontModel->getLimitedFeaturedFonts($numResults);
+			}
+		}
+
+		$fontsSintaxed = new ArrayObject();
+
+		// We return with the sintaxis of the API Documentation
+		foreach ($fonts as $font) {
+			$sintaxisFont = new ArrayObject();
+			$sintaxisFont['id'] = (int)$font['idF'];
+			$sintaxisFont['hashtag'] = $font['font'];
+			$sintaxisFont['description'] = $font['description'];
+			$sintaxisFont['fontFace'] = (int)$font['fontFace'];
+			switch ($font['fontServer']) {
+				case 1:
+					// Font Squirrel / Gzaas server
+					$sintaxisFont['stylesheet'] = PUBLIC_WEB_PATH.'/css/fonts/'.$font['stylesheet'].'/stylesheet.css';
+					break;
+				case 2:
+					// Google Webfonts
+					$sintaxisFont['stylesheet'] = 'http://fonts.googleapis.com/css?family='.$font['stylesheet'];
+					break;
+				default:
+					$sintaxisFont['stylesheet'] = '';
+			}
+
+			$sintaxisFont['fontFamily'] = $font['fontFamily'];
+			$sintaxisFont['fontServer'] = (int)$font['fontServer'];
+			$sintaxisFont['designer'] = $font['designer'];
+			$sintaxisFont['urlDesigner1'] = $font['urlDesigner1'];
+			$sintaxisFont['urlDesigner2'] = $font['urlDesigner2'];
+			$sintaxisFont['nowFeatured'] = (int)$font['featured'];
+
+			$fontsSintaxed->append($sintaxisFont);
+		}
+
+		$response = json_encode($fontsSintaxed);
+		echo $response;
+		$this->getResponse()->setHttpResponseCode(200);
 		$this->_helper->viewRenderer->setNoRender();
 		$this->_helper->layout->disableLayout();
 	}
 
 
-	public function fontsAction()
-	{
-	    // API call JSON FORMAT
-		//header('Cache-Control: no-cache, must-revalidate');
-		//header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		header('Content-type: application/json');
 
-	    // GET / POST
-	    $method = $_SERVER['REQUEST_METHOD'];
+	public function patternsAction() {
 
-	    // We take the different parameter options
+		$this->_setJsonHeader();
 
-	    $parameters = $this->_getAllParams();
-	    $numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
-	    $nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
+		// GET / POST
+		$method = $_SERVER['REQUEST_METHOD'];
 
-	    $fontModel = new Gzaas_Model_DbTable_Font();
-	    if (!$numResults) {
-	        if (!$nowFeatured) {
-	            $fonts = $fontModel->getFonts();
-	        }
-	        else {
-	            $fonts = $fontModel->getFeaturedFonts();
-	        }
-	    }
-		else {
+		// We take the different parameter options
+		$parameters = $this->_getAllParams();
+		$numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
+		$nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
+
+		$patternModel = new Gzaas_Model_DbTable_Pattern();
+		if (!$numResults) {
 			if (!$nowFeatured) {
-	            $fonts = $fontModel->getLimitedFonts($numResults);
-	        }
-	        else {
-	            $fonts = $fontModel->getLimitedFeaturedFonts($numResults);
-	        }
-	    }
-
-	$fontsSintaxed = new ArrayObject();
-
-	// We return with the sintaxis of the API Documentation
-	foreach ($fonts as $font) {
-	    $sintaxisFont = new ArrayObject();
-	    $sintaxisFont['id'] = (int)$font['idF'];
-	    $sintaxisFont['hashtag'] = $font['font'];
-	    $sintaxisFont['description'] = $font['description'];
-	    $sintaxisFont['fontFace'] = (int)$font['fontFace'];
-	    switch ($font['fontServer']) {
-	        case 1:
-	            // Font Squirrel / Gzaas server
-	             $sintaxisFont['stylesheet'] = PUBLIC_WEB_PATH.'/css/fonts/'.$font['stylesheet'].'/stylesheet.css';
-	            break;
-	        case 2:
-	            // Google Webfonts
-	            $sintaxisFont['stylesheet'] = 'http://fonts.googleapis.com/css?family='.$font['stylesheet'];
-	            break;
-	        default:
-	            $sintaxisFont['stylesheet'] = '';
-	    }
-
-	    $sintaxisFont['fontFamily'] = $font['fontFamily'];
-	    $sintaxisFont['fontServer'] = (int)$font['fontServer'];
-	    $sintaxisFont['designer'] = $font['designer'];
-	    $sintaxisFont['urlDesigner1'] = $font['urlDesigner1'];
-	    $sintaxisFont['urlDesigner2'] = $font['urlDesigner2'];
-	    $sintaxisFont['nowFeatured'] = (int)$font['featured'];
-
-	    $fontsSintaxed->append($sintaxisFont);
-	}
-
-	$buffer = json_encode($fontsSintaxed);
-	echo $buffer;
-	$this->getResponse()->setHttpResponseCode(200);
-
-	$this->_helper->viewRenderer->setNoRender();
-	$this->_helper->layout->disableLayout();
-
-	}
-
-
-
-	public function patternsAction()
-	{
-	    // API call JSON FORMAT
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		header('Content-type: application/json');
-
-	    // GET / POST
-	    $method = $_SERVER['REQUEST_METHOD'];
-
-	    // We take the different parameter options
-
-	    $parameters = $this->_getAllParams();
-	    $numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
-	    $nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
-
-	    $patternModel = new Gzaas_Model_DbTable_Pattern();
-	    if (!$numResults) {
-	        if (!$nowFeatured) {
-	            $patterns = $patternModel->getPatterns();
-	        }
-	        else {
-	            $patterns = $patternModel->getFeaturedPatterns();
-	        }
-	    }
-		else {
+				$patterns = $patternModel->getPatterns();
+			} else {
+				$patterns = $patternModel->getFeaturedPatterns();
+			}
+		} else {
 			if (!$nowFeatured) {
-	            $patterns = $patternModel->getLimitedPatterns($numResults);
-	        }
-	        else {
-	            $patterns = $patternModel->getLimitedFeaturedPatterns($numResults);
-	        }
-	    }
+				$patterns = $patternModel->getLimitedPatterns($numResults);
+			} else {
+				$patterns = $patternModel->getLimitedFeaturedPatterns($numResults);
+			}
+		}
 
-	$patternsSintaxed = new ArrayObject();
+		$patternsSintaxed = new ArrayObject();
 
-	// We return with the sintaxis of the API Documentation
+		// We return with the sintaxis of the API Documentation
+		foreach ($patterns as $pattern) {
+			$sintaxisPattern = new ArrayObject();
+			$sintaxisPattern['id'] = (int)$pattern['idP'];
+			$sintaxisPattern['hashtag'] = $pattern['pattern'];
+			$sintaxisPattern['description'] = $pattern['description'];
+			$sintaxisPattern['url'] = "http://gzaas.com/images/patterns/".$pattern['server']."/".$pattern['url'];
+			$sintaxisPattern['server'] = $pattern['server'];
+			$sintaxisPattern['designer'] = $pattern['designer'];
+			$sintaxisPattern['urlDesigner1'] = $pattern['urlDesigner1'];
+			$sintaxisPattern['urlDesigner2'] = $pattern['urlDesigner2'];
+			$sintaxisPattern['nowFeatured'] = (int)$pattern['featured'];
 
-	// idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured FROM gs_mt_04 ORDER BY pattern ASC LIMIT 0,".$numResults);
-	foreach ($patterns as $pattern) {
-	    $sintaxisPattern = new ArrayObject();
-	    $sintaxisPattern['id'] = (int)$pattern['idP'];
-	    $sintaxisPattern['hashtag'] = $pattern['pattern'];
-	    $sintaxisPattern['description'] = $pattern['description'];
-	    $sintaxisPattern['url'] = "http://gzaas.com/images/patterns/".$pattern['server']."/".$pattern['url'];
-	    $sintaxisPattern['server'] = $pattern['server'];
-	    $sintaxisPattern['designer'] = $pattern['designer'];
-	    $sintaxisPattern['urlDesigner1'] = $pattern['urlDesigner1'];
-	    $sintaxisPattern['urlDesigner2'] = $pattern['urlDesigner2'];
-	    $sintaxisPattern['nowFeatured'] = (int)$pattern['featured'];
+			$patternsSintaxed->append($sintaxisPattern);
+		}
 
-	    $patternsSintaxed->append($sintaxisPattern);
-	}
+		$response = json_encode($patternsSintaxed);
+		echo $response;
+		$this->getResponse()->setHttpResponseCode(200);
 
-	$buffer = json_encode($patternsSintaxed);
-	echo $buffer;
-	$this->getResponse()->setHttpResponseCode(200);
-
-	$this->_helper->viewRenderer->setNoRender();
-	$this->_helper->layout->disableLayout();
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout->disableLayout();
 
 	}
 
 
 	public function stylesAction()
 	{
-	    // API call JSON FORMAT
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		header('Content-type: application/json');
+		$this->_setJsonHeader();
 
-	    // GET / POST
-	    $method = $_SERVER['REQUEST_METHOD'];
+		// GET / POST
+		$method = $_SERVER['REQUEST_METHOD'];
 
-	    // We take the different parameter options
+		// We take the different parameter options
+		$parameters = $this->_getAllParams();
+		$numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
+		$nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
 
-	    $parameters = $this->_getAllParams();
-	    $numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
-	    $nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
-
-	    $styleModel = new Gzaas_Model_DbTable_Style();
-	    if (!$numResults) {
-	        if (!$nowFeatured) {
-	            $styles = $styleModel->getStyles();
-	        }
-	        else {
-	            $styles = $styleModel->getFeaturedStyles();
-	        }
-	    }
-		else {
+		$styleModel = new Gzaas_Model_DbTable_Style();
+		if (!$numResults) {
 			if (!$nowFeatured) {
-	            $styles = $styleModel->getLimitedStyles($numResults);
-	        }
-	        else {
-	            $styles = $styleModel->getLimitedFeaturedStyles($numResults);
-	        }
-	    }
-
-	$stylesSintaxed = new ArrayObject();
-
-	// We return with the sintaxis of the API Documentation
-	$fontModel = new Gzaas_Model_DbTable_Font();
-	$patternModel = new Gzaas_Model_DbTable_Pattern();
-
-	// idP, pattern, url, idServer, server, description, designer, urlDesigner1, urlDesigner2, featured FROM gs_mt_04 ORDER BY pattern ASC LIMIT 0,".$numResults);
-	foreach ($styles as $style) {
-	    $sintaxisStyle = new ArrayObject();
-	    $sintaxisStyle['id'] = (int)$style['idS'];
-	    $sintaxisStyle['hashtag'] = $style['style'];
-	    $sintaxisStyle['description'] = $style['description'];
-
-	    // Font
-	    $font = $fontModel->getFontByHashtag($style['font']);
-        $sintaxisFont = new ArrayObject();
-	    $sintaxisFont['id'] = (int)$font['idF'];
-	    $sintaxisFont['hashtag'] = $font['font'];
-	    $sintaxisFont['description'] = $font['description'];
-	    $sintaxisFont['fontFace'] = (int)$font['fontFace'];
-	    switch ($font['fontServer']) {
-	        case 1:
-	            // Font Squirrel / Gzaas server
-	             $sintaxisFont['stylesheet'] = PUBLIC_WEB_PATH.'/css/fonts/'.$font['stylesheet'].'/stylesheet.css';
-	            break;
-	        case 2:
-	            // Google Webfonts
-	            $sintaxisFont['stylesheet'] = 'http://fonts.googleapis.com/css?family='.$font['stylesheet'];
-	            break;
-	        default:
-	            $sintaxisFont['stylesheet'] = '';
-	    }
-
-	    $sintaxisFont['fontFamily'] = $font['fontFamily'];
-	    $sintaxisFont['fontServer'] = (int)$font['fontServer'];
-	    $sintaxisFont['designer'] = $font['designer'];
-	    $sintaxisFont['urlDesigner1'] = $font['urlDesigner1'];
-	    $sintaxisFont['urlDesigner2'] = $font['urlDesigner2'];
-	    $sintaxisFont['nowFeatured'] = (int)$font['featured'];
-
-	    $sintaxisStyle['font'] = $sintaxisFont;
-
-
-	    // Pattern
-	    $pattern = $patternModel->getPatternByHashtag($style['pattern']);
-	    $sintaxisPattern = new ArrayObject();
-	    $sintaxisPattern['id'] = (int)$pattern['idP'];
-	    $sintaxisPattern['hashtag'] = $pattern['pattern'];
-	    $sintaxisPattern['description'] = $pattern['description'];
-		if ($pattern['url']) {
-			$sintaxisPattern['url'] = "http://gzaas.com/images/patterns/".$pattern['server']."/".$pattern['url'];
+				$styles = $styleModel->getStyles();
+			} else {
+				$styles = $styleModel->getFeaturedStyles();
+			}
+		} else {
+			if (!$nowFeatured) {
+				$styles = $styleModel->getLimitedStyles($numResults);
+			} else {
+				$styles = $styleModel->getLimitedFeaturedStyles($numResults);
+			}
 		}
-		else {
-			$sintaxisPattern['url'] = null;
+
+		$stylesSintaxed = new ArrayObject();
+
+		// We return with the sintaxis of the API Documentation
+		$fontModel = new Gzaas_Model_DbTable_Font();
+		$patternModel = new Gzaas_Model_DbTable_Pattern();
+
+		foreach ($styles as $style) {
+			$sintaxisStyle = new ArrayObject();
+			$sintaxisStyle['id'] = (int)$style['idS'];
+			$sintaxisStyle['hashtag'] = $style['style'];
+			$sintaxisStyle['description'] = $style['description'];
+
+			// Font
+			$font = $fontModel->getFontByHashtag($style['font']);
+			$sintaxisFont = new ArrayObject();
+			$sintaxisFont['id'] = (int)$font['idF'];
+			$sintaxisFont['hashtag'] = $font['font'];
+			$sintaxisFont['description'] = $font['description'];
+			$sintaxisFont['fontFace'] = (int)$font['fontFace'];
+			switch ($font['fontServer']) {
+				case 1:
+					// Font Squirrel / Gzaas server
+					$sintaxisFont['stylesheet'] = PUBLIC_WEB_PATH.'/css/fonts/'.$font['stylesheet'].'/stylesheet.css';
+					break;
+				case 2:
+					// Google Webfonts
+					$sintaxisFont['stylesheet'] = 'http://fonts.googleapis.com/css?family='.$font['stylesheet'];
+					break;
+				default:
+					$sintaxisFont['stylesheet'] = '';
+			}
+
+			$sintaxisFont['fontFamily'] = $font['fontFamily'];
+			$sintaxisFont['fontServer'] = (int)$font['fontServer'];
+			$sintaxisFont['designer'] = $font['designer'];
+			$sintaxisFont['urlDesigner1'] = $font['urlDesigner1'];
+			$sintaxisFont['urlDesigner2'] = $font['urlDesigner2'];
+			$sintaxisFont['nowFeatured'] = (int)$font['featured'];
+
+			$sintaxisStyle['font'] = $sintaxisFont;
+
+
+			// Pattern
+			$pattern = $patternModel->getPatternByHashtag($style['pattern']);
+			$sintaxisPattern = new ArrayObject();
+			$sintaxisPattern['id'] = (int)$pattern['idP'];
+			$sintaxisPattern['hashtag'] = $pattern['pattern'];
+			$sintaxisPattern['description'] = $pattern['description'];
+			if ($pattern['url']) {
+				$sintaxisPattern['url'] = "http://gzaas.com/images/patterns/".$pattern['server']."/".$pattern['url'];
+			}
+			else {
+				$sintaxisPattern['url'] = null;
+			}
+			$sintaxisPattern['server'] = $pattern['server'];
+			$sintaxisPattern['designer'] = $pattern['designer'];
+			$sintaxisPattern['urlDesigner1'] = $pattern['urlDesigner1'];
+			$sintaxisPattern['urlDesigner2'] = $pattern['urlDesigner2'];
+			$sintaxisPattern['nowFeatured'] = (int)$pattern['featured'];
+
+			$sintaxisStyle['pattern'] = $sintaxisPattern;
+			$sintaxisStyle['color'] = $style['color'];
+			$sintaxisStyle['backcolor'] = $style['backColor'];
+			$sintaxisStyle['shadow'] = $style['shadow'];
+			$sintaxisStyle['designer'] = $style['designer'];
+			$sintaxisStyle['urlDesigner'] = $style['urlBackDesigner'];
+			$sintaxisStyle['nowFeatured'] = (int)$style['featured'];
+
+			$stylesSintaxed->append($sintaxisStyle);
 		}
-	    $sintaxisPattern['server'] = $pattern['server'];
-	    $sintaxisPattern['designer'] = $pattern['designer'];
-	    $sintaxisPattern['urlDesigner1'] = $pattern['urlDesigner1'];
-	    $sintaxisPattern['urlDesigner2'] = $pattern['urlDesigner2'];
-	    $sintaxisPattern['nowFeatured'] = (int)$pattern['featured'];
 
-	    $sintaxisStyle['pattern'] = $sintaxisPattern;
+		$response = json_encode($stylesSintaxed);
+		echo $response;
+		$this->getResponse()->setHttpResponseCode(200);
 
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout->disableLayout();
 
-	    $sintaxisStyle['color'] = $style['color'];
-	    $sintaxisStyle['backcolor'] = $style['backColor'];
-	    $sintaxisStyle['shadow'] = $style['shadow'];
-	    $sintaxisStyle['designer'] = $style['designer'];
-	    $sintaxisStyle['urlDesigner'] = $style['urlBackDesigner'];
-	    $sintaxisStyle['nowFeatured'] = (int)$style['featured'];
-
-	    $stylesSintaxed->append($sintaxisStyle);
 	}
 
-	$buffer = json_encode($stylesSintaxed);
-	echo $buffer;
-	$this->getResponse()->setHttpResponseCode(200);
+	public function writeAction() {
 
-	$this->_helper->viewRenderer->setNoRender();
-	$this->_helper->layout->disableLayout();
+		$this->_setJsonHeader();
 
-	}
+		// GET / POST
+		$_SERVER['REQUEST_METHOD'] = "POST";
 
-	public function writeAction()
-	{
-	    // API call JSON FORMAT
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-		header('Content-type: application/json');
-
-	    // GET / POST
-	    $_SERVER['REQUEST_METHOD'] = "POST";
-
-	    // We take the different parameter options
-	    $parameters = $this->_getAllParams();
+		// We take the different parameter options
+		$parameters = $this->_getAllParams();
 
 		$apiKey = (isset($parameters['apikey'])) ? $parameters['apikey'] : false;
 
@@ -337,20 +303,16 @@ class Api_ApiController extends Zend_Controller_Action {
 
 		if ($validApiKey) {
 
-			$textmessage = $parameters['message'];
-			$font = $parameters['font'];
-			$color = $parameters['color'];
-			$backcolor = $parameters['backcolor'];
-			$backpattern = $parameters['backpattern'];
-			$shadows = $parameters['shadows'];
-			$style = $parameters['style'];
-			$visibilityText = $parameters['visibility'];
-			$launcher = $parameters['launcher'];
+			$textmessage = (isset($parameters['message'])) ? $parameters['message'] : false;
+			$font = (isset($parameters['font'])) ? $parameters['font'] : false;
+			$color = (isset($parameters['color'])) ? $parameters['color'] : false;
+			$backcolor = (isset($parameters['backcolor'])) ? $parameters['backcolor'] : false;
+			$backpattern = (isset($parameters['backpattern'])) ? $parameters['backpattern'] : false;
+			$shadows = (isset($parameters['shadows'])) ? $parameters['shadows'] : false;
+			$style = (isset($parameters['style'])) ? $parameters['style'] : false;
+			$visibilityText = (isset($parameters['visibility'])) ? $parameters['visibility'] : false;
 
-			// Variable para controlar si mensaje vacío
-
-			// Estilo
-
+			// Vars to check if empty fields
 			$idF = false;
 			$validColor = false;
 			$validBackColor = false;
@@ -363,90 +325,70 @@ class Api_ApiController extends Zend_Controller_Action {
 			// Sharing options
 
 			if ($visibilityText!=0) {
-				$visibility = 1; // gzaas público por defecto
-				if (trim($launcher)!=''){
-					$launcher = stripSlashes($launcher);
-					$launcher = htmlspecialchars($launcher, ENT_NOQUOTES);
-
-					// Controlamos tamaño máximo de Launcher
-					if (strlen($launcher)>LAUNCHER_MAX_SIZE) {
-						$launcher = substr($launcher,0,LAUNCHER_MAX_SIZE);
-					}
-				}
-				else {
-					$launcher = '';
-				}
-			}
-			else {
+				$visibility = 1; // gzaas public by default
+			} else {
 				$visibility = 0;
 			}
 
 
-			/* Limpiamos y validamos */
-			$valid = 'true';
+			// We clean and validate
+			$valid = true;
 
-			// N�mero de l�neas, sobrepasa
+			// Number of lines overflows
 			$arrayNewLines = explode("\n", $textmessage);
 			if (count($arrayNewLines)>GZAAS_MAX_NEW_LINES+1){
 				$translate = Zend_Registry::get('Zend_Translate');
 				$errorMessage = utf8_encode($translate->translate('error.max.lines'));
-				$valid = 'false';
+				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
-			// Controlamos tama�o m�ximo de String
+			// String max size
 			if (strlen($textmessage)>GZAAS_MAX_SIZE) {
 				$translate = Zend_Registry::get('Zend_Translate');
 				$errorMessage = utf8_encode($translate->translate('error.max.size'));
-				$valid = 'false';
+				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
-			// Si mensaje vac�o, �qu� haremos?
+			// Empty message
 			if (trim($textmessage)==''){
 				$translate = Zend_Registry::get('Zend_Translate');
 				$errorMessage = utf8_encode($translate->translate('error.gzaas.blank'));
-				$valid = 'false';
+				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
-			// Si igual color de fondo y de fuente
+			// Back and font color are the same
 			if (($color!='') && ($color==$backcolor)){
 				$translate = Zend_Registry::get('Zend_Translate');
 				$errorMessage = utf8_encode($translate->translate('error.same.color'));
-				$valid = 'false';
+				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
-			// Si no ha seleccionado ning�n estilo
+			// No styles selected
 			if (($font=='') && ($color=='') && ($backcolor=='') && ($backpattern=='') && ($style=='')){
 				$translate = Zend_Registry::get('Zend_Translate');
 				$errorMessage = utf8_encode($translate->translate('error.no.style'));
-				$valid = 'false';
+				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
 
-			// Pasa las validaciones
+			// Is it valid?
+			if ($valid) {
 
-			if ($valid=='true') {
-
-				// Comprobamos IP + date.
+				// We retrieve IP and date
 				$date = date("Y-m-d H:i:s");
 				$ip = $_SERVER['REMOTE_ADDR'];
 
-
-
-				// En gzaas[message] guardaremos el mensaje SIN los hashtags v�lidos (estilizado)
 				$gzaas['message'] = htmlspecialchars($textmessage, ENT_NOQUOTES);
 
-
-				// Generamos la key para la URL
-
+				// We generate the URL
+				// TODO: Why not call the generate URL from Explore / Gzaas Model?
 				$repeated = 1;
 				$messageModel = new Gzaas_Model_DbTable_Message();
-
-				// Lista de palabras que no deben coincidir con la urlKey generada
 				$keyWords = 'gzaas, gzaases, gzaascom, gzs, gzaasit, gzscom, blog, help, about, wtf, ownd, pwnd, fuck'.
 				'ojoven, garcia, mikel, torres, bruno, juan, sebas, barberio'.
 				'api, embed, preview, explore, embedded, font, fonts, style, styles, pattern, patterns';
@@ -459,199 +401,160 @@ class Api_ApiController extends Zend_Controller_Action {
 					}
 				}
 
-				// Vamos a guardar el languageCode del navegador del usuario (como aprox. al languageCode del gzaas creado)
-				// M�s adelante nos plantearemos utilizar la API de Google Translator para conocer el languageCode real
+				// We're saving user's browser's language
 				$languageUser = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2);
 
-				// Variable que indica si estamos utilizando la API
+				// This gzaas has been created via API, yes
 				$api = 1;
 
-				// Comienza la inserci�n en BD
-
+				// Let's insert the data in DB
 				$db = Zend_Registry::get('db');
 				$db->beginTransaction();
 
-
 				try{
 
-				// Si v�lido: A�adimos a BD
+					// Message Table
+					$newMessage = array(
+						'message' => $gzaas['message'],
+						'visibility' => $visibility,
+						'inblacklist' => $inblacklist,
+						'urlKey' => $urlKey,
+						'date' => $date,
+						'ip' => $ip,
+						'languageUser' => $languageUser,
+						'api' => $api
+					);
 
-				// Tabla Message
+					$idMessage = $messageModel->addMessage($newMessage);
 
-				$newMessage = array(
-				'message' => $gzaas['message'],
-				'visibility' => $visibility,
-				'inblacklist' => $inblacklist,
-				'urlKey' => $urlKey,
-				'date' => $date,
-				'ip' => $ip,
-				'languageUser' => $languageUser,
-				'api' => $api
-				);
-
-				$idMessage = $messageModel->addMessage($newMessage);
-
-
-				// Asociamos el mensaje a la API creada
-				$apiKeyMessageModel = new Api_Model_Apikeymessage();
-				$apiKeyMessageModel->addApiKeyMessage($apiKey,$idMessage);
+					// Message to APIKey
+					$apiKeyMessageModel = new Api_Model_Apikeymessage();
+					$apiKeyMessageModel->addApiKeyMessage($apiKey,$idMessage);
 
 
-				// Tabla Message Launcher
-
-				if ($launcher!=''){
-					$launcherModel = new Gzaas_Model_DbTable_Launcher();
-					$launcherModel->addMessageLauncher($idMessage, $launcher);
-				}
-
-				// Tablas Hashtag Message
-
-				// Font
-
-				if ($font!=''){
-					// Si el usuario ha seleccionado una fuente.
-					$fontModel = new Gzaas_Model_DbTable_Font();
-					$idF = $fontModel->validFont($font);
-					// Si fuente v�lida.
-					if ($idF){
-						$fontMessageModel = new Gzaas_Model_DbTable_Fontmessage();
-						$fontMessageModel->addFontMessage($idF,$idMessage);
-					}
-				}
-
-				// Color
-
-				if ($color!=''){
-					// Si el usuario ha seleccionado una fuente.
-					preg_match(HEX_REGEXP, $color, $validColor); // expresi�n regular, �es color v�lido? /
-					// Si color v�lido.
-					if ($validColor){
-						$colorMessageModel = new Gzaas_Model_DbTable_Colormessage();
-						$colorMessageModel->addColorMessage($color,$idMessage);
-					}
-				}
-
-				// Background Color
-
-				if ($backcolor!=''){
-					// Si el usuario ha seleccionado una fuente.
-					preg_match(HEX_REGEXP, $backcolor, $validBackcolor); // expresi�n regular, �es color v�lido? /
-					// Si color v�lido.
-					if ($validBackcolor){
-						$backcolorMessageModel = new Gzaas_Model_DbTable_Backcolormessage();
-						$backcolorMessageModel->addBackColorMessage($backcolor,$idMessage);
-					}
-				}
-
-				// Background Pattern
-
-				if ($backpattern!=''){
-					// Si el usuario ha seleccionado un back pattern.
-					$patternModel = new Gzaas_Model_DbTable_Pattern();
-					$idP = $patternModel->validPattern($backpattern);
-					// Si pattern v�lida.
-					if ($idP){
-						$patternMessageModel = new Gzaas_Model_DbTable_Patternmessage();
-						$patternMessageModel->addPatternMessage($idP,$idMessage);
-					}
-				}
-
-				// Shadows
-
-				if ($shadows!=''){
-					$arrayShadows = explode(",", $shadows);
-					foreach ($arrayShadows as $shadow) {
-						$shadowExplode = explode(" ", trim($shadow));
-
-						// Validaci�n par�metros text-shadow
-						// Par�metro offset horizontal
-						if (intval($shadowExplode[0])<=MAX_HOR_VER_SHADOW) {
-							preg_match(HOR_VER_SHAD_REGEXP, $shadowExplode[0], $validHorShad);
-						}
-						else {
-							$validHorShad = false;
-						}
-						// Par�metro offset vertical
-						if (intval($shadowExplode[1])<=MAX_HOR_VER_SHADOW) {
-							preg_match(HOR_VER_SHAD_REGEXP, $shadowExplode[1], $validVerShad);
-						}
-						else {
-							$validVerShad = false;
-						}
-						// Par�metro blur-radius
-						if (intval($shadowExplode[2])<=MAX_BLUR_SHADOW) {
-							preg_match(BLUR_SHAD_REGEXP, $shadowExplode[2], $validBlurShad);
-						}
-						else {
-							$validBlurShad = false;
-						}
-						// Par�metro color
-						preg_match(HEX_WITH_HASH_REGEXP, $shadowExplode[3], $validColorShad);
-
-						// Comprobamos si valida todos los par�metros
-						if ($validHorShad && $validVerShad && $validBlurShad && $validColorShad) {
-							$shadowMessageModel = new Gzaas_Model_DbTable_Shadowmessage();
-							$validShadow = 	$shadowExplode[0].' '.$shadowExplode[1].' '.$shadowExplode[2].' '.$shadowExplode[3];
-							$shadowMessageModel->addShadowMessage($validShadow,$idMessage);
+					// Font
+					if ($font!=''){
+						$fontModel = new Gzaas_Model_DbTable_Font();
+						$idF = $fontModel->validFont($font);
+						if ($idF){
+							$fontMessageModel = new Gzaas_Model_DbTable_Fontmessage();
+							$fontMessageModel->addFontMessage($idF,$idMessage);
 						}
 					}
-				}
 
-
-				// Style
-
-				if ($style!=''){
-					// Si el usuario ha seleccionado un estilo.
-					$styleModel = new Gzaas_Model_DbTable_Style();
-					$idS = $styleModel->validStyle($style);
-					// Si estilo v�lido
-					if ($idS){
-						$styleMessageModel = new Gzaas_Model_DbTable_Stylemessage();
-						$styleMessageModel->addStyleMessage($idS,$idMessage);
+					// Color
+					if ($color!=''){
+						preg_match(HEX_REGEXP, $color, $validColor); // regexp, is valid color?
+						if ($validColor){
+							$colorMessageModel = new Gzaas_Model_DbTable_Colormessage();
+							$colorMessageModel->addColorMessage($color,$idMessage);
+						}
 					}
-				}
 
-				// Controlamos que los par�metros sean v�lidos (a nivel global)
-				if ((!$idF) && (!$validColor) && (!$validBackColor) && (!$idP) && (!$idS)) {
-					$db->rollback();
-					$translate = Zend_Registry::get('Zend_Translate');
-					$errorMessage = utf8_encode($translate->translate('error.no.style'));
-					$buffer = '{
-						"valid":"false",
-						"errorMessage":"'.$errorMessage.'"
-						}';
-					echo $buffer;
-				}
+					// Background Color
+					if ($backcolor!=''){
+						preg_match(HEX_REGEXP, $backcolor, $validBackcolor); // regexp, is valid color?
+						if ($validBackcolor){
+							$backcolorMessageModel = new Gzaas_Model_DbTable_Backcolormessage();
+							$backcolorMessageModel->addBackColorMessage($backcolor,$idMessage);
+						}
+					}
 
-				else {
+					// Background Pattern
+					if ($backpattern!=''){
+						$patternModel = new Gzaas_Model_DbTable_Pattern();
+						$idP = $patternModel->validPattern($backpattern);
+						if ($idP){
+							$patternMessageModel = new Gzaas_Model_DbTable_Patternmessage();
+							$patternMessageModel->addPatternMessage($idP,$idMessage);
+						}
+					}
 
-					/* TODITO SALI� BIEN */
+					// Shadows
+					if ($shadows!=''){
+						$arrayShadows = explode(",", $shadows);
+						foreach ($arrayShadows as $shadow) {
+							$shadowExplode = explode(" ", trim($shadow));
 
-					// Montamos la URL del gzaas
-					$urlGs = 'http://gzaas.com/'.$urlKey;
-					$response['valid'] = $valid;
-					$response['urlGzaas'] = $urlGs;
-					$response['urlKey'] = $urlKey;
-					$response['visibility'] = $visibility;
-					echo $response;
+							// Text shadow parameters validation
+							// Horizontal Offset
+							if (intval($shadowExplode[0])<=MAX_HOR_VER_SHADOW) {
+								preg_match(HOR_VER_SHAD_REGEXP, $shadowExplode[0], $validHorShad);
+							} else {
+								$validHorShad = false;
+							}
+							// Vertical Offset
+							if (intval($shadowExplode[1])<=MAX_HOR_VER_SHADOW) {
+								preg_match(HOR_VER_SHAD_REGEXP, $shadowExplode[1], $validVerShad);
+							} else {
+								$validVerShad = false;
+							}
+							// BlurRadius
+							if (intval($shadowExplode[2])<=MAX_BLUR_SHADOW) {
+								preg_match(BLUR_SHAD_REGEXP, $shadowExplode[2], $validBlurShad);
+							} else {
+								$validBlurShad = false;
+							}
+							// Color Parameter
+							preg_match(HEX_WITH_HASH_REGEXP, $shadowExplode[3], $validColorShad);
 
-					$this->getResponse()->setHttpResponseCode(201);
+							// Valid for all shadow parameters?
+							if ($validHorShad && $validVerShad && $validBlurShad && $validColorShad) {
+								$shadowMessageModel = new Gzaas_Model_DbTable_Shadowmessage();
+								$validShadow = 	$shadowExplode[0].' '.$shadowExplode[1].' '.$shadowExplode[2].' '.$shadowExplode[3];
+								$shadowMessageModel->addShadowMessage($validShadow,$idMessage);
+							}
+						}
+					}
 
 
-					// Fin de transacci�n. Todo OK.
-					$db->commit();
+					// Style
+					if ($style!=''){
+						$styleModel = new Gzaas_Model_DbTable_Style();
+						$idS = $styleModel->isValidStyle($style);
+						if ($idS){
+							$styleMessageModel = new Gzaas_Model_DbTable_Stylemessage();
+							$styleMessageModel->addStyleMessage($idS,$idMessage);
+						}
+					}
 
+					// Valid parameters (Style || Color + BackColor...)
+					if ((!$idF) && (!$validColor) && (!$validBackColor) && (!$idP) && (!$idS)) {
+						$db->rollback();
+						$translate = Zend_Registry::get('Zend_Translate');
+						$errorMessage = utf8_encode($translate->translate('error.no.style'));
+						$response['valid'] = false;
+						$response['errorMessage'] = $errorMessage;
+						echo json_encode($buffer);
+					}
+
+					else {
+
+						// Everything went OK
+
+						// We build the Gzaas URL
+						$urlGs = 'http://gzaas.com/'.$urlKey;
+						$response['valid'] = $valid;
+						$response['urlGzaas'] = $urlGs;
+						$response['urlKey'] = $urlKey;
+						$response['visibility'] = $visibility;
+						echo json_encode($response);
+
+						$this->getResponse()->setHttpResponseCode(201);
+
+						// Transaction commit
+						$db->commit();
 					}
 				}
 
 				catch (exception $e){
-				$db->rollback();
-				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->translate('error.newgs.exception'));
-				$response['valid'] = false;
-				$response['errorMessage'] = $errorMessage;
-				echo json_encode($response);
-				$this->getResponse()->setHttpResponseCode(503);
+					$db->rollback();
+					$translate = Zend_Registry::get('Zend_Translate');
+					$errorMessage = utf8_encode($translate->translate('error.newgs.exception'));
+					$response['valid'] = false;
+					$response['errorMessage'] = $errorMessage;
+					echo json_encode($response);
+					$this->getResponse()->setHttpResponseCode(503);
 				}
 			}
 
@@ -670,17 +573,14 @@ class Api_ApiController extends Zend_Controller_Action {
 			$this->getResponse()->setHttpResponseCode(400);
 		}
 
-		// no renderizar
-
 		$this->_helper->viewRenderer->setNoRender();
 		$this->_helper->layout->disableLayout();
 
 	}
 
 
+	private function setDefaultFeatures() {
 
-	private function setDefaultFeatures()
-	{
 		$features['fontFamily'] = 'Helvetica, Arial';
 		$features['color'] = '#444';
 		$features['backgroundColor'] = '#fcfcfc';
@@ -691,8 +591,8 @@ class Api_ApiController extends Zend_Controller_Action {
 	}
 
 
-	private function setRobotVisibility($visibility)
-	{
+	private function setRobotVisibility($visibility) {
+
 		if ($visibility==0){
 			$this->view->headMeta()->setName('robots', 'NOINDEX,NOFOLLOW');
 		}
@@ -702,10 +602,16 @@ class Api_ApiController extends Zend_Controller_Action {
 	}
 
 
-	/* FUNCIONES PRIVADAS */
+	/* PRIVATE FUNCTIONS */
+	private function _setJsonHeader() {
 
-	private function keyGenerator($minlength, $maxlength, $useupper, $usespecial, $usenumbers)
-	{
+		header('Cache-Control: no-cache, must-revalidate');
+		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header('Content-type: application/json');
+	}
+
+	private function keyGenerator($minlength, $maxlength, $useupper, $usespecial, $usenumbers) {
+
 		$key = '';
 		$charset = "abcdefghijklmnopqrstuvwxyz";
 		if ($useupper) $charset .= "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -718,28 +624,24 @@ class Api_ApiController extends Zend_Controller_Action {
 	}
 
 
-	/* FUTURIBLES */
+	/* FOR THE FUTURE */
+	public function gzaasesAction() {
 
-	public function gzaasesAction()
-	{
-	    // API call
-
-	    // We take the different parameter options
-
-	    $parameters = $this->_getAllParams();
-	    $gzaasIncludes = $parameters['gzaasIncludes'];
-	    $launcherIncluded = $parameters['launcherIncluded'];
-	    $launcherIncludes = $parameters['launcherIncludes'];
-	    $fonts = $parameters['fonts'];
-	    $colors = $parameters['colors'];
-	    $backcolors = $parameters['backcolors'];
-	    $backpatterns = $parameters['backpatterns'];
-	    $styles = $parameters['styles'];
-	    $numResults = $parameters['numResults'];
-	    $orderCol = $parameters['orderCol'];
-	    $sortBy = $parameters['sortBy'];
-	    $format = $parameters['format'];
-	    $jsonCallback = $parameters['jsonCallback'];
+		// We take the different parameter options
+		$parameters = $this->_getAllParams();
+		$gzaasIncludes = $parameters['gzaasIncludes'];
+		$launcherIncluded = $parameters['launcherIncluded'];
+		$launcherIncludes = $parameters['launcherIncludes'];
+		$fonts = $parameters['fonts'];
+		$colors = $parameters['colors'];
+		$backcolors = $parameters['backcolors'];
+		$backpatterns = $parameters['backpatterns'];
+		$styles = $parameters['styles'];
+		$numResults = $parameters['numResults'];
+		$orderCol = $parameters['orderCol'];
+		$sortBy = $parameters['sortBy'];
+		$format = $parameters['format'];
+		$jsonCallback = $parameters['jsonCallback'];
 
 	}
 

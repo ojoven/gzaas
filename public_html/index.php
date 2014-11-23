@@ -27,6 +27,11 @@ define('GZAAS_MAX_NEW_LINES', 30);
 define('MAX_HOR_VER_SHADOW', 6);
 define('MAX_BLUR_SHADOW', 6);
 
+define('HEX_REGEXP', "/([A-F|a-f|0-9]){3}(([A-F|a-f|0-9]){3})?/");
+define('HEX_WITH_HASH_REGEXP', "/#([A-F|a-f|0-9]){3}(([A-F|a-f|0-9]){3})?/");
+define('HOR_VER_SHAD_REGEXP', "/-?\d{1,2}(px)?/");
+define('BLUR_SHAD_REGEXP', "/\d{1,2}(px)?/");
+
 define('URL_WTF_EN', "http://localhost/gzaasproject/about/wtf-is-gzaas");
 define('URL_COM_EN', "http://localhost/gzaasproject/about/the-community/");
 define('URL_WTF_ES', "http://localhost/gzaasproject/es/sobre-gzaas/que-es-gzaas/");
