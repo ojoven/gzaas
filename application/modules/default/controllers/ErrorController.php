@@ -38,20 +38,14 @@ class ErrorController extends Zend_Controller_Action {
 			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
 
 				// 404 error -- controller or action not found
-				//$this->_redirect($baseUrl.'/'.ERROR_KEY);
-				/*$this->getResponse()->setHttpResponseCode(404);
-				$this->view->message = 'error 404 - Gzaas Not Found!';*/
+				$this->_redirect($baseUrl.'/'.ERROR_KEY);
 				break;
 			default:
 				// application error
-				//$this->_redirect($baseUrl.'/'.ERROR_KEY);
-				/*$this->getResponse()->setHttpResponseCode(500);
-				$this->view->message = 'error 500 - Try again!';*/
+				$this->_redirect($baseUrl.'/'.ERROR_KEY);
 				break;
 		}
 
-		$this->view->exception = $errors->exception;
-		$this->view->request   = $errors->request;
 	}
 
 }

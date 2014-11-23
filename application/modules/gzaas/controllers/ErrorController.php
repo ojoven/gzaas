@@ -48,8 +48,8 @@ class Gzaas_ErrorController extends Zend_Controller_Action {
 				break;
 		}
 
-		$this->view->exception = $errors->exception;
-		$this->view->request   = $errors->request;
+		$this->renderScript('gzaas/seegs.phtml');
+
 	}
 
 }

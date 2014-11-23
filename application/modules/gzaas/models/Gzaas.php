@@ -4,6 +4,7 @@ class Gzaas_Model_Gzaas {
 
 	const GZAAS_MAX_SIZE = 1024;
 	const GZAAS_MAX_NEW_LINES = 30;
+	const EXCEPTION_GZAAS_NOT_FOUND = 'EXCEPTION_GZAAS_NOT_FOUND';
 
 	// New gzaas
 	public function checkValidParameters($parameters,&$valid,&$errorMessage) {
@@ -92,7 +93,7 @@ class Gzaas_Model_Gzaas {
 		$renderedMessage = $this->_setRenderedMessageFromFormMessage($formMessage);
 		$this->_addSloganOnEmptyGzaas($textmessage);
 
-		$features = $this->_getGzaasFeaturesOnPreview($parameters);
+		$features = $this->getGzaasFeaturesOnPreview($parameters);
 		$this->_setFontFeaturesOnMessage($features, $renderedMessage);
 
 		$previewGzaas['features'] = $features;
@@ -104,7 +105,16 @@ class Gzaas_Model_Gzaas {
 		return $previewGzaas;
 	}
 
-	public function _getGzaasFeaturesOnPreview($parameters) {
+	public function getFeaturesErrorGzaas() {
+
+		$parameters['font'] = 'chewy';
+		$parameters['color'] = '#000';
+		$parameters['backColor'] = '#ffff00';
+
+		return $parameters;
+	}
+
+	public function getGzaasFeaturesOnPreview($parameters) {
 
 		$font        = My_Functions::getVariableFromArrayOrNullIfIndexIsNotSet($parameters,'font');
 		$color       = My_Functions::getVariableFromArrayOrNullIfIndexIsNotSet($parameters,'color');
@@ -219,6 +229,7 @@ class Gzaas_Model_Gzaas {
 
 		$messageModel = new Gzaas_Model_Message();
 		$message = $messageModel->getMessage($urlKey);
+		if (!$message) throw new Exception(self::EXCEPTION_GZAAS_NOT_FOUND);
 		$features = $this->_getGzaasFeatures($message['id']);
 		$this->_setFontFeaturesOnMessage($features, $message);
 

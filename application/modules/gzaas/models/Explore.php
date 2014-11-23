@@ -6,7 +6,7 @@ class Gzaas_Model_Explore {
 	public function getRandomUrl() {
 
 		$randomUrlKey = $this->_getRandomUrlKey();
-		$randomUrl = URL_BASE.'/'.$randomUrlKey;
+		$randomUrl = URL_BASE.$randomUrlKey;
 		return $randomUrl;
 	}
 
