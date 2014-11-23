@@ -21,8 +21,7 @@ else {
 }
 ?>
 <style type="text/css" media=all>
-/** @import url(<?php echo $features['font']['stylesheet']; ?>); **/
-<?php echo $this->fontstyles; ?>
+<?php if (isset($this->fontstyles)) { echo $this->fontstyles; } ?>
 
 #gzaas_screen {
 

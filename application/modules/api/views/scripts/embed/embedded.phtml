@@ -12,10 +12,6 @@ else {
 }
 ?>
 <STYLE TYPE="text/css" MEDIA=screen>
-body, #gzaas_screen {
-cursor:pointer;
-}
-
 #gzaas_screen {
 
 position: absolute;
@@ -38,9 +34,9 @@ color:<?php echo $features['color']['color'];?>;
 opacity:0;
 }
 
-
 body {
-	background: <?php if ($features['pattern']['used']){ echo $features['pattern']['pattern'].' '; } ?>
+background: <?php if ($features['pattern']['used']!=0){echo $features['pattern']['pattern'].' ';}?><?php echo $features['backColor']['backColor'];?>;
+overflow:hidden;
 }
 
 </STYLE>
