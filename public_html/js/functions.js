@@ -35,11 +35,7 @@ const timeToShowMessageOnPreviewGzaas = 600;
 const menuSidebarFadeTime = 350;
 const menuSidebarShowDelayTime = 4300;
 
-var oldFontSize = $("#oldFontSize").val();
-var oldLineHeight = $("#oldLineHeight").val();
-var oldLetterSpacing = $("#oldLetterSpacing").val();
-
-var oldWindowWidth = $(window).width();
+var oldWindowWidth;
 var menuOpacity=1;
 
 var maxSize = 40;
@@ -50,8 +46,8 @@ var maxNewLines = 10;
 /** 2. GZAAS COMMON FUNCTIONS **/
 /*******************************/
 
-function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage)
-{
+function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage) {
+
 	setNewGzaasMessageSizeOnOverflowed();
 	setTimeout('adaptSizesAndSpacesToWindowResolution()',timeToAdaptToResolution);
 	if (typeof screenshot != "undefined" && screenshot) {
@@ -62,8 +58,8 @@ function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage)
 }
 
 // Adapt message to screen
-function setNewGzaasMessageSizeOnOverflowed()
-{
+function setNewGzaasMessageSizeOnOverflowed() {
+
 	// VERTICAL OVERFLOW CONTROL
 	oldWindowWidth = $(window).width();
 	divHeight = $("#gzaas_screen").height();
@@ -89,19 +85,22 @@ function setNewGzaasMessageSizeOnOverflowed()
 		oldLineHeight = (parseInt(oldLineHeight) * freeSpaceWidth) / divWidth;
 	}
 
+	console.log(gzaasWidthPercentage);
+	console.log(gzaasLeftMarginPercentage);
+
 	$("#gzaas_screen").css('width',gzaasWidthPercentage);
 	$("#gzaas_screen").css('left',gzaasLeftMarginPercentage);
 }
 
-function modifyFontSizeLetterSpacingAndLineHeight(newFontSize,newLetterSpacing,newLineHeight)
-{
+function modifyFontSizeLetterSpacingAndLineHeight(newFontSize,newLetterSpacing,newLineHeight) {
+
 	$("#gzaas_screen").css('font-size',newFontSize+'px');
 	$("#gzaas_screen").css('letter-spacing','-'+newLetterSpacing+'px');
 	$("#gzaas_screen").css('lineHeight',newLineHeight+'px');
 }
 
-function adaptSizesAndSpacesToWindowResolution()
-{
+function adaptSizesAndSpacesToWindowResolution() {
+
 	oldWidth = oldWindowWidth;
 	windowWidth = $(window).width();
 	windowHeight = $(window).height();
@@ -133,10 +132,9 @@ function showGzaasMessage(){
 }
 
 
-
 // Window resize event
-function _setEventNewResolutionWhenWindowResize()
-{
+function _setEventNewResolutionWhenWindowResize() {
+
 	$(window).resize(function() {
 		adaptSizesAndSpacesToWindowResolution();
 	});
@@ -286,7 +284,7 @@ function initializePreview()
 function _setFromHomeOptions() {
 	if (from=="home") {
 		setTimeout(function(){
-				$("footer,header,#preview_header").animate({opacity:1}, 400);
+			$("footer,header,#preview_header").animate({opacity:1}, 400);
 		},1500);
 		setTimeout('attention()',4500);
 	}
@@ -873,8 +871,10 @@ function getPage() {
 // DOCUMENT READY
 $(document).ready(function(){
 
+	oldWindowWidth = $(window).width()
+
 	if (getPage()=="preview") {
-			initializePreview();
+		initializePreview();
 	}
 
 	if (getPage()=="seegzaas") {

@@ -157,15 +157,15 @@ overflow:hidden;
 
 <div id="screen_layer">&nbsp;</div>
 
-<!-- HIDDEN VARIABLES -->
-<input type="hidden" id="oldFontSize" value="<?php echo $features['font']['fontBaseSize'];?>" />
-<input type="hidden" id="oldLineHeight" value="<?php echo $features['font']['fontBaseLineHeight'];?>" />
-<input type="hidden" id="oldLetterSpacing" value="<?php echo $features['font']['fontBaseLetterSpacing'];?>" />
-
 <script type="text/javascript">
 
 var createGzaas = "<?php echo $this->translate('create.gzaas');?>";
 var page = "seegzaas";
 var screenshot = <?php echo (isset($this->fontstyles)) ? "true" : "false"; ?>;
+
+var oldFontSize = <?php echo $features['font']['fontBaseSize'];?>;
+var oldLineHeight = <?php echo $features['font']['fontBaseLineHeight'];?>;
+var oldLetterSpacing = <?php echo $features['font']['fontBaseLetterSpacing'];?>;
+
 </script>
 

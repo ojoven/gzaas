@@ -21,7 +21,7 @@ class Gzaas_Model_DbTable_Patternmessage extends Zend_Db_Table_Abstract {
 		$data = array('idM'=>$idMessage);
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
-		$idPattern = $this->_db->fetchOne($query);
+		$idPattern = $this->_db->fetchOne($query,$data);
 		return $idPattern;
 	}
 
