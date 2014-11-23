@@ -628,7 +628,6 @@ class Api_ApiController extends Zend_Controller_Action {
 					/* TODITO SALI� BIEN */
 
 					// Montamos la URL del gzaas
-
 					$urlGs = 'http://gzaas.com/'.$urlKey;
 					$response['valid'] = $valid;
 					$response['urlGzaas'] = $urlGs;
@@ -651,7 +650,7 @@ class Api_ApiController extends Zend_Controller_Action {
 				$errorMessage = utf8_encode($translate->translate('error.newgs.exception'));
 				$response['valid'] = false;
 				$response['errorMessage'] = $errorMessage;
-				echo $response;
+				echo json_encode($response);
 				$this->getResponse()->setHttpResponseCode(503);
 				}
 			}
@@ -659,7 +658,7 @@ class Api_ApiController extends Zend_Controller_Action {
 			else {
 				$response['valid'] = false;
 				$response['errorMessage'] = $errorMessage;
-				echo $response;
+				echo json_encode($response);
 			}
 		}
 
@@ -667,7 +666,7 @@ class Api_ApiController extends Zend_Controller_Action {
 			$errorMessage = 'Oops! Not a valid Api Key. Get one valid at http://gzaas.com/project/api-embed/api-key/';
 			$response['valid'] = false;
 			$response['errorMessage'] = $errorMessage;
-			echo $response;
+			echo json_encode($response);
 			$this->getResponse()->setHttpResponseCode(400);
 		}
 
