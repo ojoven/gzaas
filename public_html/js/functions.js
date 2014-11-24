@@ -85,9 +85,6 @@ function setNewGzaasMessageSizeOnOverflowed() {
 		oldLineHeight = (parseInt(oldLineHeight) * freeSpaceWidth) / divWidth;
 	}
 
-	console.log(gzaasWidthPercentage);
-	console.log(gzaasLeftMarginPercentage);
-
 	$("#gzaas_screen").css('width',gzaasWidthPercentage);
 	$("#gzaas_screen").css('left',gzaasLeftMarginPercentage);
 }
@@ -540,7 +537,6 @@ function _setEventFinishAndCreateGzaas()
 				$("#metatags_container,footer .vr, #preview_form_container").hide();
 
 				var urlNewGzaas = urlBase+'/gzaas/newgs/';
-				console.log(data);
 				$.post(urlNewGzaas,data, response_ajax_new_gs, "json");
 			}
 		}
@@ -884,6 +880,27 @@ $(document).ready(function(){
 	if (getPage()=="home") {
 		initializeHome();
 	}
+
+	/**
+	if (typeof testanimations != "undefined") {
+		$("#gzaas_screen").show();
+		var chars = $("#gzaas_screen").text().split('');
+		var newMessage = "";
+		chars.forEach(function(value) {
+			newMessage += "<i>" + value + "</i>";
+		});
+		$("#gzaas_screen").html(newMessage);
+		var delay = 0;
+		$("#gzaas_screen i").each(function() {
+			delay += 150;
+			var selector = $(this);
+			setTimeout(function() {
+				selector.addClass('swing').addClass('animated');
+			},delay);
+		});
+	}
+	**/
+
 });
 
 

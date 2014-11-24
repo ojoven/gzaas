@@ -15,8 +15,7 @@ $shadowsUsed = $features['shadows']['used'];
 $languageCode = $this->languageCode;
 if ($languageCode=='es'){
 	$iLikeLanguage = 'locale=es_ES&';
-}
-else {
+} else {
 	$iLikeLanguage = 'locale=en_US&';
 }
 ?>
@@ -37,9 +36,8 @@ color: <?php echo $features['color']['color'];?>;
 text-shadow: <?php echo $features['shadows']['shadows'];?>;
 
 /* We won't display the message until applying js changes to it */
-display:none;
+/** display:none; **/
 }
-
 
 <?php if (($menu==null) || ($menu!=1)) {?>
 #header, #right_sidebar, #footer {

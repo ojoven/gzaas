@@ -1,0 +1,178 @@
+/* Font Mixing */
+@mixin typo($t,$name) {
+	@font-face {
+		font-family: $name;
+		src: url('fonts/#{$t}.eot');
+		src: url('fonts/#{$t}.eot?#iefix') format('embedded-opentype'),
+		url('fonts/#{$t}.woff') format('woff'),
+		url('fonts/#{$t}.ttf') format('truetype'),
+		url('fonts/#{$t}.svg##{$name}') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+}
+
+@include typo('gotham-medium-webfont','GothamMediumRegular');
+@include typo('gotham-book-webfont','GothamBookRegular');
+@include typo('gotham-bold-webfont','GothamBoldRegular');
+
+@font-face {
+	font-family: 'FrutigerLTStd55Roman';
+	src: url('fonts/frutigerltstd-roman-webfont.eot');
+	src: local('Frutiger LT Std'), local('FrutigerLTStdRoman'), url('fonts/frutigerltstd-roman-webfont.woff') format('woff'), url('fonts/frutigerltstd-roman-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.medium {
+	font-family:"GothamMediumRegular",sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+.bold {
+	font-family:"GothamBoldRegular",sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+.book {
+	font-family:"GothamBookRegular",sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+.gotham {
+	@extend .book;
+}
+.frutiger {
+	font-family:"FrutigerLTStd55Roman",sans-serif !important;
+	-webkit-font-smoothing: antialiased ;
+}
+.arial {
+	font-family:"Arial",helvetica,sans-serif !important;
+	-webkit-font-smoothing: antialiased;
+}
+
+/** Effects **/
+.alpha0 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+
+.alpha1 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+}
+
+.effect {
+	@extend .alpha0;
+	&.childs {
+		@extend .alpha1;
+		position:relative;
+		> * {
+			@extend .alpha0;
+		}
+	}
+}
+
+/* Fix Floating Element Height */
+.fixHeight {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/** Common mixins **/
+// Transition
+@mixin transition($transition:all, $time:500ms, $effect:linear) {
+	-webkit-transition: $transition $time $effect;
+    -moz-transition: $transition $time $effect;
+    -o-transition: $transition $time $effect;
+    -ms-transition: $transition $time $effect;
+    transition: $transition $time $effect;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+	@if $inset {
+		-webkit-box-shadow:inset $top $left $blur $color;
+		-moz-box-shadow:inset $top $left $blur $color;
+		box-shadow:inset $top $left $blur $color;
+	} @else {
+		-webkit-box-shadow: $top $left $blur $color;
+		-moz-box-shadow: $top $left $blur $color;
+		box-shadow: $top $left $blur $color;
+	}
+}
+
+@mixin box-sizing($box-model) {
+  -webkit-box-sizing: $box-model;
+     -moz-box-sizing: $box-model;
+          box-sizing: $box-model;
+}
+
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin border-top-radius($radius) {
+	-moz-border-radius-topright: $radius; -moz-border-radius-topleft: $radius;
+	-webkit-border-radius: $radius $radius 0px 0px;
+	border-radius: $radius $radius 0px 0px; 
+}
+
+// generic transform
+@mixin transform($transforms) {
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+}
+// rotate
+@mixin rotate($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+ 
+// scale
+@mixin scale($scale) {
+	 @include transform(scale($scale));
+} 
+@mixin scale2d($scalex,$scaley) {
+	 @include transform(scale($scalex,$scaley));
+} 
+// translate
+@mixin translate($x, $y) {
+   @include transform(translate($x, $y));
+}
+@mixin translateY($y) {
+	@include transform(translate3d(0px,$y,0px));
+}
+@mixin translateZ($z) {
+	@include transform(translate3d(0px,0px,$z));
+}
+@mixin translate3d($x, $y, $z) {
+   @include transform(translate3d($x, $y, $z));
+}
+// skew
+@mixin skew ($x, $y) {
+   @include transform(skew(#{$x}deg, #{$y}deg));
+}
+//transform origin
+@mixin transform-origin ($origin) {
+    moz-transform-origin: $origin;
+	     -o-transform-origin: $origin;
+	    -ms-transform-origin: $origin;
+	-webkit-transform-origin: $origin;
+          transform-origin: $origin;
+}
+
+@mixin hw_accelerate {
+-webkit-transform: translateZ(0) translate3D(0,0,0);
+-moz-transform: translateZ(0) translate3D(0,0,0);
+-o-transform: translateZ(0) translate3D(0,0,0);
+-ms-transform: translateZ(0) translate3D(0,0,0);
+transform: translateZ(0) translate3D(0,0,0);
+}
