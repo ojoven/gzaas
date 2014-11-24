@@ -1,10 +1,12 @@
 Gzaas!
 ==============
-[![GzaasLogo](http://gzaas.com/images/gzaas_logo.png)](http://www.gzaas.com)
+[![GzaasLogo](http://gzaas.com/images/gzaas_logo.png)](http://gzaas.com)
 
 It's not WHAT you say, it's HOW you say it.
 
 Gzaas are full screen, eye candy messages.
+
+http://gzaas.com
 
 Installation
 ------------------
