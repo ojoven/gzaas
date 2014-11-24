@@ -1,4 +1,8 @@
 #!/bin/bash
-rsync -av /opt/lampp/htdocs/gzaas/application/ root@ojoven.es:/home/gzaas/application/;
-rsync -av /opt/lampp/htdocs/gzaas/public_html/ root@ojoven.es:/home/gzaas/public_html/;
+while true; do
+    read -p "Please enter the password" password
+
+done
+rsync -av --exclude "configs/application.ini" /opt/lampp/htdocs/gzaas/application/ root@ojoven.es:/home/gzaas/application/;
+rsync -av --exclude "index.php" /opt/lampp/htdocs/gzaas/public_html/ root@ojoven.es:/home/gzaas/public_html/;
 rsync -av /opt/lampp/htdocs/gzaas/library/My/ root@ojoven.es:/home/gzaas/library/My/;
