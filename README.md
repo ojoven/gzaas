@@ -22,8 +22,9 @@ You can install the DB from the dump at /sql/gzaas.sql
 Configure
 ------------------
     *application/configs/application.ini*
-    // update here DB credentials and your local URL (you may want to create a local virtualhost)
-
+    // update here DB credentials and your local URL
+    *public_html/index.php*
+    // some fields need to be updated here (that DEFINE's need refactor, sorry)
 
 Enjoy
 ------------------
