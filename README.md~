@@ -24,7 +24,7 @@ Configure
     *application/configs/application.ini*
     // update here DB credentials and your local URL
     *public_html/index.php*
-    // some fields could be updated here (that DEFINE's need refactor, sorry)
+    // some fields need to be updated here (that DEFINE's need refactor, sorry)
 
 Enjoy
 ------------------
