@@ -119,8 +119,26 @@
 
 @mixin border-top-radius($radius) {
 	-moz-border-radius-topright: $radius; -moz-border-radius-topleft: $radius;
-	-webkit-border-radius: $radius $radius 0px 0px;
-	border-radius: $radius $radius 0px 0px; 
+	-webkit-border-radius: $radius $radius 0 0;
+	border-radius: $radius $radius 0 0; 
+}
+
+@mixin border-bottom-radius($radius) {
+	-moz-border-radius-bottomright: $radius; -moz-border-radius-bottomleft: $radius;
+	-webkit-border-radius: 0 0 $radius $radius;
+	border-radius: 0 0 $radius $radius; 
+}
+
+@mixin border-bottom-left-radius($radius) {
+	border-bottom-left-radius: $radius;
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-radius-bottomleft: $radius;
+}
+
+@mixin border-bottom-right-radius($radius) {
+	border-bottom-right-radius: $radius;
+	-webkit-border-bottom-right-radius: $radius;
+	-moz-border-radius-bottomright: $radius;
 }
 
 // generic transform

@@ -31,13 +31,21 @@
 	body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section, button {margin:0;padding:0;border:0;vertical-align:baseline}
 	body {line-height:1.5}
 	table {border-collapse:separate;border-spacing:0}
-	p {margin-bottom:15px}
+	p { margin-bottom:u(1.5rem); }
 	caption, th, td {text-align:left;font-weight:normal;float:none !important}
 	table, th, td {vertical-align:middle}
 	blockquote:before, blockquote:after, q:before, q:after {content:''}
 	a img {border:none}
 	li {list-style-type:none}
 	:focus {outline:0}
+	
+	/* Reset Global Values*/
+	* {
+		padding:0;
+		margin:0;
+		font-size:100%;
+		line-height:1;
+	}
 
 
 
@@ -51,8 +59,8 @@
 body {
 	background: #f9f9f9;
 	font-family: Arial, Helvetica, Geneva, sans-serif;
-	font-size: .88em;
-	line-height: 1.5em;
+	font-size: u(1rem);
+	line-height: u(1.5rem);
 	color: #444444;
 }
 
@@ -66,30 +74,25 @@ a:hover {
 }
 
 input {
-	padding: 6px;
-	font-size: 18px;
+	padding: u(0.6rem);
+	font-size: u(1.8rem);
 	font-family: 'Georgia';
 	border: solid 1px #ccc;
 }
 
 ul {
 	list-style: none;
-	margin-left: 0px;
-	padding-left: 0px;
-	margin-top: 0px;
+	margin-left: 0;
+	padding-left: 0;
+	margin-top: 0;
 }
 
-img {
-	border: none;
-}
-
-.clear {
-	clear: both;
-}
+img { border: none; }
+.clear { clear: both; }
 
 h1 {
-	font-size: 60px;
-	line-height: 68px;
+	font-size: u(6rem);
+	line-height: u(6.8rem);
 	margin: 0;
 	padding: 0;
 	font-weight: 300;
@@ -102,9 +105,9 @@ h1 {
 
 .link_external {
 	background: url(../images/link_external.png) no-repeat scroll right center transparent;
-	font-size: 10px;
+	font-size: u(1rem);
 	letter-spacing: 0.8px;
-	padding-right:10px;
+	padding-right:u(1rem);
 }
 
 
@@ -181,9 +184,7 @@ h1 {
 }
 
 .community_mini_icon {
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	@include border-radius(3px);
 	color: #FFFFFF;
 	font-family: 'Chewy';
 	font-size: 14px;
@@ -216,7 +217,7 @@ footer .vr {
 	float: left;
 	height: 26px;
 	margin: 6px 7px 1px;
-	width: 0px;
+	width: 0;
 }
 
 #footer .vr {
@@ -226,7 +227,7 @@ footer .vr {
 	float: right;
 	height: 26px;
 	margin: 6px 7px 1px;
-	width: 0px;
+	width: 0;
 }
 
 /* HEADER COMMON ELEMENTS */
@@ -255,12 +256,12 @@ footer .vr {
 
 #gs_twitter {
 	float: left;
-	margin: 0px 2px;
+	margin: 0 2px;
 }
 
 #gs_facebook {
 	float: left;
-	margin: 0px 2px;
+	margin: 0 2px;
 }
 
 #new_gzaas_header {
@@ -412,9 +413,7 @@ footer .vr {
 
 .center_dialog .title .close, #all_options_title .close {
 	background: #212021;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	cursor: pointer;
 	float: right;
 	font-size: 14px;
@@ -440,9 +439,7 @@ footer .vr {
 
 .center_dialog_input {
 	border: 4px solid #FFA66B;
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	font-family: monospace;
 	font-size: 18px;
 	height: 22px;
@@ -459,9 +456,7 @@ footer .vr {
 
 .dialog_button {
 	font-family: 'Chewy';
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	background: none repeat scroll 0 0 #F76118;
 	border: medium none;
 	color: #FFFFFF;
@@ -487,7 +482,7 @@ footer .vr {
 
 
 .index #container {
-	width: 38%;
+	width: 700px;
 	margin: 12% auto;
 }
 
@@ -496,23 +491,22 @@ footer .vr {
 	height: 159px;
 	margin: 0 auto;
 	width: 300px;
+	.subtitle {
+		color: #444;
+		float: right;
+		font-family: 'Chewy';
+		font-size: 22px;
+		left: 87px;
+		position: relative;
+		text-align: right;
+		top: 17px;	
+	}
 }
 
 #title {
 	font-family: Arial, sans-serif;
 	text-align: center;
 	height: 107px;
-}
-
-#index_screen .subtitle {
-	color: #FFC933;
-	float: right;
-	font-family: 'Chewy';
-	font-size: 22px;
-	left: 58px;
-	position: relative;
-	text-align: right;
-	top: 17px;
 }
 
 #img_title {
@@ -525,40 +519,31 @@ footer .vr {
 }
 
 #gs_form {
-	border-radius: 14px;
-	-moz-border-radius: 14px;
-	-webkit-border-radius: 14px;
+	@include border-radius(8px);
 	background-color: #fff;
 	border: 4px solid #ffa66b;
 	font-family: monospace;
-	font-size: 18px;
-	height: 22px;
-	margin: 0 0 0 17px;
+	font-size: u(1.2rem);
+	height: u(4rem);
 	overflow: auto;
-	padding: 7px;
-	width: 88%;
+	padding: u(1rem);
+	width: 100%;
 	z-index: 999;
+	@include box-sizing(border-box);
 }
 
 #gs_form:focus {
 border: 4px solid #f76118;
 }
 
-#preview_container {
-	height: 42px;
-	width: 96%;
-}
-
 #preview_button {
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(6px);
 	background: #F76118;
 	border: medium none;
 	color: #FFFFFF;
 	cursor: pointer;
 	font-size: 25px;
-	padding: 2px 5px 3px;
+	padding: 6px 9px;
 }
 
 #preview_button:hover {
@@ -618,9 +603,7 @@ border: 4px solid #f76118;
 
 /* HEADER */
 #warnings_preview {
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	background: #FFFF00;
 	border: 2px solid #FEFEFE;
 	display: none;
@@ -637,9 +620,7 @@ border: 4px solid #f76118;
 
 .preview_top_button {
 	background: none repeat scroll 0 0 #F75100;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #FEFCFE;
 	font-family: 'Chewy', Helvetica, Verdana, Arial;
 	font-size: 25px;
@@ -661,9 +642,7 @@ a.preview_top_button:hover {
 
 /* FOOTER MENU */
 #attention {
-	border-radius: 16px;
-	-moz-border-radius: 16px;
-	-webkit-border-radius: 16px;
+	@include border-radius(16px);
 	background: none repeat scroll 0 0 #FFFFFF;
 	bottom: 55px;
 	color: #000000;
@@ -693,9 +672,7 @@ a.preview_top_button:hover {
 /* Common button styles */
 .metatag_option,#icp_color1,#icp_color2, .styles {
 	background: #DDDDDD;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #000000;
 	float: left;
 	font-size: 24px;
@@ -714,9 +691,7 @@ a.preview_top_button:hover {
 /* Button singular features */
 #to_shadow {
 	background: #DDDDDD;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #EEEEEE;
 	float: left;
 	font-size: 24px;
@@ -782,9 +757,7 @@ a.preview_top_button:hover {
 
 /* Container */
 .metatag_submenu {
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	bottom: 47px;
 	display: none;
 	font-size: 12px;
@@ -794,12 +767,7 @@ a.preview_top_button:hover {
 }
 
 .metatag_submenu_title {
-	border-top-left-radius: 12px;
-	border-top-right-radius: 12px;
-	-webkit-border-top-left-radius: 12px;
-	-webkit-border-top-right-radius: 12px;
-	-moz-border-radius-topleft: 12px;
-	-moz-border-radius-topright: 12px;
+	@include border-top-radius(12px);
 	background: none repeat scroll 0 0 #F76118;
 	color: #FFFFFF;
 	display: block;
@@ -880,34 +848,18 @@ a.preview_top_button:hover {
 
 /* Menu optioms bottom border radius */
 .metatag_submenu li:last-child .hashtag_menu_ul .hashtag_menu {
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-	-webkit-border-bottom-left-radius: 12px;
-	-webkit-border-bottom-right-radius: 12px;
-	-moz-border-radius-bottomleft: 12px;
-	-moz-border-radius-bottomright: 12px;
+	@include border-bottom-radius(12px);
 
 }
 
-#cell8 {
-	border-bottom-left-radius: 12px;
-	-webkit-border-bottom-left-radius: 12px;
-	-moz-border-radius-bottomleft: 12px;
-}
-
-#cell11 {
-	border-bottom-right-radius: 12px;
-	-webkit-border-bottom-right-radius: 12px;
-	-moz-border-radius-bottomright: 12px;
-}
+#cell8 { @include border-bottom-left-radius(12px); }
+#cell11 { @include border-bottom-right-radius(12px); }
 
 
 /* SHADOWS STYLES */
 #shadow_select_container {
 	background: #FCFCFC;
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	bottom: 50px;
 	display: none;
 	padding-bottom: 10px;
@@ -941,9 +893,7 @@ a.preview_top_button:hover {
 
 #set_new_shadow {
 	border: medium none;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	display: block;
 	float: right;
 	font-family: 'Chewy';
@@ -973,22 +923,18 @@ a.preview_top_button:hover {
 	border-top: 1px solid #ddd;
 	font-size: 12px;
 	padding: 10px 7px;
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }
 
 .shadow_list_option .shad_list_opt_col {
 	border: 1px solid #ccc;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	padding: 0px 13px;
+	@include border-radius(3px);
+	padding: 0 13px;
 }
 
 .shadow_list_option .shadow_clear {
 	background: #DDDDDD;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	@include border-radius(3px);
 	bottom: 2px;
 	color: #FFFFFF;
 	float: right;
@@ -1008,9 +954,7 @@ a.preview_top_button:hover {
 
 #go_to_new_shadow {
 	background: #DDDDDD;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #444444;
 	display: none;
 	float: right;
@@ -1021,9 +965,7 @@ a.preview_top_button:hover {
 
 #icp_color3 {
 	background: #DDDDDD;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #000000;
 	float: left;
 	font-family: 'Chewy';
@@ -1061,9 +1003,7 @@ a.preview_top_button:hover {
 .range {
 	background: none repeat scroll 0 0 transparent;
 	border: 1px solid #CCCCCC;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #CCCCCC;
 	float: left;
 	font-size: 10px;
@@ -1088,9 +1028,7 @@ a.preview_top_button:hover {
 
 /* TEXT EDIT AREA */
 #gs_form_preview {
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	border: 2px solid #ddd;
 	bottom: -3px;
 	float: left;
@@ -1107,9 +1045,7 @@ a.preview_top_button:hover {
 
 #expand_form {
 	background: url(../images/arrow_up_form.png) no-repeat scroll 5px 5px #DDDDDD;
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #000000;
 	cursor: default;
 	float: left;
@@ -1140,9 +1076,7 @@ a.preview_top_button:hover {
 	display: none;
 	background: url(../images/refresh_90.png) no-repeat scroll 2px 1px #DDDDDD;
 	border: medium none;
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	color: #000000;
 	float: left;
 	font-family: 'Chewy';
@@ -1176,9 +1110,7 @@ a.preview_top_button:hover {
 }
 
 .social_preview {
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	color: #f4f4f4;
 	font-family: 'Chewy', Helvetica, Verdana, Arial;
 	margin: 1px;
@@ -1191,9 +1123,7 @@ a.preview_top_button:hover {
 }
 
 #result_private_advice {
-	border-radius: 7px;
-	-moz-border-radius: 7px;
-	-webkit-border-radius: 7px;
+	@include border-radius(7px);
 	background: none repeat scroll 0 0 #FFFF00;
 	color: #111111;
 	font-family: 'Chewy', Helvetica, Verdana, Arial;
@@ -1258,9 +1188,7 @@ a.preview_top_button:hover {
 }
 
 .all_option {
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	background-repeat: no-repeat;
 	border: 1px solid #CCCCCC;
 	display: inline-block;
@@ -1282,9 +1210,7 @@ a.preview_top_button:hover {
 }
 
 #all_options_close {
-	border-radius: 12px;
-	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;
+	@include border-radius(12px);
 	background: #CECFCE;
 	color: #FFFFFF;
 	float: right;
