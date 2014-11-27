@@ -78,6 +78,7 @@ input {
 	font-size: u(1.8rem);
 	font-family: 'Georgia';
 	border: solid 1px #ccc;
+	-webkit-appearance: none;
 }
 
 ul {
@@ -488,25 +489,24 @@ footer .vr {
 
 #index_screen {
 	display: block;
-	height: 159px;
 	margin: 0 auto;
-	width: 300px;
+	width: u(30rem);
 	.subtitle {
 		color: #444;
 		float: right;
 		font-family: 'Chewy';
-		font-size: 22px;
-		left: 87px;
+		font-size: u(1.4rem);
+		left: u(0.7rem);
 		position: relative;
 		text-align: right;
-		top: 17px;	
+		top: u(-0.5rem);	
 	}
 }
 
 #title {
 	font-family: Arial, sans-serif;
 	text-align: center;
-	height: 107px;
+	height: u(8.2rem);
 }
 
 #img_title {
@@ -730,7 +730,7 @@ a.preview_top_button:hover {
 }
 
 .back_no_selected {
-	bottom: 14px;
+	bottom: u(1.05rem);
 	color: #999999;
 	font-size: 12px;
 	left: 0;
