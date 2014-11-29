@@ -45,10 +45,14 @@ Roadmap
 ----------------
 * Minify, optimize, fix little bugs, refactor. The project needs a big refactor after several years of not contributing to it.
 * RESPONSIVE!!
+* Swipe to get new random messages
+* Create new (more stylish) styles
 * Add different animations to the messages
 * Create images for every gzaas
 * User profiles
 * Favourites
+* Shadows responsive
+* Manage font sizes with portrait view
 
 Contribution
 ----------------

@@ -1,4 +1,7 @@
 
 #gzaas_screen {
-	@include animation(0.7s, 1.2s, gzaas, 1, ease-in, both);
+	display:none;
+	&.animate {
+		@include animation(0s, 1.2s, gzaas, 1, ease-in, both);
+	}
 }

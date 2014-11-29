@@ -16,8 +16,8 @@
 /** 1. GLOBAL CONSTANTS **/
 /*************************/
 
-const topBottomHeight = 180;
-const topLeftRight = 210;
+var topBottomHeight = 180;
+var topLeftRight = 210;
 const gzaasWidthPercentage = '89%';
 const gzaasLeftMarginPercentage = '5%';
 
@@ -29,7 +29,7 @@ const menu = $("#menuUsed").val();
 const timeToGzaasFadeIn = 150;
 const timeToAdaptToResolutionOnSeeGzaas = 400;
 const timeToAdaptToResolutionOnPreviewGzaas = 400;
-const timeToShowMessageOnSeeGzaas = 2000;
+const timeToShowMessageOnSeeGzaas = 1000;
 const timeToShowMessageOnPreviewGzaas = 600;
 
 const menuSidebarFadeTime = 350;
@@ -50,11 +50,7 @@ function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage) {
 
 	setNewGzaasMessageSizeOnOverflowed();
 	setTimeout('adaptSizesAndSpacesToWindowResolution()',timeToAdaptToResolution);
-	if (typeof screenshot != "undefined" && screenshot) {
-		showGzaasMessage();
-	} else {
-		setTimeout('showGzaasMessage()',timeToShowMessage);
-	}
+	setTimeout('showGzaasMessage()',timeToShowMessage);
 }
 
 // Adapt message to screen
@@ -74,9 +70,21 @@ function setNewGzaasMessageSizeOnOverflowed() {
 		modifyFontSizeLetterSpacingAndLineHeight(oldFontSize,oldLetterSpacing,oldLineHeight);
 	}
 	
-	console.log(oldFontSize);
-
 	// HORIZONTAL OVERFLOW CONTROL
+	divWidth = $("#gzaas_screen").width();
+	windowWidth = $(window).width();
+	freeSpaceWidth = windowWidth - (windowWidth/5);
+
+	if (divWidth>freeSpaceWidth){
+		console.log('old',oldFontSize);
+		oldFontSize = (parseInt(oldFontSize) * freeSpaceWidth) / divWidth;
+		console.log('new',oldFontSize);
+		oldLetterSpacing = (parseInt(oldLetterSpacing) * freeSpaceWidth) / divWidth;
+		oldLineHeight = (parseInt(oldLineHeight) * freeSpaceWidth) / divWidth;
+		
+		modifyFontSizeLetterSpacingAndLineHeight(oldFontSize,oldLetterSpacing,oldLineHeight);
+	}
+
 	$("#gzaas_screen").css('width',gzaasWidthPercentage);
 	$("#gzaas_screen").css('left',gzaasLeftMarginPercentage);
 	
@@ -118,7 +126,7 @@ function adaptSizesAndSpacesToWindowResolution() {
 
 // Render message
 function showGzaasMessage(){
-	$("#gzaas_screen").fadeIn(timeToGzaasFadeIn);
+	$("#gzaas_screen").show().addClass('animate');
 }
 
 
@@ -161,7 +169,6 @@ function initializeSeeGzaasEvents()
 {
 	_setEventNewResolutionWhenWindowResize();
 	_setEventKeyMapping();
-	_setEventHoverOnNewGzaas();
 	_setEventClickOnNewGzaas();
 	_setEventClickOnCloseNewGzaasContainer();
 	_setEventKeyDownOnNewGzaasForm();
@@ -203,31 +210,6 @@ function _setEventKeyMapping()
 		$("#go_home_gzaas").click();break;
 		}
 	});
-}
-
-function _setEventHoverOnNewGzaas()
-{
-	$("#new_gzaas_header").hover(function() {
-		_animateHoverInNewGzaas();
-	}, function() {
-		_animateHoverOutNewGzaas();
-	});
-}
-
-function _animateHoverInNewGzaas()
-{
-	$("#new_gzaas_header .icon").css('background-position','-16px 0px');
-	if (menu) {
-		$("#new_gzaas_text").show();
-	}
-}
-
-function _animateHoverOutNewGzaas()
-{
-	$("#new_gzaas_header .icon").css('background-position','0px 0px');
-	if ($menu) {
-		$("#new_gzaas_text").hide();
-	}
 }
 
 function _setEventClickOnNewGzaas()
@@ -825,6 +807,12 @@ function clear_shadow(e, thisSelector) {
 
 }
 
+function hideNavigationBar() {
+	if (/mobile/i.test(navigator.userAgent) && !location.hash) {
+		setTimeout(function() { window.scrollTo(0,1); },1000);
+	}
+}
+
 function getPage() {
 	if (typeof page!="undefined" && page=="preview") {
 		return "preview";
@@ -840,7 +828,8 @@ function getPage() {
 // DOCUMENT READY
 $(document).ready(function(){
 
-	oldWindowWidth = $(window).width()
+	oldWindowWidth = $(window).width();
+	hideNavigationBar();
 
 	if (getPage()=="preview") {
 		initializePreview();

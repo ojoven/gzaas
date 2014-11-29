@@ -5,6 +5,7 @@
 	<!--Metas-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta charset="utf-8" />
 	<meta name="google-site-verification" content="7qbLb6JmNiyvhmeZkhiR2CZUm7drEFoUe6Uo_nooALs" />
 
@@ -28,8 +29,7 @@
 	?>
 
 	<!--CSS / LESS -->
-	<link rel="stylesheet" href=" <?php echo PUBLIC_WEB_PATH; ?>/css/style.css" type="text/css" media="all"/>
-	<link rel="stylesheet" href=" <?php echo PUBLIC_WEB_PATH; ?>/css/animations.css" type="text/css" media="all"/>
+	<link rel="stylesheet" href=" <?php echo PUBLIC_WEB_PATH; ?>/css/style.css?v=<?php echo time(); ?>" type="text/css" media="all"/>
 	<link rel="stylesheet" href=" <?php echo PUBLIC_WEB_PATH; ?>/css/fonts/Chewy/stylesheet.css" type="text/css" media="all"/>
 	<?php echo $this->headLink(); ?>
 
@@ -66,5 +66,5 @@ var urlBase = "<?php echo $this->serverUrl() . $this->baseUrl('/'); ?>";
 	<script type="text/javascript" src="/js/mColorPicker.js"></script>
 	<script type="text/javascript" src="/js/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="/js/charCount.js"></script>
-	<script type="text/javascript" src="<?php echo PUBLIC_WEB_PATH; ?>/js/functions.js"></script>
+	<script type="text/javascript" src="<?php echo PUBLIC_WEB_PATH; ?>/js/functions.js?v=<?php echo time(); ?>"></script>
 </html>

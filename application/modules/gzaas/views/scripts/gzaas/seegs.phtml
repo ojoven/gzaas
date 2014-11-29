@@ -26,7 +26,6 @@ if ($languageCode=='es'){
 
 position: absolute;
 text-align:center;
-z-index:-1;
 
 font-family: <?php echo $features['font']['fontFamily'];?>, Verdana, Arial;
 font-size: <?php echo $features['font']['fontBaseSize'];?>px;
@@ -34,9 +33,6 @@ line-height:<?php echo $features['font']['fontBaseLineHeight'];?>px;
 letter-spacing: -<?php echo $features['font']['fontBaseLetterSpacing'];?>px;
 color: <?php echo $features['color']['color'];?>;
 text-shadow: <?php echo $features['shadows']['shadows'];?>;
-
-/* We won't display the message until applying js changes to it */
-/** display:none; **/
 }
 
 <?php if (($menu==null) || ($menu!=1)) {?>
@@ -96,7 +92,7 @@ overflow:hidden;
 
 
 
-<div id="gzaas_screen" style="width:100%;"><?php echo $message;?></div>
+<div id="gzaas_screen"><?php echo $message;?></div>
 
 <div id="right_sidebar">
 	<a id="random_explore" href="<?php echo URL_BASE;?>explore">&gt;</a>
