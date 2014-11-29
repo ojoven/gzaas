@@ -73,20 +73,13 @@ function setNewGzaasMessageSizeOnOverflowed() {
 
 		modifyFontSizeLetterSpacingAndLineHeight(oldFontSize,oldLetterSpacing,oldLineHeight);
 	}
+	
+	console.log(oldFontSize);
 
 	// HORIZONTAL OVERFLOW CONTROL
-	divWidth = $("#gzaas_screen").width();
-	windowWidth = $(window).width();
-	freeSpaceWidth = windowWidth - topLeftRight;
-
-	if (divWidth>freeSpaceWidth){
-		oldFontSize = (parseInt(oldFontSize) * freeSpaceWidth) / divWidth;
-		oldLetterSpacing = (parseInt(oldLetterSpacing) * freeSpaceWidth) / divWidth;
-		oldLineHeight = (parseInt(oldLineHeight) * freeSpaceWidth) / divWidth;
-	}
-
 	$("#gzaas_screen").css('width',gzaasWidthPercentage);
 	$("#gzaas_screen").css('left',gzaasLeftMarginPercentage);
+	
 }
 
 function modifyFontSizeLetterSpacingAndLineHeight(newFontSize,newLetterSpacing,newLineHeight) {
