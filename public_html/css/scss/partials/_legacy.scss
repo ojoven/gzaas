@@ -137,9 +137,7 @@ h1 {
 }
 
 #header-bar-bg {
-	background: #222;
-	background: -moz-linear-gradient(center top, #333333, #111111);
-	background: -webkit-gradient(linear, center bottom, center top, from(#111111), to(#333333));
+	background:rgba(0,0,0,0.8);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 	height: 100%;
 	left: 0;
@@ -267,44 +265,43 @@ footer .vr {
 
 #new_gzaas_header {
 	cursor: pointer;
-	display: block;
-	float: right;
-	height: 21px;
-	padding: 9px 10px;
-	width: 16px;
-}
-
-#new_gzaas_header .icon {
-	background-image: url("../images/new-gzaas.png");
-	background-position: 0 0;
-	display: block;
-	font-size: 0;
-	height: 16px;
-	margin-top: 2px;
-	text-indent: -9999px;
-	width: 16px;
-}
-
-#new_gzaas_text {
-	background: none repeat scroll 0 0 #000000;
-	color: #F75100;
-	display: none;
-	float: right;
-	font-size: 12px;
-	margin-right: 23px;
-	padding: 1px 6px;
-	position: relative;
-	text-align: center;
-	top: -17px;
-	width: 140px;
+	padding: 6px 0;
+	#new_gzaas_text {
+		background: #000000;
+	    color: #f75100;
+	    display: inline-block;
+	    float: right;
+	    font-size: 12px;
+	    padding: 7px 9px;
+	    position: relative;
+	    text-align: center;
+		i {
+			background-image: url("../images/new-gzaas.png");
+			background-position: 0 0;
+		    display: block;
+		    float: right;
+		    font-size: 0;
+		    height: 16px;
+		    margin-left: 5px;
+		    margin-top: -3px;
+		    text-indent: -9999px;
+		    width: 16px;
+		}
+	}	
+	&:hover,&:focus,&:active {
+		#new_gzaas_text { 
+			color:#fff;
+			i {
+				background-position:-16px 0;
+			}
+		}
+	}
 }
 
 
 /* FOOTER */
 #footer,footer {
-	background: #111;
-	background: -moz-linear-gradient(center top, #222, #000);
-	background: -webkit-gradient(linear, center bottom, center top, from(#000), to(#222));
+	background:rgba(0,0,0,0.8);
 	bottom: 0;
 	box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.5);
 	display: block;
@@ -731,14 +728,14 @@ a.preview_top_button:hover {
 
 /* Button singular features */
 #to_shadow {
-	background: #DDDDDD;
 	@include border-radius(7px);
+	background: #DDDDDD;
 	color: #EEEEEE;
 	float: left;
 	font-size: 24px;
 	height: 23px;
 	margin: 6px 3px;
-	padding: 6px 12px 1px;
+	padding: 5px 12px 3px;
 	text-align: center;
 	text-shadow: 0 0 4px #000000;
 }

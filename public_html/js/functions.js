@@ -453,6 +453,13 @@ function _setEventClickOnMenuHashtag()
 }
 
 function setNewPattern(hashtag,urlPattern) {
+
+	// Menu buttons update
+	$("#backColor_span").hide();
+	$("#backcolor_no_selected").show();
+	$("#pattern_span").show();
+	$("#pattern_no_selected").hide();
+	
 	$("#backColor").val('');
 	$("#pattern").val(hashtag);
 	$("body").css('background-image','url('+urlPattern+')');

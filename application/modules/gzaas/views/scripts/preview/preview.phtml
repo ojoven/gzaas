@@ -115,42 +115,44 @@ overflow:hidden;
 <div id="warnings_preview"></div>
 
 
+<!-- New Gzaas Created Popup -->
+<div id="new_gs_container_preview" class="center_dialog">
+	
+	<span id="new_gs_title" class="title">
+		<?php echo $this->translate('new.gs.title');?>
+		<span class="subtitle"><?php echo $this->translate('new.gs.title.subtitle');?></span>
+	</span>
+	
+	<div class="container">
 
-		<div id="new_gs_container_preview" class="center_dialog">
-			<span id="new_gs_title" class="title">
-					<?php echo $this->translate('new.gs.title');?>
-					<span class="subtitle"><?php echo $this->translate('new.gs.title.subtitle');?></span>
-			</span>
-			<div class="container">
+		<span id="new_gs_subtitle" class="subtitle"></span>
+		<a href="#" id="to_preview" class="link_external" target="_blank" title="<?php echo $this->translate('title.see.result');?>"><?php echo $this->translate('see.result');?></a>
+		<input name="url_result" id="url_result" value="" type="text">
+		<?php if ($this->languageCode=='es') {
+			$whereToGzaas = 'http://gzaas.com/project/es/sobre-gzaas/donde-gzaasear/';
+		} else {
+			$whereToGzaas = 'http://gzaas.com/project/about/where-to-share-your-gzaas/';
+		} ?>
+		<a href="<?php echo $whereToGzaas;?>" class="more_info link_external" target="_blank"><?php echo $this->translate('where.to.gzaas');?></a>
 
-				<span id="new_gs_subtitle" class="subtitle"></span>
-				<a href="#" id="to_preview" class="link_external" target="_blank" title="<?php echo $this->translate('title.see.result');?>"><?php echo $this->translate('see.result');?></a>
-				<input name="url_result" id="url_result" value="" type="text">
-				<?php if ($this->languageCode=='es') {
-					$whereToGzaas = 'http://gzaas.com/project/es/sobre-gzaas/donde-gzaasear/';
-				} else {
-					$whereToGzaas = 'http://gzaas.com/project/about/where-to-share-your-gzaas/';
-				} ?>
-				<a href="<?php echo $whereToGzaas;?>" class="more_info link_external" target="_blank"><?php echo $this->translate('where.to.gzaas');?></a>
+		<p id="result_social">
+			<a href="#" target="_blank" id="new_gs_twitter" class="social_preview" title="<?php echo $this->translate('title.share.twitter');?>">twitter</a>
+			<a href="#" target="_blank" id="new_gs_facebook" class="social_preview" title="<?php echo $this->translate('title.share.facebook');?>">facebook</a>
+		</p>
 
-				<p id="result_social">
-					<a href="#" target="_blank" id="new_gs_twitter" class="social_preview" title="<?php echo $this->translate('title.share.twitter');?>">twitter</a>
-					<a href="#" target="_blank" id="new_gs_facebook" class="social_preview" title="<?php echo $this->translate('title.share.facebook');?>">facebook</a>
-				</p>
+		<p id="result_private">
+			<span id="result_private_advice"><?php echo $this->translate('private');?></span>
+			<span id="result_private_message"><?php echo $this->translate('new.gs.private');?></span>
+		</p>
+	</div>
+</div>
+<div id="new_gs_container_error" class="center_dialog">
+		<span id="preview_error_title" class="title"><?php echo $this->translate('oops');?></span>
 
-				<p id="result_private">
-					<span id="result_private_advice"><?php echo $this->translate('private');?></span>
-					<span id="result_private_message"><?php echo $this->translate('new.gs.private');?></span>
-				</p>
-			</div>
+		<div id="preview_error" class="container">
+				<span id="preview_error_message" class="subtitle" style="padding: 20px 20px 24px;"></span>
 		</div>
-		<div id="new_gs_container_error" class="center_dialog">
-				<span id="preview_error_title" class="title"><?php echo $this->translate('oops');?></span>
-
-				<div id="preview_error" class="container">
-						<span id="preview_error_message" class="subtitle" style="padding: 20px 20px 24px;"></span>
-				</div>
-		</div>
+</div>
 
 <div id="gzaas_screen"><?php echo $renderedMessage;?></div>
 
@@ -217,10 +219,10 @@ overflow:hidden;
 					<span class="fill_icon">&nbsp;</span>
 					<?php if ($features['pattern']['pattern']!='') { ?>
 							<span id="backColor_span" style="display:none">&nbsp;</span>
-							<span class="back_no_selected">x</span>
+							<span id="backcolor_no_selected" class="back_no_selected">x</span>
 							<?php } else { ?>
 							<span id="backColor_span">&nbsp;</span>
-							<span class="back_no_selected" style="display:none">x</span>
+							<span id="backcolor_no_selected" class="back_no_selected" style="display:none">x</span>
 					<?php } ?>
 			</span>
 
@@ -233,10 +235,10 @@ overflow:hidden;
 					<span class="pattern_icon">&nbsp;</span>
 					<?php if ($features['pattern']['pattern']!='') { ?>
 							<span id="pattern_span">&nbsp;</span>
-							<span id="back_pattern_no_selected" class="back_no_selected" style="display:none;">x</span>
+							<span id="pattern_no_selected" class="back_no_selected" style="display:none;">x</span>
 							<?php } else { ?>
 							<span id="pattern_span" style="display:none;">&nbsp;</span>
-							<span id="back_pattern_no_selected" class="back_no_selected">x</span>
+							<span id="pattern_no_selected" class="back_no_selected">x</span>
 					<?php } ?>
 			</span>
 
