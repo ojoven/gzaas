@@ -44,51 +44,10 @@ overflow:hidden;
 }
 
 
-#color_span {
-width: 22px; display: block;
-border-radius: 3px 3px 3px 3px;
-background: <?php echo $features['color']['color'];?>;
-height: 7px; margin-top: -3px;
-}
-
-#backColor_span {
-		background: <?php echo $features['backColor']['backColor'];?>;
-		border-radius: 3px 3px 3px 3px;
-		display: block;
-		height: 7px;
-		margin-top: -3px;
-		/* when up to server-> bottom: -24px; */
-		width: 22px;
-}
-
-#pattern_span {
-width: 22px; display: block;
-border-radius: 3px 3px 3px 3px;
-background: <?php echo $features['pattern']['pattern'];?>;
-background-size:20px;
-height: 7px;
-margin-top: -3px;
-/* when up to server-> bottom: -24px; */
-}
-
-#shadow_color_span {
-		background: #FFFFFF;
-		border-radius: 3px 3px 3px 3px;
-		display: block;
-		height: 7px;
-		margin-top: -3px;
-		width: 22px;
-}
-
-
-
-#mo_1 {
-font-family:<?php echo $features['font']['fontFamily'];?>;
-font-size: 18px;
-width: 144px;
-padding: 5px 6px 2px;
-overflow:hidden;
-}
+#color_span { background: <?php echo $features['color']['color'];?>; }
+#backColor_span { background: <?php echo $features['backColor']['backColor'];?>; }
+#pattern_span { background: <?php echo $features['pattern']['pattern'];?>; }
+#mo_1 { font-family:<?php echo $features['font']['fontFamily'];?>; }
 
 </STYLE>
 
@@ -221,146 +180,151 @@ overflow:hidden;
 </div>
 
 <footer>
-		<ul id="metatags_container">
-				<?php
-				$count=0;
-				foreach($this->menuOptions as $menuOption){
-				$count++;
-				?>
-				<li class="metatag_menu">
+	<ul id="metatags_container">
+		<?php
+		$count=0;
+		foreach($this->menuOptions as $menuOption){
+		$count++;
+		?>
+		<li class="metatag_menu">
 
-						<?php
-						// Styles
-						if($menuOption[0]['idM']==50){ ?>
-								<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="styles" id="mo_6"><?php echo $this->translate($menuOption[0]['metaTag']);?></span>
-								<span class="vr">&nbsp;</span>
-								<?php }
+			<?php
+			// Styles
+			if($menuOption[0]['idM']==50){ ?>
+					<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="styles" id="mo_6"><?php echo $this->translate($menuOption[0]['metaTag']);?></span>
+					<span class="vr">&nbsp;</span>
+					<?php }
 
-						// Fonts
-						else if ($menuOption[0]['idM']==1){?>
-								<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_1">
-								<?php echo $features['font']['description']; ?>
-								</span>
-						<?php }
+			// Fonts
+			else if ($menuOption[0]['idM']==1){?>
+					<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_1">
+					<?php echo $features['font']['description']; ?>
+					</span>
+			<?php }
 
-						// Font color
-						else if ($menuOption[0]['idM']==2){?>
-						<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color1">
-								<?php echo $this->translate($menuOption[0]['metaTag']);?>
-						<span id="color_span">&nbsp;</span>
-						</span>
-						<input id="color1" type="color" data-hex="true" name="color1" value="#444444" class="color" style="display:none">
-						<?php }
+			// Font color
+			else if ($menuOption[0]['idM']==2){?>
+			<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color1">
+					<?php echo $this->translate($menuOption[0]['metaTag']);?>
+			<span id="color_span">&nbsp;</span>
+			</span>
+			<input id="color1" type="color" data-hex="true" name="color1" value="#444444" class="color" style="display:none">
+			<?php }
 
-						// Background color
-						else if ($menuOption[0]['idM']==3){?>
-						<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color2">
-								<span class="fill_icon">&nbsp;</span>
-								<?php if ($features['pattern']['pattern']!='') { ?>
-										<span id="backColor_span" style="display:none">&nbsp;</span>
-										<span class="back_no_selected">x</span>
-										<?php } else { ?>
-										<span id="backColor_span">&nbsp;</span>
-										<span class="back_no_selected" style="display:none">x</span>
-								<?php } ?>
-						</span>
+			// Background color
+			else if ($menuOption[0]['idM']==3){?>
+			<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color2">
+					<span class="fill_icon">&nbsp;</span>
+					<?php if ($features['pattern']['pattern']!='') { ?>
+							<span id="backColor_span" style="display:none">&nbsp;</span>
+							<span class="back_no_selected">x</span>
+							<?php } else { ?>
+							<span id="backColor_span">&nbsp;</span>
+							<span class="back_no_selected" style="display:none">x</span>
+					<?php } ?>
+			</span>
 
-						<input id="color2" type="color" data-hex="true" name="color2" value="#444444" class="color" style="display:none">
-						<?php }
+			<input id="color2" type="color" data-hex="true" name="color2" value="#444444" class="color" style="display:none">
+			<?php }
 
-						// Background patterns
-						else if ($menuOption[0]['idM']==4){?>
-						<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_4">
-								<span class="pattern_icon">&nbsp;</span>
-								<?php if ($features['pattern']['pattern']!='') { ?>
-										<span id="pattern_span">&nbsp;</span>
-										<span id="back_pattern_no_selected" class="back_no_selected" style="display:none;">x</span>
-										<?php } else { ?>
-										<span id="pattern_span" style="display:none;">&nbsp;</span>
-										<span id="back_pattern_no_selected" class="back_no_selected">x</span>
-								<?php } ?>
-						</span>
+			// Background patterns
+			else if ($menuOption[0]['idM']==4){?>
+			<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_4">
+					<span class="pattern_icon">&nbsp;</span>
+					<?php if ($features['pattern']['pattern']!='') { ?>
+							<span id="pattern_span">&nbsp;</span>
+							<span id="back_pattern_no_selected" class="back_no_selected" style="display:none;">x</span>
+							<?php } else { ?>
+							<span id="pattern_span" style="display:none;">&nbsp;</span>
+							<span id="back_pattern_no_selected" class="back_no_selected">x</span>
+					<?php } ?>
+			</span>
 
-						<input id="color2" type="color" data-hex="true" name="color2" value="#444444" class="color" style="display:none">
-						<?php }
+			<input id="color2" type="color" data-hex="true" name="color2" value="#444444" class="color" style="display:none">
+			<?php }
 
-						// Shadows
-						else if ($menuOption[0]['idM']==5) { ?>
-								<span title="<?php echo $this->translate($menuOption[0]['description']);?>" id="to_shadow">
-										<?php echo $this->translate($menuOption[0]['metaTag']);?>
-								</span>
-						<?php }
-						else {?>
-						<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_<?php echo $count;?>"><?php echo $this->translate($metaTag[0]['metaTag']);?></span>
-						<?php }?>
-						<ul class="metatag_submenu" id="sub_<?php echo $menuOption[0]['idM'];?>">
-						<li class="metatag_submenu_title"><?php echo $this->translate($menuOption[0]['description']);?></li>
-						<li class="metatag_submenu_options">
-								<span><?php echo $this->translate('most.loved');?></span>
-								<span class="metatag_see_all"><?php echo $this->translate('see.all');?></span>
-								<span class="meta_key_span"><?php echo $menuOption[0]['idM']?></span>
-						</li>
-						<?php
-						$countHashtags = 0;
-						foreach($menuOption[1] as $hashtag){
-								if (($countHashtags<$showHashtags) && ($hashtag!=null)){
-								?>
-								<li>
-										<ul class="hashtag_menu_ul">
-										<?php
-										$cssHashtags = '';
-										switch ($menuOption[0]['idM']){
-												case 1:
-														$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/ffonts.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
-														$hashKey = $hashtag['font'];
-														break;
-												case 4:
-														$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/fpatterns.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
-														$hashKey = $hashtag['pattern'];
-														break;
-												case 50:
-														$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/fstyles.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
-														$hashKey = $hashtag['style'];
-														break;
-												default:
-														$cssHashtags = '';
-										}?>
-
-												<li class="hashtag_menu" style="<?php echo $cssHashtags;?>">
-												<span class="hashtag_menu_description"></span>
-												<span class="add_hashtag"><?php echo $this->translate('use.it');?></span>
-												</li>
-												<li class="hash_key"><?php echo $hashKey;?></li>
-												<li class="meta_key"><?php echo $menuOption[0]['idM']?></li>
-										</ul>
-								</li>
-								<?php }
-						$countHashtags++;
-						}
-						?>
-						</ul>
+			// Shadows
+			else if ($menuOption[0]['idM']==5) { ?>
+			
+				<span title="<?php echo $this->translate($menuOption[0]['description']);?>" id="to_shadow">
+						<?php echo $this->translate($menuOption[0]['metaTag']);?>
+				</span>
+					
+			<?php } else {?>
+			
+				<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_<?php echo $count;?>"><?php echo $this->translate($metaTag[0]['metaTag']);?></span>
+				
+			<?php }?>
+			
+			<!-- Metatags Submenu -->
+			<ul class="metatag_submenu" id="sub_<?php echo $menuOption[0]['idM'];?>">
+				<li class="metatag_submenu_title"><?php echo $this->translate($menuOption[0]['description']);?></li>
+				<li class="metatag_submenu_options">
+					<span><?php echo $this->translate('most.loved');?></span>
+					<span class="metatag_see_all"><?php echo $this->translate('see.all');?></span>
+					<span class="meta_key_span"><?php echo $menuOption[0]['idM']?></span>
 				</li>
-				<?php }?>
-		</ul>
+				<?php
+				$countHashtags = 0;
+				foreach($menuOption[1] as $hashtag){
+					if (($countHashtags<$showHashtags) && ($hashtag!=null)){
+					?>
+					<li>
+						<ul class="hashtag_menu_ul">
+						<?php
+						$cssHashtags = '';
+						switch ($menuOption[0]['idM']){
+							case 1:
+								$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/ffonts.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
+								$hashKey = $hashtag['font'];
+								break;
+							case 4:
+								$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/fpatterns.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
+								$hashKey = $hashtag['pattern'];
+								$urlPattern = PUBLIC_WEB_PATH.'/images/patterns/'.$hashtag['server'].'/'.$hashtag['url'];
+								break;
+							case 50:
+								$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/fstyles.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
+								$hashKey = $hashtag['style'];
+								break;
+							default:
+								$cssHashtags = '';
+						}?>
+	
+							<li class="hashtag_menu" style="<?php echo $cssHashtags;?>" data-hashkey="<?php echo $hashKey;?>" data-metakey="<?php echo $menuOption[0]['idM']?>" data-urlpattern="<?php echo (isset($urlPattern)) ? $urlPattern : ""; ?>">
+								<span class="hashtag_menu_description"></span>
+								<span class="add_hashtag"><?php echo $this->translate('use.it');?></span>
+							</li>
+						</ul>
+					</li>
+					<?php }
+					$countHashtags++;
+				}
+				?>
+			</ul>
+		</li>
+		<?php }?>
+	</ul>
 
-		<div id="preview_form_container">
-			<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
-					<textarea rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
-							<div id="expand_form" title="<?php echo $this->translate('expand.form');?>">&nbsp;</div>
-							<input id="font" name="font" class="hidden_form" type="text" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo $features['font']['hashtag'];}?>"></input>
-							<input id="color" name="color" class="hidden_form" type="text" value="<?php if (($explodeStyle==1) && ($colorUsed==1)) {echo $features['color']['hashtag'];}?>"></input>
-							<input id="backColor" name="backColor" class="hidden_form" type="text" value="<?php if (($explodeStyle==1) && ($backColorUsed==1)) {echo $features['backColor']['hashtag'];}?>"></input>
-							<input id="pattern" name="pattern" class="hidden_form" type="text" value="<?php if (($explodeStyle==1) && ($patternUsed==1)) {echo $features['pattern']['hashtag'];}?>"></input>
-							<input id="style" name="style" class="hidden_form" type="text" value="<?php if ($explodeStyle==0) {echo $features['style']['hashtag'];}?>"></input>
+	<div id="preview_form_container">
+		<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
+			<textarea rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
+			
+			<div id="expand_form" title="<?php echo $this->translate('expand.form');?>">&nbsp;</div>
+			<input id="font" name="font" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo $features['font']['hashtag'];}?>"></input>
+			<input id="color" name="color" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($colorUsed==1)) {echo $features['color']['hashtag'];}?>"></input>
+			<input id="backColor" name="backColor" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($backColorUsed==1)) {echo $features['backColor']['hashtag'];}?>"></input>
+			<input id="pattern" name="pattern" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($patternUsed==1)) {echo $features['pattern']['hashtag'];}?>"></input>
+			<input id="style" name="style" class="hidden_form" type="hidden" value="<?php if ($explodeStyle==0) {echo $features['style']['hashtag'];}?>"></input>
 
-							<input id="shadows" name="shadows" type="text" class="hidden_form" value="<?php if (($explodeStyle==1) && ($shadowsUsed==1)) { echo $features['shadows']['hashtag']; }?>"/>
+			<input id="shadows" name="shadows" type="hidden" class="hidden_form" value="<?php if (($explodeStyle==1) && ($shadowsUsed==1)) { echo $features['shadows']['hashtag']; }?>"/>
 
-							<input id="visibility" class="hidden_form" name="visibility" value="<?php echo $features['visibility']?>"></input>
-							<input type="text" class="hidden_form" name="from" value="preview"></input>
+			<input type="hidden" id="visibility" class="hidden_form" name="visibility" value="<?php echo $features['visibility']?>"></input>
+			<input type="hidden" class="hidden_form" name="from" value="preview"></input>
 
-							<input id="refresh_button" type="submit" value="" title="<?php echo $this->translate('refresh');?>"></input>
-			</form>
-		</div>
+			<input id="refresh_button" type="submit" value="" title="<?php echo $this->translate('refresh');?>"></input>
+		</form>
+	</div>
 <!--/end metatags-->
 </footer>
 

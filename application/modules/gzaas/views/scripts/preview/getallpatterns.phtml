@@ -1,24 +1,20 @@
+
 <STYLE TYPE="text/css" MEDIA=screen>
-
-
-.all_option {
-    background-image: url("http://gzaas.com/images/allpatterns.png");
-}
-
-
-
+	.all_option { background-image: url("http://gzaas.com/images/allpatterns.png"); }
 </STYLE>
 
 <div id="all_options_title">
     <?php echo $this->translate('select.pattern.gallery.title');?>
     <span class="close">X</span>
 </div>
+
 <div id="all_options_content">
 	<?php 
 	$count = 0;
 	foreach ($this->patterns as $pattern){
+		$urlPattern = PUBLIC_WEB_PATH.'/images/patterns/'.$pattern['server'].'/'.$pattern['url'];
 		?>
-		<div class="all_option_supra">
+		<div class="all_option_supra" data-hashtag="<?php echo $pattern['pattern']; ?>" data-urlpattern="<?php echo $urlPattern; ?>">
 		<span class="all_option_name"><?php echo $pattern['description']?></span>
 			<span class="all_option" style="padding:0px;height:33px;background-position: -1px -<?php echo ($count*34)?>px">
 				<span class="add_hashtag"><?php echo $this->translate('use.it');?></span>
@@ -26,7 +22,6 @@
 				<span class="meta_key"><?php echo 4; ?></span>
 			</span>
 		</div>
-
 	<?php 
 	$count++;
 	}?>
@@ -50,22 +45,22 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-
+	
 		$(".all_option_supra").hover(function(e){
-				$(this).find('span[class="add_hashtag"]').show();
-			},
-			function(e){
-				$(this).find('span[class="add_hashtag"]').hide();
+			$(this).find('span[class="add_hashtag"]').show();
+		}, function(e){
+			$(this).find('span[class="add_hashtag"]').hide();
 		});			
-
+	
 		$(".all_option_supra").click(function(e){
-			hashtag = $(this).find('span[class="hash_key"]').html();
-			$('#backpattern').val(hashtag);
-			$('#refresh_button').click();	
+			var hashtag = $(this).data('hashtag');
+			var urlPattern = $(this).data('urlpattern');
+			setNewPattern(hashtag,urlPattern);
+			closeAllOptionsPopover();
 		});		
-
+	
 		$("#all_options_title .close").click(function(e){
-			$("#mask,#all_options_container").hide();
+			closeAllOptionsPopover();
 			return false;
 		});
 

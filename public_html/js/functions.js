@@ -264,7 +264,7 @@ function _setEventKeyDownOnNewGzaasForm()
 
 
 /*****************/
-/** 3.2 PREVIEW **/
+/** 3.3 PREVIEW **/
 /*****************/
 
 // Initialize Preview Js functions and events
@@ -274,21 +274,11 @@ function initializePreview()
 	_setFocusOnForm();
 	_setTextShadow();
 	_initRangeShadows();
-	_setFromHomeOptions();
 	initializePreviewEvents();
 }
 
-function _setFromHomeOptions() {
-	if (from=="home") {
-		setTimeout(function(){
-			$("footer,header,#preview_header").animate({opacity:1}, 400);
-		},1500);
-		setTimeout('attention()',4500);
-	}
-}
-
-function initializePreviewEvents()
-{
+function initializePreviewEvents() {
+	
 	_setEventNoIdea1();
 	_setEventNewResolutionWhenWindowResize();
 
@@ -386,10 +376,6 @@ function _setEventClickOnMenuOption()
 		if ($(this).parent().find('ul[class="metatag_submenu"]').css('display') == 'none'){
 			$("#shadow_select_container, .metatag_submenu, #mColorPickerBg, #mColorPicker").hide();
 			$(".mColor, .mPastColor, #mColorPickerInput, #mColorPickerWrapper").unbind();
-			if (flagAttention==0){
-				$("#attention").fadeOut();
-				flagAttention = 1;
-			}
 			flagShadowMenu = 0;
 			flagColorMenu = 0;
 			flagBackColorMenu = 0;
@@ -441,18 +427,17 @@ function _setEventClickOnMenuHashtag()
 {
 	$(".hashtag_menu").click(function(e){
 		var tVal = $('#gs_form_preview').val();
-		hashtag = $(this).parent().find('li[class="hash_key"]').html();
-		metatag = $(this).parent().find('li[class="meta_key"]').html();
-
+		hashtag = $(this).data('hashkey');
+		metatag = $(this).data('metakey');
+		urlPattern = $(this).data('urlpattern');
+		
 		switch (metatag) {
-		case "1":
+		case 1:
 			$("#font").val(hashtag);
 			$('#refresh_button').click();
 			break;
-		case "4":
-			$("#backColor").val('');
-			$("#pattern").val(hashtag);
-			$('#refresh_button').click();
+		case 4:
+			setNewPattern(hashtag,urlPattern);
 			break;
 		default:
 			$("#font").val('');
@@ -463,8 +448,19 @@ function _setEventClickOnMenuHashtag()
 			$('#refresh_button').click();
 			break;
 		}
-
+		
 	});
+}
+
+function setNewPattern(hashtag,urlPattern) {
+	$("#backColor").val('');
+	$("#pattern").val(hashtag);
+	$("body").css('background-image','url('+urlPattern+')');
+	$("#pattern_span").css('background-image','url('+urlPattern+')').css('background-size','20px');
+}
+
+function closeAllOptionsPopover() {
+	$("#mask,#all_options_container").hide();
 }
 
 function _setEventHoverOnMenuHashtag()
@@ -525,8 +521,6 @@ function _setEventFinishAndCreateGzaas()
 
 			if (!_checkValidStyleFeatures(data)) {
 				_activateWarning(messageNoStyle,1);
-				flagAttention = 0;
-				setTimeout('attention()',500);
 			} else if (!_checkValidColorStyles(data)) {
 				_activateWarning(messageSameColor,1);
 			} else {
@@ -671,8 +665,7 @@ function _activateWarning(message,style)
 	$("#warnings_preview").html(message);
 	if (style==0){
 		$("#warnings_preview").css('background','#00ff00');
-	}
-	else {
+	} else {
 		$("#warnings_preview").css('background','#FFFF00');
 	}
 	$("#warnings_preview").fadeIn(500, function(){
@@ -715,26 +708,6 @@ function response_ajax_new_gs(data){
 		$("#new_gs_container_error").fadeIn(2000);
 	}
 
-}
-
-function attention() {
-	if (flagAttention==0){
-		$("#attention").fadeIn(600, function(){
-			$("#attention").fadeOut(600, function(){
-				if (flagAttention==0){
-				$("#attention").fadeIn(600, function(){
-					$("#attention").fadeOut(600, function(){
-						if (flagAttention==0){
-						$("#attention").fadeIn(600, function(){
-							$("#attention").fadeOut(600);
-						});
-						}
-					});
-				});
-				}
-			});
-		});
-	}
 }
 
 function setTranslationColorMenu(colorMenu){
