@@ -516,7 +516,7 @@ class Gzaas_Model_Gzaas {
 		$pathToPhantomJs = APPLICATION_PATH . '/bin/screenshot.js';
 		$params = $this->_getParamsScreenshot($urlKey);
 		$paramsAsArgs = implode(" ", $params);
-		exec("phantomjs " . $pathToPhantomJs . " " . $paramsAsArgs);
+		exec("phantomjs " . $pathToPhantomJs . " " . $paramsAsArgs . " > /dev/null 2>&1 &");
 	}
 	
 	function _getParamsScreenshot($urlKey) {
