@@ -154,7 +154,7 @@ overflow:hidden;
 
 var createGzaas = "<?php echo $this->translate('create.gzaas');?>";
 var page = "seegzaas";
-var screenshot = <?php echo (isset($this->fontstyles)) ? "true" : "false"; ?>;
+var screenshot = <?php echo ($this->screenshot) ? '"' . $this->screenshot . '"' : "false"; ?>;
 
 var oldFontSize = <?php echo $features['font']['fontBaseSize'];?>;
 var oldLineHeight = <?php echo $features['font']['fontBaseLineHeight'];?>;

@@ -78,41 +78,17 @@ class My_Routers {
 
 		/*********************/
 
-
-		//gzaas - Tour
-		$routeTour = new Zend_Controller_Router_Route_Regex(
-			'tour/(\d+)/step/(\d+)',
-			array(
-				'module' => 'default',
-				'controller' => 'tour',
-				'action'     => 'tour'
-			),
-			array(
-				1 => 'tour',
-				2 => 'step'
-			),
-			'tour/%d/step/%d'
-		);
-		$router->addRoute('tour', $routeTour);
-
 		//gzaas - Random Explore
 		$routeExplore = new Zend_Controller_Router_Route_Static('explore',
 			array('module' => 'gzaas','controller' => 'gzaas', 'action' => 'randomexplore')
 		);
 		$router->addRoute('explore', $routeExplore);
-
-		//gzaas - Gallery
-		$routeGallery = new Zend_Controller_Router_Route_Static('gallery',
-			array('module' => 'gzaas','controller' => 'gzaas', 'action' => 'gallery')
+		
+		// Playground / Testing
+		$routeTest = new Zend_Controller_Router_Route_Static('test',
+				array('module' => 'default','controller' => 'index', 'action' => 'test')
 		);
-		$router->addRoute('gallery', $routeGallery);
-
-
-		//gzaas - Credits
-		$routeCredits = new Zend_Controller_Router_Route_Static('credits',
-			array('module' => 'default','controller' => 'tour', 'action' => 'credits')
-		);
-		$router->addRoute('credits', $routeCredits);
+		$router->addRoute('test', $routeTest);
 
 
 		/* PREVIEW MENU */

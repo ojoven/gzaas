@@ -48,6 +48,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
 		$screenshot = $this->getRequest()->getParam("screenshot");
+		$this->view->screenshot = $screenshot;
 
 		$gzaasModel = new Gzaas_Model_Gzaas();
 		$gzaas = $gzaasModel->renderGzaas($urlKey);

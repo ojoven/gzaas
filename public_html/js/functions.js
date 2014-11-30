@@ -50,7 +50,15 @@ function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage) {
 
 	setNewGzaasMessageSizeOnOverflowed();
 	setTimeout('adaptSizesAndSpacesToWindowResolution()',timeToAdaptToResolution);
-	setTimeout('showGzaasMessage()',timeToShowMessage);
+	if (typeof screenshot != "undefined" && screenshot) {
+		if (screenshot=="video") {
+			setTimeout('showGzaasMessage()',500);			
+		} else {
+			showGzaasMessageWithoutAnimation();
+		}
+	} else {
+		setTimeout('showGzaasMessage()',timeToShowMessage);		
+	}
 }
 
 // Adapt message to screen
@@ -129,6 +137,9 @@ function showGzaasMessage(){
 	$("#gzaas_screen").show().addClass('animate');
 }
 
+function showGzaasMessageWithoutAnimation(){
+	$("#gzaas_screen").show();
+}
 
 // Window resize event
 function _setEventNewResolutionWhenWindowResize() {

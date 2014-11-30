@@ -25,5 +25,12 @@ class IndexController extends Zend_Controller_Action {
 		$languageCode = Zend_Registry::get('languageCode');
 		$this->view->languageCode = $languageCode;
 	}
+	
+	// Playground
+	public function testAction() {
+		
+		// Let's try to put an object to Amazon S3
+		My_AmazonFunctions::uploadToS3('/opt/lampp/htdocs/gzaas/public_html/images/gzaas_logo.png','test_logo'.time(),'gzaas','image/png',true);
+	}
 
 }

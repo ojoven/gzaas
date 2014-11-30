@@ -64,6 +64,10 @@ class Gzaas_Model_Gzaas {
 
 			if ($anyStyleFeaturesDefined) {
 				$db->commit();
+				
+				// Now, let's create screenshot for the gzaas
+				$this->_createScreenshotGzaas($urlKey);
+				
 				$response = $this->_constructSuccessJsonResponse($urlKey, $visibility);
 				return $response;
 			} else {
@@ -505,6 +509,27 @@ class Gzaas_Model_Gzaas {
 		$features['shadows']['used'] = 0;
 		$features['style']['used'] = 0;
 		return $features;
+	}
+	
+	// Private
+	function _createScreenshotGzaas($urlKey) {
+		$pathToPhantomJs = APPLICATION_PATH . '/bin/screenshot.js';
+		$params = $this->_getParamsScreenshot($urlKey);
+		$paramsAsArgs = implode(" ", $params);
+		exec("phantomjs " . $pathToPhantomJs . " " . $paramsAsArgs);
+	}
+	
+	function _getParamsScreenshot($urlKey) {
+		
+		$pathToImage = APPLICATION_PATH . '/tmp/' . $urlKey . '.png';
+		$params = array(
+			$urlKey,
+			'http://gzaas.local.host/' . $urlKey . '?screenshot=image',
+			$pathToImage,
+			1024,
+			600
+		);
+		return $params;
 	}
 
 }
