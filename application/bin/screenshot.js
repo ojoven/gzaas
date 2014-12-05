@@ -16,7 +16,7 @@ page.open(url, function () {
 	// Render an image with the frame name
 	setTimeout(function() {
 	
-		page.render(pathToImage, { format: "png" });
+		page.render(pathToImage, { format: "jpeg", quality: '100' });
 		// Exit after 60 images
 		var end = new Date().getTime();
 		var time = end - start;

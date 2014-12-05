@@ -21,6 +21,8 @@ if( !defined('APPLICATION_ENV') ) {
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
+
+global $application;
 // Create application, bootstrap, and run
 $application = new Zend_Application(
 		APPLICATION_ENV,

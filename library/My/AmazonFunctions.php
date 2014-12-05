@@ -4,13 +4,12 @@ require_once 'Zend/Service/Amazon/S3.php';
 class My_AmazonFunctions {
 
 	const BUCKET_NAME = "gzaas";
-
 	const PATH_TO_AMAZON = "http://gzaas.s3.amazonaws.com/";
 	const JPEG_CONTENT_TYPE = "image/jpeg";
 	const PUBLIC_READ_ACL = "public-read";
 	
 	/** Upload images to S3 **/
-	public function uploadToS3($localImagePath,$remoteImagePath,$bucket,$contentType,$cache = true) {
+	public static function uploadToS3($localImagePath,$remoteImagePath,$bucket,$contentType,$cache = true) {
 
 		$client = self::_getClient();
 
@@ -22,17 +21,20 @@ class My_AmazonFunctions {
 		if ($cache) { $params['CacheControl'] = "max-age=172800"; }
 
 		try {
+			$file = file_get_contents($localImagePath);
 			
 			$result = $client->putObject($bucket.'/'.$remoteImagePath, file_get_contents($localImagePath),$params);
+			print_r($result);
 			return $result;
 
 		} catch (Exception $e) {
+			print_r($e->getMessage());
 			return false;
 		}
 
 	}
 
-	public function getImagesBucket($bucket) {
+	public static function getImagesBucket($bucket) {
 
 		$objects = array();
 		$s3 = self::_getClient();
@@ -58,7 +60,8 @@ class My_AmazonFunctions {
 	private static function _getClient() {
 
 		// We retrieve the keys from application.ini
-		$config = Zend_Controller_Front::getInstance()->getParam('bootstrap');
+		global $application;
+		$config = $application->getBootstrap();
 		$amazon = $config->getOption('amazon');
 		$client = new Zend_Service_Amazon_S3($amazon['key'], $amazon['secret']);
 		return $client;

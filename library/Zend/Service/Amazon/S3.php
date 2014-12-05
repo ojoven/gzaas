@@ -373,6 +373,7 @@ class Zend_Service_Amazon_S3 extends Zend_Service_Amazon_Abstract
         }
 
         $response = $this->_makeRequest('PUT', $object, null, $headers, $data);
+        print_r($response);
 
         // Check the MD5 Etag returned by S3 against and MD5 of the buffer
         if ($response->getStatus() == 200) {

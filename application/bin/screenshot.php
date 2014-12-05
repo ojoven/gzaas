@@ -1,5 +1,6 @@
 <?php
 require_once('loadzend.php');
 
-$gzaasModel = new Gzaas_Model_Gzaas();
-print_r($gzaasModel->getFeaturesErrorGzaas());
+$urlKey = $argv[1];
+$screenshotModel = new Gzaas_Model_Screenshot();
+$screenshotModel->uploadScreenshotToAmazon($urlKey);
