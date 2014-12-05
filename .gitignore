@@ -1,4 +1,5 @@
 application/tmp/*
+public_html/.sass-cache
 .project
 .buildpath
 .settings
