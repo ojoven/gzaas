@@ -32,7 +32,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 	protected function _initTranslate()
     {
-		$languageCode = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2);
+    	$languageCode = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) ? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : "en";
+
 		if ($languageCode!='es'){
 			$languageCode='en';
 		}
