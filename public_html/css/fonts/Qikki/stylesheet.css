@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'QikkiRegRegular';
 	src: url('Qarmic_sans_Abridged-webfont.eot');
-	src: local('☺'), url('Qarmic_sans_Abridged-webfont.woff') format('woff'), url('Qarmic_sans_Abridged-webfont.ttf') format('truetype'), url('Qarmic_sans_Abridged-webfont.svg#webfontWFsRMnJR') format('svg');
+	src: url('Qarmic_sans_Abridged-webfont.woff') format('woff'), url('Qarmic_sans_Abridged-webfont.ttf') format('truetype'), url('Qarmic_sans_Abridged-webfont.svg#webfontWFsRMnJR') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

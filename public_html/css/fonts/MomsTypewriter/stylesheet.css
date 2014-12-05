@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'MomsTypewriterRegular';
 	src: url('Moms_typewriter-webfont.eot');
-	src: local('☺'), url('Moms_typewriter-webfont.woff') format('woff'), url('Moms_typewriter-webfont.ttf') format('truetype'), url('Moms_typewriter-webfont.svg#webfontHGzlAAfK') format('svg');
+	src: url('Moms_typewriter-webfont.woff') format('woff'), url('Moms_typewriter-webfont.ttf') format('truetype'), url('Moms_typewriter-webfont.svg#webfontHGzlAAfK') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

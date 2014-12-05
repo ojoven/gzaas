@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'PincoyablackBlack';
 	src: url('pincoyablack-webfont.eot');
-	src: local('☺'), url('pincoyablack-webfont.woff') format('woff'), url('pincoyablack-webfont.ttf') format('truetype'), url('pincoyablack-webfont.svg#webfont9huJYfXX') format('svg');
+	src: url('pincoyablack-webfont.woff') format('woff'), url('pincoyablack-webfont.ttf') format('truetype'), url('pincoyablack-webfont.svg#webfont9huJYfXX') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

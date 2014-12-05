@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'RieslingRegular';
 	src: url('riesling-webfont.eot');
-	src: local('☺'), url('riesling-webfont.woff') format('woff'), url('riesling-webfont.ttf') format('truetype'), url('riesling-webfont.svg#webfontQZPrATMZ') format('svg');
+	src: url('riesling-webfont.woff') format('woff'), url('riesling-webfont.ttf') format('truetype'), url('riesling-webfont.svg#webfontQZPrATMZ') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

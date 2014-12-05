@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'KulminoituvaRegular';
 	src: url('kulminoituva-webfont.eot');
-	src: local('☺'), url('kulminoituva-webfont.woff') format('woff'), url('kulminoituva-webfont.ttf') format('truetype'), url('kulminoituva-webfont.svg#webfontMaZ7jjQN') format('svg');
+	src: url('kulminoituva-webfont.woff') format('woff'), url('kulminoituva-webfont.ttf') format('truetype'), url('kulminoituva-webfont.svg#webfontMaZ7jjQN') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

@@ -135,7 +135,7 @@ overflow:hidden;
 		<span class="close">X</span>
 	</span>
 	<div class="container">
-		<form action="http://gzaas.com/preview/preview" name="new_gs">
+		<form action="<?php echo $this->baseUrl('/');?>preview/preview" name="new_gs">
 			<input type="text" class="center_dialog_input" name="gs_form" id="gs_form_create_gzaas" />
 			<input id="font" name="font" class="hidden_form" type="text" value="<?php if($fontUsed){ echo $features['font']['hashtag']; }?>"></input>
 			<input id="color" name="color" class="hidden_form" type="text" value="<?php if($colorUsed) { echo $features['color']['hashtag']; }?>"></input>

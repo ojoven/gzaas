@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'firsttestRegular';
 	src: url('Forque-webfont.eot');
-	src: local('☺'), url('Forque-webfont.woff') format('woff'), url('Forque-webfont.ttf') format('truetype'), url('Forque-webfont.svg#webfontOq4F2zFb') format('svg');
+	src: url('Forque-webfont.woff') format('woff'), url('Forque-webfont.ttf') format('truetype'), url('Forque-webfont.svg#webfontOq4F2zFb') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }

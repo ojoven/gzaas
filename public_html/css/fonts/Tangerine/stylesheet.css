@@ -5,7 +5,7 @@
 @font-face {
 	font-family: 'TangerineRegular';
 	src: url('Tangerine_Regular-webfont.eot');
-	src: local('☺'), url('Tangerine_Regular-webfont.woff') format('woff'), url('Tangerine_Regular-webfont.ttf') format('truetype'), url('Tangerine_Regular-webfont.svg#webfonthaN3LTd2') format('svg');
+	src: url('Tangerine_Regular-webfont.woff') format('woff'), url('Tangerine_Regular-webfont.ttf') format('truetype'), url('Tangerine_Regular-webfont.svg#webfonthaN3LTd2') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
