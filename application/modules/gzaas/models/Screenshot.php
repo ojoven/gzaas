@@ -22,16 +22,24 @@ class Gzaas_Model_Screenshot {
 	/** Upload to Amazon **/
 	public function uploadScreenshotToAmazon($urlKey) {
 		
-		$filePath = APPLICATION_PATH . '/tmp/' . $urlKey . '.jpg';
-		$remoteImagePath = $urlKey . '.jpg';
-		$bucket = "gzaas";
-		$contentType = "image/jpeg";
-		$cache = true;
+		$filename = APPLICATION_PATH . '/tmp/' . $urlKey . '.jpg';
 		
-		My_AmazonFunctions::uploadToS3($filePath,$remoteImagePath,$bucket,$contentType,$cache);
-		
-		// Let's remove the photo once uploaded
-		unlink($filePath);
+		if (file_exists($filename)) {
+			
+			$remoteImagePath = $urlKey . '.jpg';
+			$bucket = "gzaas";
+			$contentType = "image/jpeg";
+			$cache = true;
+			
+			My_AmazonFunctions::uploadToS3($filename,$remoteImagePath,$bucket,$contentType,$cache);
+			
+			// Let's remove the photo once uploaded
+			unlink($filename);			
+		} else {
+			
+			// Let's do some logging or something, the image wasn't created
+			
+		}
 		
 	}
 	
