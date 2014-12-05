@@ -513,19 +513,22 @@ class Gzaas_Model_Gzaas {
 	
 	// Private
 	function _createScreenshotGzaas($urlKey) {
-		$pathToPhantomJs = APPLICATION_PATH . '/bin/screenshot.js';
+		$pathToScript = APPLICATION_PATH . '/bin/screenshot.sh';
 		$params = $this->_getParamsScreenshot($urlKey);
 		$paramsAsArgs = implode(" ", $params);
-		exec("phantomjs " . $pathToPhantomJs . " " . $paramsAsArgs . " > /dev/null 2>&1 &");
+		// we must create a script that not only creates the screenshot but that it uploads it to Amazon S3, too.
+		exec("sh " . $pathToScript . " " . $paramsAsArgs . " > /dev/null 2>&1 &");
 	}
 	
 	function _getParamsScreenshot($urlKey) {
 		
 		$pathToImage = APPLICATION_PATH . '/tmp/' . $urlKey . '.png';
+		$pathToPhantomJs = APPLICATION_PATH . '/bin/screenshot.js';
 		$params = array(
 			$urlKey,
 			'http://gzaas.local.host/' . $urlKey . '?screenshot=image',
 			$pathToImage,
+			$pathToPhantomJs,
 			1024,
 			600
 		);

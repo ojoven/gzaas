@@ -58,7 +58,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 		$this->view->message = $gzaas['message']['message'];
 		$this->view->features = $gzaas['features'];
-		if ($screenshot && $gzaas['features']['font']['fontFace']=="2") { // Screenshot Google Web Fonts
+		if ($screenshot && $gzaas['features']['font']['fontServer']=="2") { // Screenshot Google Web Fonts
 			$this->view->fontstyles = $this->_retrieveAndParseFontFaceCss($gzaas['features']['font']);
 		} else {
 			$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);			

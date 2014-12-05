@@ -13,13 +13,14 @@ class Gzaas_Model_Font {
 		$fontFeatures['fontFamily'] = $font['fontFamily'];
 
 		if ($font['fontFace']==1){
-				$fontFeatures['stylesheet'] = $this->_getFontStylesheet($font['fontServer'],$font);
+			$fontFeatures['stylesheet'] = $this->_getFontStylesheet($font['fontServer'],$font);
 		}
 		$fontFeatures['size'] = $font['size'];
 		$fontFeatures['used'] = 1;
 		$fontFeatures['hashtag'] = $font['font'];
 		$fontFeatures['fontFace'] = $font['fontFace'];
 		$fontFeatures['description'] = $font['description'];
+		$fontFeatures['fontServer'] = $font['fontServer'];
 		return $fontFeatures;
 	}
 
