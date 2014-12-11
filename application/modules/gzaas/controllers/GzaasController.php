@@ -61,13 +61,14 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		if ($screenshot && $gzaas['features']['font']['fontServer']=="2") { // Screenshot Google Web Fonts
 			$this->view->fontstyles = $this->_retrieveAndParseFontFaceCss($gzaas['features']['font']);
 		} else {
-			$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);			
+			$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);
 		}
 		$this->view->twitterMessage = $gzaas['twitterMessage'];
 		$this->view->url = $gzaas['url'];
 		$this->view->menu = $menu;
 		$this->_setSearchEngineRobotsFromGzaasVisibility($gzaas['message']['visibility']);
-		$this->_setFacebookMeta($urlKey);
+		$this->_setFacebookMeta($gzaas);
+		$this->_setTwitterMeta($gzaas);
 		$this->_setUserLanguageCode();
 
 		$this->render();
@@ -95,26 +96,91 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		$content = file_get_contents($pathToStylesheet);
 		$array = explode('src:',$content);
 		$aux = explode('),',$array[count($array) - 1]);
-		$newstylesheet = $array[0] . 'src:' . $aux[count($aux)-1];		
+		$newstylesheet = $array[0] . 'src:' . $aux[count($aux)-1];
 		return $newstylesheet;
 	}
 
 	private function _setSearchEngineRobotsFromGzaasVisibility($gzaasVisibility) {
 
+		// We'll put all gzaases as public for the moment (until we better handle gzaases' visibility)
+		$this->view->headMeta()->setName('robots', 'INDEX,FOLLOW');
+		/**
 		switch ($gzaasVisibility) {
 			case 0:
 				$this->view->headMeta()->setName('robots', 'NOINDEX,NOFOLLOW'); break;
 			case 1:
 				$this->view->headMeta()->setName('robots', 'INDEX,FOLLOW'); break;
 		}
+		**/
 	}
 
-	private function _setFacebookMeta($urlKey) {
+	private function _setFacebookMeta($gzaas) {
 
-		$metaModel = new Gzaas_Model_Meta();
-		$facebookMeta = $metaModel->getFacebookMeta($urlKey);
-		$this->view->facebook = $facebookMeta;
+		$urlKey = $gzaas['message']['urlKey'];
+
+		// Image
+		$defaultImage = "http://gzaas.com/images/gzaas_logo.png";
+		$image = (!$this->_hasScreenshot($gzaas)) ? $defaultImage : "http://gzaas.s3.amazonaws.com/" . $urlKey;
+
+		// Description
+		$translate = Zend_Registry::get('Zend_Translate');
+		$description = utf8_encode($translate->translate('meta.description.gzaas'));
+
+		// Let's assign the metas (name,content)
+		$facebookMeta = array(
+			array('og:type','website'),
+			array('og:url','http://gzaas.com/'.$urlKey),
+			array('og:description',$description),
+			array('og:image',$image),
+			array('og:site_name','Gzaas!'),
+			array('fb:admins','578973745')
+		);
+
+		// Let's add them to the header
+		foreach ($facebookMeta as $meta) {
+			$this->view->headMeta()->setName($meta[0], $meta[1]);
+		}
+
 	}
+
+	private function _setTwitterMeta($gzaas) {
+
+		// We're using Twitter cards just for gzaases recently created that have screenshots
+		if ($this->_hasScreenshot($gzaas)) {
+
+			$urlKey = $gzaas['message']['urlKey'];
+			$title = "Gzaas!";
+			$description = "";
+			$defaultImage = "http://gzaas.com/images/gzaas_logo.png";
+			$image = "http://gzaas.s3.amazonaws.com/" . $urlKey;
+
+
+			// Let's assign the metas (name,content)
+			$twitterMeta = array(
+					array('twitter:card','photo'),
+					array('twitter:site','@gzaas'),
+					array('twitter:title',$title),
+					array('twitter:description',$description),
+					array('twitter:image',$image),
+					array('twitter:url','http://gzaas.com/'.$urlKey)
+			);
+
+			// Let's add them to the header
+			foreach ($twitterMeta as $meta) {
+				$this->view->headMeta()->setName($meta[0], $meta[1]);
+			}
+
+		}
+
+	}
+
+	private function _hasScreenshot($gzaas) {
+		$gzaasDate = strtotime($gzaas['message']['date']);
+		$firstScreenshotDate = strtotime("2014-12-05 00:00:00");
+
+		return ($gzaasDate>$firstScreenshotDate);
+	}
+
 
 	private function _setUserLanguageCode() {
 
