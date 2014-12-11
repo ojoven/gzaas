@@ -11,17 +11,16 @@ var width = args[4];
 var height = args[5];
 var page = require('webpage').create();
 page.viewportSize = { width: width, height: height };
-
+page.settings.resourceTimeout = 1000;
 page.open(url, function () {
 	// Render an image with the frame name
 	setTimeout(function() {
-	
-		page.render(pathToImage, { format: "jpeg", quality: '100' });
-		// Exit after 60 images
+
+		page.render(pathToImage, { format: "jpeg", quality: '85' });
+
 		var end = new Date().getTime();
 		var time = end - start;
-		console.log(time);
 		phantom.exit();
-		
+
 	},100);
 });

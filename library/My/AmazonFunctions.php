@@ -7,7 +7,7 @@ class My_AmazonFunctions {
 	const PATH_TO_AMAZON = "http://gzaas.s3.amazonaws.com/";
 	const JPEG_CONTENT_TYPE = "image/jpeg";
 	const PUBLIC_READ_ACL = "public-read";
-	
+
 	/** Upload images to S3 **/
 	public static function uploadToS3($localImagePath,$remoteImagePath,$bucket,$contentType,$cache = true) {
 
@@ -22,13 +22,12 @@ class My_AmazonFunctions {
 
 		try {
 			$file = file_get_contents($localImagePath);
-			
 			$result = $client->putObject($bucket.'/'.$remoteImagePath, file_get_contents($localImagePath),$params);
-			print_r($result);
+			My_Functions::log("The image " . $localImagePath . " was uploaded with result -> " . json_encode($result));
 			return $result;
 
 		} catch (Exception $e) {
-			print_r($e->getMessage());
+			My_Functions::log("Couldn't upload the image: " . $e->getMessage());
 			return false;
 		}
 
@@ -38,7 +37,7 @@ class My_AmazonFunctions {
 
 		$objects = array();
 		$s3 = self::_getClient();
-		
+
 		$list = $s3->getObjectsByBucket($bucket);
 
 		foreach ($list as $name) {

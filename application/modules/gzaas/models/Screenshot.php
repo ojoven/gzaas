@@ -15,6 +15,7 @@ class Gzaas_Model_Screenshot {
 		// we must create a script that not only creates the screenshot but that it uploads it to Amazon S3, too.
 		$script = "sh " . $pathToScript . " " . $paramsAsArgs . " > /dev/null 2>&1 &";
 		// TODO Maybe we should retrieve results from the script or something?
+		My_Functions::log("script: " . $script);
 		exec($script);
 
 	}
@@ -23,6 +24,7 @@ class Gzaas_Model_Screenshot {
 	public function uploadScreenshotToAmazon($urlKey) {
 
 		$filename = APPLICATION_PATH . '/tmp/' . $urlKey . '.jpg';
+		My_Functions::log("filename: " . $filename);
 
 		if (file_exists($filename)) {
 
@@ -34,10 +36,11 @@ class Gzaas_Model_Screenshot {
 			My_AmazonFunctions::uploadToS3($filename,$remoteImagePath,$bucket,$contentType,$cache);
 
 			// Let's remove the photo once uploaded
-			unlink($filename);
+			//unlink($filename);
 		} else {
 
-			// Let's do some logging or something, the image wasn't created
+			// Let's log this error
+			My_Functions::log("The filename: " . $filename . " doesn't exist", Zend_Log::ERR);
 
 		}
 

@@ -45,7 +45,6 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 	public function seegsAction() {
 
-		My_Functions::log("olakease");
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
 		$screenshot = $this->getRequest()->getParam("screenshot");
@@ -121,7 +120,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 		// Image
 		$defaultImage = "http://gzaas.com/images/gzaas_logo.png";
-		$image = (!$this->_hasScreenshot($gzaas)) ? $defaultImage : "http://gzaas.s3.amazonaws.com/" . $urlKey;
+		$image = (!$this->_hasScreenshot($gzaas)) ? $defaultImage : "http://gzaas.s3.amazonaws.com/" . $urlKey . ".jpg";
 
 		// Description
 		$translate = Zend_Registry::get('Zend_Translate');
@@ -153,7 +152,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 			$title = "Gzaas!";
 			$description = "";
 			$defaultImage = "http://gzaas.com/images/gzaas_logo.png";
-			$image = "http://gzaas.s3.amazonaws.com/" . $urlKey;
+			$image = "http://gzaas.s3.amazonaws.com/" . $urlKey . ".jpg";
 
 
 			// Let's assign the metas (name,content)
