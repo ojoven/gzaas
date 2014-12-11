@@ -21,4 +21,11 @@ class My_Functions {
 		return $cache;
 	}
 
+	public static function log($message, $priority = Zend_Log::INFO) {
+
+		$logger = Zend_Registry::get('logger');
+		$logger->log($message, $priority);
+
+	}
+
 }

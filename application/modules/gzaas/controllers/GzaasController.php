@@ -45,6 +45,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 	public function seegsAction() {
 
+		My_Functions::log("olakease");
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
 		$screenshot = $this->getRequest()->getParam("screenshot");

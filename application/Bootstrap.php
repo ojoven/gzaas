@@ -30,8 +30,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$autoloader->registerNamespace('My_');
 	}
 
-	protected function _initTranslate()
-    {
+	protected function _initTranslate() {
+
     	$languageCode = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) ? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : "en";
 
 		if ($languageCode!='es'){
@@ -43,24 +43,36 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
 
-	/**
-	* Initializes Messages and Web Config
-	**/
-	protected function _initMessages()
-	{
+	/** Initializes Messages and Web Config **/
+
+	protected function _initMessages() {
+
 		//web config
 		$config = new Zend_Config_Ini(
-		APPLICATION_PATH . '/configs/application.ini',
-		APPLICATION_ENV
+			APPLICATION_PATH . '/configs/application.ini',
+			APPLICATION_ENV
 		);
+
 		//save to registry
 		$registry = Zend_Registry::getInstance();
 		$registry->set('config', $config);
 		unset($config);
 	}
 
-	protected function _initSession()
-	{
+	protected function _initLogging() {
+
+		$writer = new Zend_Log_Writer_Stream(APPLICATION_PATH . '/logs/gzaas.log');
+		$logger = new Zend_Log($writer);
+
+		//save to registry
+		$registry = Zend_Registry::getInstance();
+		$registry->set('logger', $logger);
+		unset($logger);
+	}
+
+
+	protected function _initSession() {
+
 		$gzaasNamespace = new Zend_Session_Namespace('Gzaas');
 
 		if (!isset($gzaasNamespace->stop)) {
@@ -69,8 +81,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 	}
 
-	protected function _initPlugins()
-	{
+	protected function _initPlugins() {
+
 		$this->bootstrap('frontController');
 
 		$layoutPlugin = new My_Layout();
@@ -82,20 +94,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 	}
 
-	protected function _initDatabase()
-    {
+	protected function _initDatabase() {
+
 		$resource = $this->getPluginResource('db');
 		$db = $resource->getDbAdapter();
 		Zend_Db_Table::setDefaultAdapter($db);
 		Zend_Registry::set('db', $db);
     }
 
-    /**
-	* Initialized MVC and Layouts
-	**/
-	protected function _initPresentation()
-	{
-        $view = new Zend_View();
+    /** Initialized MVC and Layouts **/
+
+	protected function _initPresentation() {
+
+		$view = new Zend_View();
         $view->setEncoding('utf-8');
 
         $router = new My_Routers();
@@ -109,4 +120,4 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         return $view;
 	}
 
-}//end class
+}
