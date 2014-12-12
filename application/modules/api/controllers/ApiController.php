@@ -320,8 +320,6 @@ class Api_ApiController extends Zend_Controller_Action {
 			$validShadows = false;
 			$idS = false;
 
-			$inblacklist = 0;
-
 			// Sharing options
 
 			if ($visibilityText!=0) {
@@ -417,7 +415,6 @@ class Api_ApiController extends Zend_Controller_Action {
 					$newMessage = array(
 						'message' => $gzaas['message'],
 						'visibility' => $visibility,
-						'inblacklist' => $inblacklist,
 						'urlKey' => $urlKey,
 						'date' => $date,
 						'ip' => $ip,

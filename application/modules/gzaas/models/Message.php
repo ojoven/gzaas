@@ -5,6 +5,7 @@ class Gzaas_Model_Message {
 	const NOT_FROM_API = 0;
 	const IN_BLACK_LIST = 0;
 	const DEFAULT_VISIBILITY = 1;
+	const DEFAULT_STATUS_ACTIVE = 1;
 
 	public function addMessage($message,$visibility) {
 
@@ -14,12 +15,12 @@ class Gzaas_Model_Message {
 		$newMessage = array(
 			'message'      => $message,
 			'visibility'   => $visibility,
-			'inblacklist'  => $defaultMessageParameters['inblacklist'],
 			'urlKey'       => $urlKey,
 			'date'         => $defaultMessageParameters['date'],
 			'ip'           => $defaultMessageParameters['ip'],
 			'languageUser' => $defaultMessageParameters['languageUser'],
-			'api'          => $defaultMessageParameters['api']
+			'api'          => $defaultMessageParameters['api'],
+			'status'	   => $defaultMessageParameters['status']
 		);
 		$messageModelDbTable = new Gzaas_Model_DbTable_Message();
 		$idMessage = $messageModelDbTable->addMessage($newMessage);
@@ -48,14 +49,22 @@ class Gzaas_Model_Message {
 		return $urlKey;
 	}
 
+	/** GET ALL **/
+	public function getAllUrlKeysMessages() {
+		$messageModelDbTable = new Gzaas_Model_DbTable_Message();
+		$urlKeys = $messageModelDbTable->getAllUrlKeysMessages();
+		return $urlKeys;
+
+	}
+
 	private function _getDefaultMessageParameters() {
 
 		$defaultMessageParameters['ip'] = $_SERVER['REMOTE_ADDR'];
 		$defaultMessageParameters['languageUser'] = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
 		$defaultMessageParameters['date'] = date("Y-m-d H:i:s");
 		$defaultMessageParameters['api'] = self::NOT_FROM_API;
-		$defaultMessageParameters['inblacklist'] = self::IN_BLACK_LIST;
 		$defaultMessageParameters['visibility'] = self::DEFAULT_VISIBILITY;
+		$defaultMessageParameters['status'] = self::DEFAULT_STATUS_ACTIVE;
 
 		return $defaultMessageParameters;
 	}

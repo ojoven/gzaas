@@ -10,12 +10,12 @@ class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract {
 		$newMessage = array (
 			'message' => stripSlashes($message['message']),
 			'visibility' => $message['visibility'],
-			'inblacklist' => $message['inblacklist'],
 			'urlKey' => $message['urlKey'],
 			'date' => $message['date'],
 			'ip' => $message['ip'],
 			'languageUser' => $message['languageUser'],
-			'api' => $message['api']
+			'api' => $message['api'],
+			'status' => $message['status']
 		);
 		$this->insert($newMessage);
 		$idMessage = $this->_db->lastInsertId();
@@ -39,7 +39,7 @@ class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract {
 
 		$columns = "COUNT(id) AS numTotalMessages";
 		$table = $this->_name;
-		$condition = "visibility = 1 AND inblacklist = 0";
+		$condition = "visibility = 1";
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
 		$numTotalMessages = $this->_db->fetchOne($query);
@@ -47,17 +47,30 @@ class Gzaas_Model_DbTable_Message extends Zend_Db_Table_Abstract {
 		return $numTotalMessages;
 	}
 
-	public function getRandomUrlKey($randomPosition)
-	{
+	public function getRandomUrlKey($randomPosition) {
+
 		$columns = "urlKey";
 		$table = $this->_name;
-		$condition = "visibility = 1 AND inblacklist = 0";
+		$condition = "visibility = 1";
 		$limit = $randomPosition.",1";
 
 		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." LIMIT ".$limit;
 		$urlKey = $this->_db->fetchOne($query);
 
 		return $urlKey;
+	}
+
+	public function getAllUrlKeysMessages() {
+
+		$columns = "urlKey";
+		$table = $this->_name;
+		$condition = "status = 1";
+
+		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition;
+		$urlKeys = $this->_db->fetchCol($query);
+
+		return $urlKeys;
+
 	}
 
 }

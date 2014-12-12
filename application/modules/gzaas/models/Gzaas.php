@@ -64,11 +64,11 @@ class Gzaas_Model_Gzaas {
 
 			if ($anyStyleFeaturesDefined) {
 				$db->commit();
-				
+
 				// Now, let's create screenshot for the gzaas
 				$screenshotModel = new Gzaas_Model_Screenshot();
 				$screenshotModel->createScreenshotGzaas($urlKey);
-				
+
 				$response = $this->_constructSuccessJsonResponse($urlKey, $visibility);
 				return $response;
 			} else {
@@ -315,6 +315,7 @@ class Gzaas_Model_Gzaas {
 
 	}
 
+
 	// PRIVATE METHODS
 
 	// New gzaas
@@ -511,6 +512,6 @@ class Gzaas_Model_Gzaas {
 		$features['style']['used'] = 0;
 		return $features;
 	}
-	
+
 
 }

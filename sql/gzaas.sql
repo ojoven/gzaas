@@ -259,9 +259,9 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `date` datetime NOT NULL COMMENT 'fecha',
   `ip` varchar(16) CHARACTER SET utf8 NOT NULL COMMENT 'ip',
   `visibility` tinyint(1) NOT NULL,
-  `inblacklist` tinyint(1) NOT NULL,
   `languageUser` varchar(2) CHARACTER SET utf8 NOT NULL,
   `api` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
@@ -269,9 +269,9 @@ CREATE TABLE IF NOT EXISTS `messages` (
 -- Volcado de datos para la tabla `messages`
 --
 
-INSERT INTO `messages` (`id`, `urlKey`, `message`, `date`, `ip`, `visibility`, `inblacklist`, `languageUser`, `api`) VALUES
-(1, 'Tvnok7', 'Hello World!', '2014-11-22 00:33:30', '127.0.0.1', 1, 0, 'es', 0),
-(2, 'b5rSbn8', 'And another gzaas! Yay!', '2014-11-22 00:34:29', '127.0.0.1', 1, 0, 'es', 0);
+INSERT INTO `messages` (`id`, `urlKey`, `message`, `date`, `ip`, `visibility`, `languageUser`, `api`, `status`) VALUES
+(1, 'Tvnok7', 'Hello World!', '2014-11-22 00:33:30', '127.0.0.1', 1, 'es', 0, 1),
+(2, 'b5rSbn8', 'And another gzaas! Yay!', '2014-11-22 00:34:29', '127.0.0.1', 1, 'es', 0, 1);
 
 -- --------------------------------------------------------
 
