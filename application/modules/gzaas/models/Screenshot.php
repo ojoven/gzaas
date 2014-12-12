@@ -13,7 +13,12 @@ class Gzaas_Model_Screenshot {
 		$params = $this->_getParamsScreenshot($urlKey);
 		$paramsAsArgs = implode(" ", $params);
 		// we must create a script that not only creates the screenshot but that it uploads it to Amazon S3, too.
-		$script = "sh " . $pathToScript . " " . $paramsAsArgs . " > /dev/null 2>&1 &";
+		// If we are migrating, we won't continue execution
+		if (defined('MIGRATION')) {
+			$script = "sh " . $pathToScript . " " . $paramsAsArgs;
+		} else {
+			$script = "sh " . $pathToScript . " " . $paramsAsArgs . " > /dev/null 2>&1 &";
+		}
 		// TODO Maybe we should retrieve results from the script or something?
 		My_Functions::log("script: " . $script);
 		exec($script);
@@ -36,7 +41,7 @@ class Gzaas_Model_Screenshot {
 			My_AmazonFunctions::uploadToS3($filename,$remoteImagePath,$bucket,$contentType,$cache);
 
 			// Let's remove the photo once uploaded
-			//unlink($filename);
+			unlink($filename);
 		} else {
 
 			// Let's log this error
@@ -49,8 +54,11 @@ class Gzaas_Model_Screenshot {
 	private function _getParamsScreenshot($urlKey) {
 
 		$pathToApplication = APPLICATION_PATH;
-		$request = Zend_Controller_Front::getInstance()->getRequest();
-		$baseUrl = $request->getScheme() . '://' . $request->getHttpHost();
+
+		global $application;
+		$config = $application->getBootstrap();
+		$generalSettings = $config->getOption('general');
+		$baseUrl = $generalSettings['url'] . "/";
 
 		$params = array(
 			$urlKey,

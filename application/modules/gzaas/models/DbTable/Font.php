@@ -3,7 +3,7 @@
 class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract {
 
 	protected $_name = 'fonts';
-	protected $_fields = 'idF, font, fontFamily, fontFace, stylesheet, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured';
+	protected $_fields = 'idF, font, fontFamily, fontFace, stylesheet, cssScreenshot, size, fontServer, description, designer, urlDesigner1, urlDesigner2, featured';
 
 	public function getFeaturedFonts() {
 
@@ -92,6 +92,21 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract {
 
 	// FONT CREDITS (Blog / Project Credits Area)
 	public function getFontCredits() {
+
+		$columns = "fontFace, description, designer, urlDesigner1, urlDesigner2";
+		$table = $this->_name;
+		$condition = "inUse = 1";
+		$orderMethod = "font ASC";
+
+		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." ORDER BY ".$orderMethod;
+		$stmt = $this->_db->query($query);
+		$fontCredits = $stmt->fetchAll();
+
+		return $fontCredits;
+	}
+
+	// Playground update Css Screenshots
+	public function updateCssScreenshot($font) {
 
 		$columns = "fontFace, description, designer, urlDesigner1, urlDesigner2";
 		$table = $this->_name;

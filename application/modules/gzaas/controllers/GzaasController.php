@@ -58,7 +58,8 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 		$this->view->message = $gzaas['message']['message'];
 		$this->view->features = $gzaas['features'];
-		if ($screenshot && $gzaas['features']['font']['fontServer']=="2") { // Screenshot Google Web Fonts
+		if ($screenshot && isset($gzaas['features']['font']['fontServer']) &&  $gzaas['features']['font']['fontServer']=="2") { // Screenshot Google Web Fonts
+			My_Functions::log('screenshot: ' . json_encode($gzaas['features']['font']));
 			$this->view->fontstyles = $this->_retrieveAndParseFontFaceCss($gzaas['features']['font']);
 		} else {
 			$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);
@@ -70,6 +71,8 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		$this->_setFacebookMeta($gzaas);
 		$this->_setTwitterMeta($gzaas);
 		$this->_setUserLanguageCode();
+
+		My_Functions::log('we arrive here');
 
 		$this->render();
 	}
@@ -91,12 +94,12 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 	}
 
 	private function _retrieveAndParseFontFaceCss($font) {
-		$stylesheet = $font['stylesheet'];
-		$pathToStylesheet = 'http:' . $stylesheet;
-		$content = file_get_contents($pathToStylesheet);
-		$array = explode('src:',$content);
+
+		$cssScreenshot = $font['cssScreenshot'];
+		$array = explode('src:',$cssScreenshot);
 		$aux = explode('),',$array[count($array) - 1]);
 		$newstylesheet = $array[0] . 'src:' . $aux[count($aux)-1];
+
 		return $newstylesheet;
 	}
 

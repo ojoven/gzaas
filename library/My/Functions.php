@@ -21,6 +21,22 @@ class My_Functions {
 		return $cache;
 	}
 
+	public static function curl($url) {
+
+		$ch = curl_init();
+		$curlConfig = array(
+			CURLOPT_URL            => $url,
+			CURLOPT_POST           => false,
+			CURLOPT_RETURNTRANSFER => true,
+		);
+		curl_setopt_array($ch, $curlConfig);
+		$result = curl_exec($ch);
+		curl_close($ch);
+
+		return $result;
+
+	}
+
 	public static function log($message, $priority = Zend_Log::INFO) {
 
 		$logger = Zend_Registry::get('logger');

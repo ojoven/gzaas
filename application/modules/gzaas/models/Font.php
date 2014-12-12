@@ -21,6 +21,7 @@ class Gzaas_Model_Font {
 		$fontFeatures['fontFace'] = $font['fontFace'];
 		$fontFeatures['description'] = $font['description'];
 		$fontFeatures['fontServer'] = $font['fontServer'];
+		$fontFeatures['cssScreenshot'] = $font['cssScreenshot'];
 		return $fontFeatures;
 	}
 
@@ -116,6 +117,7 @@ class Gzaas_Model_Font {
 	}
 
 	public function getFontBaseSize($string,$fontUsedSize) {
+
 		// TODO: Mmmmm, don't like this being hardcoded
 		$numChars = strlen($string);
 		if ($numChars<=6){$fontSize = 400;}
@@ -168,5 +170,21 @@ class Gzaas_Model_Font {
 		$fontCredits = $fontModelDbTable->getFontCredits();
 		return $fontCredits;
 	}
+
+	// Google Webfonts
+	public function getGoogleWebfonts() {
+
+		global $application;
+		$config = $application->getBootstrap();
+		$google = $config->getOption('google');
+
+		$apiKey = $google['key'];
+		$url = "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $apiKey;
+		$fonts = My_Functions::curl($url);
+		$fonts = json_decode($fonts,true);
+		return $fonts;
+
+	}
+
 
 }
