@@ -52,12 +52,12 @@ function _renderGzaasMessage(timeToAdaptToResolution,timeToShowMessage) {
 	setTimeout('adaptSizesAndSpacesToWindowResolution()',timeToAdaptToResolution);
 	if (typeof screenshot != "undefined" && screenshot) {
 		if (screenshot=="video") {
-			setTimeout('showGzaasMessage()',500);			
+			setTimeout('showGzaasMessage()',500);
 		} else {
 			showGzaasMessageWithoutAnimation();
 		}
 	} else {
-		setTimeout('showGzaasMessage()',timeToShowMessage);		
+		setTimeout('showGzaasMessage()',timeToShowMessage);
 	}
 }
 
@@ -77,25 +77,23 @@ function setNewGzaasMessageSizeOnOverflowed() {
 
 		modifyFontSizeLetterSpacingAndLineHeight(oldFontSize,oldLetterSpacing,oldLineHeight);
 	}
-	
+
 	// HORIZONTAL OVERFLOW CONTROL
 	divWidth = $("#gzaas_screen").width();
 	windowWidth = $(window).width();
 	freeSpaceWidth = windowWidth - (windowWidth/5);
 
 	if (divWidth>freeSpaceWidth){
-		console.log('old',oldFontSize);
 		oldFontSize = (parseInt(oldFontSize) * freeSpaceWidth) / divWidth;
-		console.log('new',oldFontSize);
 		oldLetterSpacing = (parseInt(oldLetterSpacing) * freeSpaceWidth) / divWidth;
 		oldLineHeight = (parseInt(oldLineHeight) * freeSpaceWidth) / divWidth;
-		
+
 		modifyFontSizeLetterSpacingAndLineHeight(oldFontSize,oldLetterSpacing,oldLineHeight);
 	}
 
 	$("#gzaas_screen").css('width',gzaasWidthPercentage);
 	$("#gzaas_screen").css('left',gzaasLeftMarginPercentage);
-	
+
 }
 
 function modifyFontSizeLetterSpacingAndLineHeight(newFontSize,newLetterSpacing,newLineHeight) {
@@ -121,15 +119,15 @@ function adaptSizesAndSpacesToWindowResolution() {
 	marginTop = (windowHeight/2)-(divHeight/2);
 	$("#gzaas_screen").css('top',marginTop+'px');
 
-	// Maquetate style menus
-	leftBase = (windowWidth * previewMenuLeftMargin)+3;
-	$("#sub_50").css('left',(leftBase+2)+'px');
-	$("#sub_1").css('left',(leftBase+107)+'px');
-	$("#sub_4").css('left',(leftBase+349)+'px');
-	$("#shadow_select_container").css('left',(leftBase+387)+'px');
+	// If menu open, let's move it with the buttons
+	$("#sub_50").css('left',$("#mo_6").offset().left);
+	$("#sub_1").css('left',$("#mo_1").offset().left);
+	$("#sub_4").css('left',$("#mo_4").offset().left);
+	$("#shadow_select_container").css('left',$("#to_shadow").offset().left);
+	if (typeof $("#mColorPicker").attr('data-trigger') != "undefined") {
+		$("#mColorPicker").css('left',$("#icp_"+$("#mColorPicker").attr('data-trigger')).offset().left);
+	}
 
-	// Maquetate share button
-	$(".central-stuff").css('margin-left','43%');
 }
 
 // Render message
@@ -264,7 +262,7 @@ function initializePreview()
 }
 
 function initializePreviewEvents() {
-	
+
 	_setEventNoIdea1();
 	_setEventNewResolutionWhenWindowResize();
 
@@ -312,6 +310,8 @@ function _setEventClickOnShadowMenuOption()
 {
 	$("#to_shadow").click(function(e){
 		if (flagShadowMenu==0){
+			var offset = $(this).offset();
+			$("#shadow_select_container").css('left',offset.left);
 			$("#shadow_select_container").fadeIn(150);
 			flagShadowMenu = 1;
 		}
@@ -365,6 +365,8 @@ function _setEventClickOnMenuOption()
 			flagShadowMenu = 0;
 			flagColorMenu = 0;
 			flagBackColorMenu = 0;
+			var offset = $(this).offset();
+			$(this).parent().find('ul[class="metatag_submenu"]').css('left',offset.left);
 			$(this).parent().find('ul[class="metatag_submenu"]').fadeIn(150);
 			e.stopPropagation();
 		}
@@ -416,7 +418,7 @@ function _setEventClickOnMenuHashtag()
 		hashtag = $(this).data('hashkey');
 		metatag = $(this).data('metakey');
 		urlPattern = $(this).data('urlpattern');
-		
+
 		switch (metatag) {
 		case 1:
 			$("#font").val(hashtag);
@@ -434,7 +436,7 @@ function _setEventClickOnMenuHashtag()
 			$('#refresh_button').click();
 			break;
 		}
-		
+
 	});
 }
 
@@ -445,7 +447,7 @@ function setNewPattern(hashtag,urlPattern) {
 	$("#backcolor_no_selected").show();
 	$("#pattern_span").show();
 	$("#pattern_no_selected").hide();
-	
+
 	$("#backColor").val('');
 	$("#pattern").val(hashtag);
 	$("body").css('background-image','url('+urlPattern+')');
@@ -534,7 +536,7 @@ function _setEventFinishAndCreateGzaas()
 function _setEventNewGzaas()
 {
 	$("#repeat_new_gs_preview").click(function(){
-		window.location = urlBase+'/preview/preview?gs_form=';
+		window.location = urlBase+'/preview/preview?style=random&gs_form=gzaas!';
 	});
 }
 

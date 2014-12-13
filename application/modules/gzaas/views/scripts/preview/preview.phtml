@@ -115,27 +115,20 @@ overflow:hidden;
 
 <!-- New Gzaas Created Popup -->
 <div id="new_gs_container_preview" class="center_dialog">
-	
+
 	<span id="new_gs_title" class="title">
 		<?php echo $this->translate('new.gs.title');?>
-		<span class="subtitle"><?php echo $this->translate('new.gs.title.subtitle');?></span>
 	</span>
-	
+
 	<div class="container">
 
 		<span id="new_gs_subtitle" class="subtitle"></span>
-		<a href="#" id="to_preview" class="link_external" target="_blank" title="<?php echo $this->translate('title.see.result');?>"><?php echo $this->translate('see.result');?></a>
 		<input name="url_result" id="url_result" value="" type="text">
-		<?php if ($this->languageCode=='es') {
-			$whereToGzaas = 'http://gzaas.com/project/es/sobre-gzaas/donde-gzaasear/';
-		} else {
-			$whereToGzaas = 'http://gzaas.com/project/about/where-to-share-your-gzaas/';
-		} ?>
-		<a href="<?php echo $whereToGzaas;?>" class="more_info link_external" target="_blank"><?php echo $this->translate('where.to.gzaas');?></a>
 
 		<p id="result_social">
 			<a href="#" target="_blank" id="new_gs_twitter" class="social_preview" title="<?php echo $this->translate('title.share.twitter');?>">twitter</a>
 			<a href="#" target="_blank" id="new_gs_facebook" class="social_preview" title="<?php echo $this->translate('title.share.facebook');?>">facebook</a>
+			<a href="#" id="to_preview" class="social_preview btn primary" target="_blank" title="<?php echo $this->translate('see it!');?>"><?php echo $this->translate('see it!');?></a>
 		</p>
 
 		<p id="result_private">
@@ -167,9 +160,9 @@ overflow:hidden;
 					</div>
 				</div>
 				<div class="central-stuff">
-					<a href="#" id="gzaas_it_preview" class="preview_top_button" title="<?php echo $this->translate('title.share.it');?>"><?php echo $this->translate('share.it');?></a>
+					<a href="#" id="gzaas_it_preview" class="preview_top_button btn primary" title="<?php echo $this->translate('title.share.it');?>"><?php echo $this->translate('share.it');?></a>
 					<span id="in_new_gs_preview" class="preview_top_button" title="<?php echo $this->translate('title.generating.link');?>"><?php echo $this->translate('generating.link');?></span>
-					<a href="#" id="repeat_new_gs_preview" class="preview_top_button" title="<?php echo $this->translate('title.new.gzaas');?>"><?php echo $this->translate('new.gzaas');?></a>
+					<a href="#" id="repeat_new_gs_preview" class="preview_top_button btn primary" title="<?php echo $this->translate('title.new.gzaas');?>"><?php echo $this->translate('new.gzaas');?></a>
 				</div>
 				<div class="right-stuff">
 
@@ -180,6 +173,7 @@ overflow:hidden;
 </div>
 
 <footer>
+	<div class="center_options">
 	<ul id="metatags_container">
 		<?php
 		$count=0;
@@ -245,17 +239,17 @@ overflow:hidden;
 
 			// Shadows
 			else if ($menuOption[0]['idM']==5) { ?>
-			
+
 				<span title="<?php echo $this->translate($menuOption[0]['description']);?>" id="to_shadow">
 						<?php echo $this->translate($menuOption[0]['metaTag']);?>
 				</span>
-					
+
 			<?php } else {?>
-			
+
 				<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_<?php echo $count;?>"><?php echo $this->translate($metaTag[0]['metaTag']);?></span>
-				
+
 			<?php }?>
-			
+
 			<!-- Metatags Submenu -->
 			<ul class="metatag_submenu" id="sub_<?php echo $menuOption[0]['idM'];?>">
 				<li class="metatag_submenu_title"><?php echo $this->translate($menuOption[0]['description']);?></li>
@@ -290,7 +284,7 @@ overflow:hidden;
 							default:
 								$cssHashtags = '';
 						}?>
-	
+
 							<li class="hashtag_menu" style="<?php echo $cssHashtags;?>" data-hashkey="<?php echo $hashKey;?>" data-metakey="<?php echo $menuOption[0]['idM']?>" data-urlpattern="<?php echo (isset($urlPattern)) ? $urlPattern : ""; ?>">
 								<span class="hashtag_menu_description"></span>
 								<span class="add_hashtag"><?php echo $this->translate('use.it');?></span>
@@ -309,7 +303,7 @@ overflow:hidden;
 	<div id="preview_form_container">
 		<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
 			<textarea rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
-			
+
 			<div id="expand_form" title="<?php echo $this->translate('expand.form');?>">&nbsp;</div>
 			<input id="font" name="font" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo $features['font']['hashtag'];}?>"></input>
 			<input id="color" name="color" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($colorUsed==1)) {echo $features['color']['hashtag'];}?>"></input>
@@ -324,6 +318,7 @@ overflow:hidden;
 
 			<input id="refresh_button" type="submit" value="" title="<?php echo $this->translate('refresh');?>"></input>
 		</form>
+	</div>
 	</div>
 <!--/end metatags-->
 </footer>

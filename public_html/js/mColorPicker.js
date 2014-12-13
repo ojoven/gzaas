@@ -54,6 +54,9 @@
 
     $('.mColorPickerTrigger').live('click', function () {
 
+    	var offset = $(this).offset();
+  		$("#mColorPicker").css('left',offset.left).data('trigger',$(this).attr('id'));
+
     $(".mColor, .mPastColor, #mColorPickerInput, #mColorPickerWrapper").unbind();
       $.fn.mColorPicker.colorShow($(this).attr('id').replace('icp_', ''));
     });
@@ -120,32 +123,6 @@
     $t.after(
       (hidden)? '<span style="cursor:pointer;border:1px solid black;float:' + flt + ';width:' + width + 'px;height:' + height + 'px;" id="icp_' + id + '">&nbsp;</span>': ''
     ).after(colorPicker).remove();
-
-    if (hidden) {
-
-    	/*
-      $('#icp_' + id).css({
-        'background-color': color,
-        'background-image': image,
-        'display': 'inline-block'
-      }).attr(
-        'class', $('#' + id).attr('class')
-      ).addClass(
-        'mColorPickerTrigger'
-      );
-    } else {
-
-
-      $('#' + id).css({
-        'background-color': color,
-        'background-image': image
-      }).css({
-        'color': $.fn.mColorPicker.textColor($('#' + id).css('background-color'))
-      }).after(
-        '<span style="cursor:pointer;" id="icp_' + id + '" class="mColorPickerTrigger"><img src="' + $o.imageFolder + 'color.png" style="border:0;margin:0 0 0 3px" align="absmiddle"></span>'
-      ).addClass('mColorPickerInput');
-      */
-    }
 
     $('#icp_' + id).data('mColorPicker', 'true');
 
@@ -288,6 +265,8 @@
 
         $m.hide();
 
+        $("#mColorPicker").attr('data-trigger',id);
+
 		if (id=='color1') {
 			if (flagColorMenu == 1){
 			flagColorMenu = 0;
@@ -319,19 +298,15 @@
 	leftBase = (windowWidth * 0.15)+3;
 
     if (id=='color1'){
-    	left = (leftBase + 269) + "px";
         $m.css({
             'bottom':"274px",
-            'left':left,
             'position':'absolute'
           }).fadeIn(200);
     }
 
     else if (id=='color2'){
-    	left = (leftBase + 308) + "px";
         $m.css({
             'bottom':"274px",
-            'left':left,
             'position':'absolute'
           }).fadeIn(200);
     }
@@ -413,7 +388,6 @@
       	$("#gzaas_screen").css('color',$.fn.mColorPicker.currentColor);
       	$("#color_info").find('span[class="pre_info_option"]').css('background-color',$.fn.mColorPicker.currentColor);
       	$("#color_info").show();
-      	console.log($.fn.mColorPicker.currentColor);
       	$("#color_span").css('background-color',$.fn.mColorPicker.currentColor);
       	$("#color").val(stringColor);
       	if (stringColor==$("#backColor").val()){
