@@ -31,6 +31,7 @@
 	<!--CSS / LESS -->
 	<link rel="stylesheet" href=" <?php echo PUBLIC_WEB_PATH; ?>/css/style.css?v=<?php echo time(); ?>" type="text/css" media="all"/>
 	<link rel="stylesheet" href=" <?php echo PUBLIC_WEB_PATH; ?>/css/fonts/Chewy/stylesheet.css" type="text/css" media="all"/>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 	<?php echo $this->headLink(); ?>
 
 	<!--Favicon & Canonical-->
@@ -52,7 +53,7 @@
 	</script>
 
 </head>
-<body class="index">
+<body class="<?php if(isset($this->classes)) { echo $this->classes; } ?>">
 	<?php echo $this->layout()->content; ?>
 </body>
 

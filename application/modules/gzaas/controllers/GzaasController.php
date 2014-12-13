@@ -21,6 +21,9 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 		$this->view->headMeta()->setName('description', $metaDescription);
 		$this->view->headMeta()->setName('keywords', $metaKeyWords);
+		
+		$uri = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+		$this->view->classes = $uri['action'];
 	}
 
 	public function newgsAction() {
@@ -44,7 +47,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 
 	public function seegsAction() {
-
+		
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
 		$screenshot = $this->getRequest()->getParam("screenshot");

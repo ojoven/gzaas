@@ -17,6 +17,9 @@ class IndexController extends Zend_Controller_Action {
 		$this->view->headMeta()->setName('description', $metaDescription);
 		$this->view->headMeta()->setName('keywords', $metaKeyWords);
 		$this->view->headTitle()->append($metaTitle);
+		
+		$uri = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+		$this->view->classes = $uri['action'];
 	}
 
 	public function indexAction() {
