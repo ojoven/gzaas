@@ -3,7 +3,7 @@ html {
 	font-size:55%;
 }
 
-input {
+input[type="text"] {
 	font-size:16px !important;
 }
 
@@ -12,11 +12,8 @@ input {
 	margin-left:5%;
 }
 
-.fork-github {
-	img {
-		width:u(10rem);
-	}
-}
+.inline-desktop { display:none; }
+.inline-mobile { display:inline; }
 
 /** HOME **/
 #title {
@@ -62,6 +59,8 @@ input {
 #all_options_container {
 	width:90%;
 	left:5%;
+	top:5%;
+	margin-left:0;
 }
 
 .all_option_supra {
@@ -72,4 +71,49 @@ input {
 
 .all_option_name {
 	display:block;
+}
+
+.center_dialog {
+	width:95%;
+	.container {
+		width:100%;
+		@include box-sizing(border-box);
+	}
+}
+
+#url_result {
+	width:100%;
+	@include box-sizing(border-box);
+	height:50px;
+}
+
+.social_preview {
+	font-size:u(2rem);
+}
+
+
+/** SEE GZAAS **/
+#gs_social { display:none; }
+
+#right_sidebar {
+	top:auto;
+	bottom:50px;
+	left:50%;
+	width:50px;
+	margin-left:-25px;
+}
+
+#random_explore {
+	width:50px;
+	height:50px;
+	@include box-sizing(border-box);
+	padding:3px 19px;
+	font-family:'Chewy';
+	@include border-radius(50%);
+	background:#f75100;
+	color:#fff;
+	&:hover,&:focus,&:active {
+		background:#ddd;
+		color:#222;
+	}
 }
