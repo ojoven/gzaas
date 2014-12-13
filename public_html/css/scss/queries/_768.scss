@@ -4,7 +4,7 @@ html {
 }
 
 input {
-	//font-size:16px !important;
+	font-size:16px !important;
 }
 
 .index #container {
@@ -26,6 +26,43 @@ input {
 	max-width:170px;
 }
 
-#index_screen .subtitle {
-	
+/** PREVIEW **/
+#header-bar, #header-bar .header-bar-inside {
+	max-width:100%;
+	min-width:0;
+}
+
+
+#metatags_container {
+	margin-left:5%;
+	> li {
+		display:none;
+		&:first-child {
+			display:inline;
+		}
+	}
+}
+
+#gs_form_preview {
+	width:42%;
+	height:34px;
+	@include box-sizing(border-box);
+	padding:8px 7px 0;
+}
+#expand_form { display:none; }
+#refresh_button { margin:5px 0 0 5px; }
+
+#all_options_container {
+	width:90%;
+	left:5%;
+}
+
+.all_option_supra {
+	margin: 10px auto;
+    text-align: center;
+    width: 100%;
+}
+
+.all_option_name {
+	display:block;
 }

@@ -161,13 +161,8 @@
     ).css(
       'display','none'
     ).html(
-      '<div class="metatag_submenu_title" style="width:180px;" id="colorPickerTitle"></div><div class="metatag_submenu_options"  style="width:178px;"><span id="colorPickerUseIt"></span></div><div id="mColorPickerWrapper"><div id="mColorPickerImg" class="mColor"></div><div id="mColorPickerImgGray" class="mColor"></div><div id="mColorPickerSwatches"><div class="mClear"></div></div></div><span id="colorPickerKey"></span>'
+      '<div class="metatag_submenu_title" id="colorPickerTitle"></div><div class="metatag_submenu_options"><span id="colorPickerUseIt"></span></div><div id="mColorPickerWrapper"><div id="mColorPickerImg" class="mColor"></div><div id="mColorPickerImgGray" class="mColor"></div><div id="mColorPickerSwatches"><div class="mClear"></div></div></div><span id="colorPickerKey"></span>'
     ).appendTo("body");
-
-    /*
-    $(document.createElement("div")).attr("id","mColorPickerBg").css({
-      'display': 'none'
-    }).appendTo("body");*/
 
     for (n = 11; n > -1; n--) {
 
@@ -447,7 +442,7 @@
 
       else {
     	  $("#shadow_color").val($.fn.mColorPicker.currentColor);
-    	  setTextShadow();
+    	  _setTextShadow();
     	  $("#shadow_color_span").css('background-color',$.fn.mColorPicker.currentColor);
     	  $("#shadow_select_container").show();
     	  $.fn.mColorPicker.closePicker();
@@ -481,7 +476,7 @@
 
 	$("#style_info_supra").html('');
 
-    e.stopPropagation();
+   	e.stopPropagation();
   };
 
   $.fn.mColorPicker.setInputColor = function (id, color) {
