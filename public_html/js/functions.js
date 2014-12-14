@@ -718,6 +718,7 @@ function showSharePopup(urlKey) {
 
 		$("#new_gs_subtitle").html(messageTitlePopup);
 		$("#new_gs_save").attr('href',urlAmazonS3 + urlKey + '.jpg');
+		setTimeout(function() { $("#new_gs_save").fadeIn(1000); }, 5000); // TODO: mmmm, hardcoded no, please
 		$("#new_gs_facebook").attr('href','http://www.facebook.com/sharer.php?u=' + urlBase + urlKey + '&t=' + urlBase + urlKey);
 		$("#new_gs_twitter").attr('href','http://twitter.com/home?status=' + urlBase + urlKey + ' /via @gzaas');
 		$("#new_gs_pinterest").attr('href','http://www.pinterest.com/pin/create/button/?url=' + urlBase + urlKey + '&media=' + urlAmazonS3 + urlKey + ".jpg&description=via http://gzaas.com");

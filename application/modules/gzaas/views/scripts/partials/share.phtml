@@ -11,7 +11,8 @@
 		<input name="url_result" id="url_result" value="" type="text">
 
 		<p id="result_social">
-			<a href="#" target="_blank" id="new_gs_save" class="social_preview" download><i></i><span><?php echo __("save image");?></span></a>
+
+			<a href="#" target="_blank" id="new_gs_save" class="social_preview" <?php if ($this->action=="preview") { echo 'style="display:none;"'; }?> download><i></i><span><?php echo __("save image");?></span></a>
 			<a href="#" target="_blank" id="new_gs_pinterest" class="social_preview"><i></i><span><?php echo __("pin it");?></span></a>
 			<a href="#" target="_blank" id="new_gs_twitter" class="social_preview"><i></i><span><?php echo __("tweet it");?></span></a>
 			<a href="#" target="_blank" id="new_gs_facebook" class="social_preview"><i></i><span><?php echo __("post to facebook");?></span></a>
