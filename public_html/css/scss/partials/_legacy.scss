@@ -213,11 +213,35 @@ h1 {
 	font-size: 14px;
 	margin-left: 2px;
 	padding: 2px 5px 0;
-	cursor:default;
+	cursor:pointer;
+
+	i {
+		background:url(../images/icons/social-sprite.png) no-repeat;
+		background-size:47px;
+		width:10px;
+		height:10px;
+		display:inline-block;
+	}
 }
 
-#mini_twitter { background: #6acaee;}
-#mini_facebook { background: #3961b5;}
+.right-stuff-option {
+	&:hover,&:focus,&:active {
+		#mini_twitter { background:#59b9dd;	}
+		#mini_facebook { background:#2850a4;	}
+	}
+}
+
+#mini_twitter {
+	background: #6acaee;
+	i { background-position:0 0; }
+}
+#mini_facebook {
+	background: #3961b5;
+	i {
+		background-position: -23px 0;
+	    background-size: 58px auto;
+	}
+}
 
 #header-bar .central-stuff {
 	width: 250px;
@@ -369,7 +393,7 @@ footer .vr {
 #footer-bar .right-stuff a {
 	color: #ddd;
 	display: block;
-	padding: 15px 23px 5px 10px;
+	padding: 12px 23px 5px 10px;
 	float: right;
 }
 
@@ -558,7 +582,7 @@ footer .vr {
 	height:100%;
 	// A bit to the top
 	position:relative;
-	top:-5%;
+	top:-10%;
 }
 
 .index #container {
@@ -676,12 +700,6 @@ border: 4px solid $maincolor;
 
 .seegs {
 	#header, #footer, #right_sidebar {
-		display:none;
-	}
-}
-
-.index {
-	#header, #footer {
 		display:none;
 	}
 }

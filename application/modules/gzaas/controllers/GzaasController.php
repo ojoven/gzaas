@@ -74,6 +74,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		$this->_setFacebookMeta($gzaas);
 		$this->_setTwitterMeta($gzaas);
 		$this->_setUserLanguageCode();
+		$this->_set404ifError($urlKey);
 
 		$this->render();
 	}
@@ -190,6 +191,12 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 		$languageCode = Zend_Registry::get('languageCode');
 		$this->view->languageCode = $languageCode;
+	}
+
+	private function _set404ifError($urlKey) {
+		if ($urlKey==ERROR_KEY) {
+			$this->_response->setHttpResponseCode(404);
+		}
 	}
 
 }

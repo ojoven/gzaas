@@ -33,7 +33,7 @@ const timeToShowMessageOnSeeGzaas = 1000;
 const timeToShowMessageOnPreviewGzaas = 600;
 
 const menuSidebarFadeTime = 350;
-const menuSidebarShowDelayTime = 4300;
+const menuSidebarShowDelayTime = 2300;
 
 var oldWindowWidth;
 var menuOpacity=1;
