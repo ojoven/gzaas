@@ -185,6 +185,7 @@ function initializeSeeGzaasEvents()
 
 // See gzaas functions
 function _showMenuAndSidebarWithDelay(time,fade) {
+	//time = 0; // tmp
 	setTimeout(function(){
 		_showMenuAndSidebar(fade);
 	},time);
@@ -223,7 +224,7 @@ function _setEventKeyMapping()
 
 function _setEventClickOnNewGzaas()
 {
-	$("#new_gzaas_header").click(function(){
+	$("#to-new-gzaas").click(function(){
 		$("#create_gzaas_container").fadeIn(150);
 		$('#gs_form_create_gzaas').focus();
 	});

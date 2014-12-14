@@ -299,7 +299,7 @@ body {
 
 	<div id="preview_form_container">
 		<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
-			<textarea rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
+			<textarea placeholder="<?php echo $this->translate('Enter your message...');?>" rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
 
 			<div id="expand_form" title="<?php echo $this->translate('expand.form');?>">&nbsp;</div>
 			<input id="font" name="font" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo $features['font']['hashtag'];}?>"></input>

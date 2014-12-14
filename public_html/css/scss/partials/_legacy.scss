@@ -5,6 +5,7 @@
 ***************************************
 
 0. RESET CSS
+0.1 MIXINS AND VARS
 
 1. GENERAL CSS
 2. HEADER & FOOTER & SIDEBAR
@@ -54,7 +55,13 @@
 		padding: 0;
 	}
 
+/******************************************
 
+			0.1. MIXINS AND VARS
+
+******************************************/
+
+$maincolor:#F75100;
 
 /******************************************
 
@@ -89,7 +96,7 @@ a {
 }
 
 a:hover {
-	color: #f76118;
+	color: $maincolor;
 }
 
 input {
@@ -285,7 +292,7 @@ footer .vr {
 
 	#new_gzaas_text {
 		background: #000000;
-	    color: #f75100;
+	    color: $maincolor;
 	    display: inline-block;
 	    float: right;
 	    font-size: 12px;
@@ -366,7 +373,7 @@ footer .vr {
 }
 
 #footer-bar .right-stuff a:hover {
-	color: #f76118;
+	color: $maincolor;
 }
 
 #footer-bar .central-stuff {
@@ -381,23 +388,53 @@ footer .vr {
 	top:auto;
 	bottom:100px;
 	left:50%;
-	width:50px;
-	margin-left:-25px;
+	margin-left:-85px;
 	z-index:1;
 }
 
-#random_explore {
+.index #right_sidebar {
+	margin-left:-25px;
+	display:block;
+}
+
+.seegsbtn {
+	@include transition(background,300ms,linear);
+	@include box-sizing(border-box);
+	@include border-radius(50%);
+	
+	display:inline-block;
+	margin-right:10px;
 	font-size: 40px;
 	font-weight: 700;
 	width:50px;
 	height:50px;
-	@include box-sizing(border-box);
+	
 	padding:3px 19px;
 	font-family:'Chewy';
-	@include border-radius(50%);
 	background:rgba(0,0,0,0.7);
 	color:#fff;
-	@include transition(background,300ms,linear);
+	
+	&.plusbtn { padding: 4px 15px; }
+	&.sharebtn {
+		// Because of the line-height we have to position this one
+		position: relative;
+	    top: 14px;
+		i {
+			background:url(../images/sharesprite.png) no-repeat 0 0;
+			background-size:24px;
+			width:24px;
+			height:24px;
+			display:block;
+			left: -4px;
+		    position: relative;
+		    top: 9px;
+		}
+		&:hover,&:focus,&:active {
+			i { background-position: 0 -25px; height:26px; }
+		}
+	}
+	
+	&:last-child { margin-right:0; }
 	&:hover,&:focus,&:active {
 		background:rgba(0,0,0,0.9);
 	}
@@ -451,6 +488,9 @@ footer .vr {
     right: -15px;
     top: -15px;
     width: 25px;
+    &:hover,&:focus,&:active {
+    	color:#fff;
+    }
 }
 
 .center_dialog .container .subtitle {
@@ -475,7 +515,7 @@ footer .vr {
 
 .center_dialog_input {
 	border: 4px solid #FFA66B;
-	@include border-radius(12px);
+	@include border-radius(5px);
 	font-size: 18px;
 	height: 22px;
 	margin: 0;
@@ -490,14 +530,10 @@ footer .vr {
 }
 
 .dialog_button {
-	@extend .fontbrand;
-	@include border-radius(7px);
-	background: none repeat scroll 0 0 #F76118;
-	border: medium none;
-	color: #FFFFFF;
+	border: none;
 	cursor: pointer;
 	font-size: 20px;
-	padding: 2px 5px 3px;
+	padding: 5px;
 	float: right;
 	margin-top: 10px;
 }
@@ -576,12 +612,12 @@ footer .vr {
 }
 
 #gs_form:focus {
-border: 4px solid #f76118;
+border: 4px solid $maincolor;
 }
 
 #preview_button {
 	@include border-radius(6px);
-	background: #F76118;
+	background: $maincolor;
 	border: medium none;
 	color: #FFFFFF;
 	cursor: pointer;
@@ -637,8 +673,14 @@ border: 4px solid #f76118;
 	z-index: -1;
 }
 
-.seegs,.index {
+.seegs {
 	#header, #footer, #right_sidebar {
+		display:none;
+	}	
+}
+
+.index {
+	#header, #footer {
 		display:none;
 	}	
 }
@@ -648,7 +690,9 @@ border: 4px solid #f76118;
 	color:#ddd;
 }
 
-#new_gzaas_text:hover {color:#f76118;}
+#new_gzaas_text:hover { color:$maincolor; }
+
+
 
 
 /******************************************
@@ -695,7 +739,7 @@ border: 4px solid #f76118;
 	color:#222;
 	&.primary {
 	color: #FEFCFE;
-		background: #F75100;
+		background: $maincolor;
 		&:hover, &:focus, &:active {
 			background: #cecfce;
 			color: #111;
@@ -857,7 +901,7 @@ border: 4px solid #f76118;
 .metatag_submenu_title {
 	@extend .fontbrand;
 	@include border-top-radius(12px);
-	background: none repeat scroll 0 0 #F76118;
+	background: none repeat scroll 0 0 $maincolor;
 	color: #FFFFFF;
 	display: block;
 	font-size: 20px;
@@ -1273,7 +1317,6 @@ border: 4px solid #f76118;
 	left: 50%;
 	margin-left: -352px; // half the width
 	width: 704px;
-	overflow: hidden;
 	position: fixed;
 	top: 20%;
 	z-index: 20000;

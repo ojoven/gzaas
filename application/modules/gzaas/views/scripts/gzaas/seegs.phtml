@@ -64,16 +64,6 @@ if (!$this->screenshot) {
 						</span>
 					</div>
 				</div>
-				<div class="right-stuff">
-					<span class="vr"></span>
-					<div id="new_gzaas_header">
-						<span id="new_gzaas_text">
-							<span class="inline-desktop"><?php echo $this->translate('header.create.new.gzaas');?></span>
-							<span class="inline-mobile"><?php echo $this->translate('new!');?></span>
-							<i></i>
-						</span>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -90,7 +80,9 @@ if (!$this->screenshot) {
 if (!$this->screenshot) {
 ?>
 <div id="right_sidebar">
-	<a id="random_explore" href="<?php echo URL_BASE;?>explore">&gt;</a>
+	<a id="to-share" class="seegsbtn sharebtn" href="#"><i></i></a>
+	<a id="to-new-gzaas" class="seegsbtn plusbtn" href="#">+</a>
+	<a id="random_explore" class="seegsbtn" href="<?php echo URL_BASE;?>explore">&gt;</a>
 </div>
 
 <!-- FOOTER -->
@@ -130,14 +122,14 @@ if (!$this->screenshot) {
 	</span>
 	<div class="container">
 		<form action="<?php echo $this->baseUrl('/');?>preview/preview" name="new_gs">
-			<input type="text" class="center_dialog_input" name="gs_form" id="gs_form_create_gzaas" />
+			<input placeholder="<?php echo $this->translate('Enter your message...');?>" type="text" class="center_dialog_input" name="gs_form" id="gs_form_create_gzaas" />
 			<input id="font" name="font" class="hidden_form" type="text" value="<?php if($fontUsed){ echo $features['font']['hashtag']; }?>"></input>
 			<input id="color" name="color" class="hidden_form" type="text" value="<?php if($colorUsed) { echo $features['color']['hashtag']; }?>"></input>
 			<input id="backColor" name="backColor" class="hidden_form" type="text" value="<?php if($backColorUsed) { echo $features['backColor']['hashtag']; }?>"></input>
 			<input id="pattern" name="pattern" class="hidden_form" type="text" value="<?php if($patternUsed) { echo $features['pattern']['hashtag']; }?>"></input>
 			<input id="shadows" name="shadows" class="hidden_form" type="text" value="<?php if($shadowsUsed) { echo $features['shadows']['hashtag']; }?>"></input>
 			<input id="style" name="style" class="hidden_form" type="text" value="<?php if($styleUsed) { echo $features['style']['hashtag']; }?>"></input>
-			<input id="create_button" class="dialog_button" type="submit" value="<?php echo $this->translate('gzaas.it');?>">
+			<input id="create_button" class="dialog_button btn primary" type="submit" value="<?php echo $this->translate('gzaas.it');?>">
 		</form>
 	</div>
 </div>
