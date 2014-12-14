@@ -21,6 +21,9 @@ class Gzaas_PreviewController extends Zend_Controller_Action {
 		$this->view->headMeta()->setName('keywords', $metaKeyWords);
 		$this->view->headTitle()->append($metaTitle);
 
+		$uri = Zend_Controller_Front::getInstance()->getRequest()->getParams();
+		$this->view->action = $uri['action'];
+
 	}
 
 	public function previewAction() {

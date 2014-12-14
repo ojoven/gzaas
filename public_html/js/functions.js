@@ -705,8 +705,6 @@ function showSharePopup(urlKey) {
 
 	if (!sharePopupShown) {
 
-		urlKey = "NqQU";
-
 		$("#new_gs_subtitle").html(messageTitlePopup);
 		$("#new_gs_save").attr('href',urlAmazonS3 + urlKey + '.jpg');
 		$("#new_gs_facebook").attr('href','http://www.facebook.com/sharer.php?u=' + urlBase + urlKey + '&t=' + urlBase + urlKey);

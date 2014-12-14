@@ -31,7 +31,7 @@ class Gzaas_Model_Explore {
 								'api, embed, preview, explore, embedded, font, fonts, style, styles, pattern, patterns';
 
 		while ($repeated) {
-			$urlKey = $this->_keyGenerator(4, 7, 1, 0, 1);
+			$urlKey = $this->_keyGenerator(7, 10, 1, 0, 1);
 			$previouslyUsedUrlKey = $messageModel->getMessage($urlKey);
 			if ((!$previouslyUsedUrlKey) && (!strlen(strstr($gzaasProtectedWords, $urlKey)) > 0)) {
 				$repeated = false;
