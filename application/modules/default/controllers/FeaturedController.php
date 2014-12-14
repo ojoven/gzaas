@@ -1,32 +1,13 @@
 <?php
 /** Used to generate featured thumbnails **/
 // TODO: Refactor or delete and create a more authomatic way of creating the thumbnails
-require_once "Zend/Controller/Action.php";
-require_once "Zend/Loader.php";
-require_once "My/Functions.php";
+require_once "My/Gzaas_Base_Controller.php";
 
-class FeaturedController extends Zend_Controller_Action {
+class FeaturedController extends Gzaas_Base_Controller {
 
 	function init() {
 
-		$this->_redirector = $this->_helper->getHelper('Redirector');
-
-		$this->view->baseImage = PUBLIC_WEB_PATH.'/images/';
-		$this->view->baseUrl = $this->_request->getBaseUrl();
-		$this->view->setHelperPath(LIBRARY_PATH.'/Zend/View/Helper', 'NF_View_Helper');
-		$this->view->headLink()->appendStylesheet(PUBLIC_WEB_PATH.'/css/style.css');
-		$this->view->headLink()->appendStylesheet(PUBLIC_WEB_PATH.'/css/fonts/Chewy/stylesheet.css');
-		// jQuery CDN Google
-		$this->view->headScript()->appendFile('https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js','text/javascript');
-
-		$translate = Zend_Registry::get('Zend_Translate');
-		$metaDescription = utf8_encode($translate->translate('meta.description'));
-		$metaKeyWords = utf8_encode($translate->translate('meta.keywords'));
-		$metaTitle = utf8_encode($translate->translate('meta.title'));
-
-		$this->view->headMeta()->setName('description', $metaDescription);
-		$this->view->headMeta()->setName('keywords', $metaKeyWords);
-		$this->view->headTitle()->append($metaTitle);
+		parent::init();
 
 	}
 

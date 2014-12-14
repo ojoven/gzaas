@@ -1,32 +1,17 @@
 <?php
-require_once "Zend/Controller/Action.php";
-require_once "Zend/Loader.php";
+require_once "My/Gzaas_Base_Controller.php";
 
-class Gzaas_PreviewController extends Zend_Controller_Action {
+class Gzaas_PreviewController extends Gzaas_Base_Controller {
 
 	function init() {
 
-		$this->_redirector = $this->_helper->getHelper('Redirector');
-		$this->view->baseImage = PUBLIC_WEB_PATH.'/images/';
-		$this->view->baseUrl = $this->_request->getBaseUrl();
-		$this->view->setHelperPath(LIBRARY_PATH.'/Zend/View/Helper', 'NF_View_Helper');
-
-		// Preview Javascripts
-		$translate = Zend_Registry::get('Zend_Translate');
-		$metaDescription = utf8_encode($translate->translate('meta.description.preview'));
-		$metaKeyWords = utf8_encode($translate->translate('meta.keywords'));
-		$metaTitle = utf8_encode($translate->translate('meta.title.preview'));
-
-		$this->view->headMeta()->setName('description', $metaDescription);
-		$this->view->headMeta()->setName('keywords', $metaKeyWords);
-		$this->view->headTitle()->append($metaTitle);
-
-		$uri = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-		$this->view->action = $uri['action'];
+		parent::init();
 
 	}
 
 	public function previewAction() {
+
+		$this->view->headTitle(__("Preview") . " | " . __("Gzaas!"),'SET');
 
 		$parameters = $this->_request->getParams();
 		$gzaasModel = new Gzaas_Model_Gzaas();

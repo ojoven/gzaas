@@ -335,32 +335,28 @@ class Api_ApiController extends Zend_Controller_Action {
 			// Number of lines overflows
 			$arrayNewLines = explode("\n", $textmessage);
 			if (count($arrayNewLines)>GZAAS_MAX_NEW_LINES+1){
-				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->translate('error.max.lines'));
+				$errorMessage = __("Too many lines, I'm afraid");
 				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
 			// String max size
 			if (strlen($textmessage)>GZAAS_MAX_SIZE) {
-				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->translate('error.max.size'));
+				$errorMessage = __("You've used more characters than allowed");
 				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
 			// Empty message
 			if (trim($textmessage)==''){
-				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->translate('error.gzaas.blank'));
+				$errorMessage = __("Nothing to say?");
 				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
 
 			// Back and font color are the same
 			if (($color!='') && ($color==$backcolor)){
-				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->translate('error.same.color'));
+				$errorMessage = __("You can't use the same color for the font and the background");
 				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
@@ -368,7 +364,7 @@ class Api_ApiController extends Zend_Controller_Action {
 			// No styles selected
 			if (($font=='') && ($color=='') && ($backcolor=='') && ($backpattern=='') && ($style=='')){
 				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->translate('error.no.style'));
+				$errorMessage = __("You must give the gzaas some style");
 				$valid = false;
 				$this->getResponse()->setHttpResponseCode(400);
 			}
@@ -519,7 +515,7 @@ class Api_ApiController extends Zend_Controller_Action {
 					if ((!$idF) && (!$validColor) && (!$validBackColor) && (!$idP) && (!$idS)) {
 						$db->rollback();
 						$translate = Zend_Registry::get('Zend_Translate');
-						$errorMessage = utf8_encode($translate->translate('error.no.style'));
+						$errorMessage = __("You must give the gzaas some style");
 						$response['valid'] = false;
 						$response['errorMessage'] = $errorMessage;
 						echo json_encode($buffer);
@@ -547,7 +543,7 @@ class Api_ApiController extends Zend_Controller_Action {
 				catch (exception $e){
 					$db->rollback();
 					$translate = Zend_Registry::get('Zend_Translate');
-					$errorMessage = utf8_encode($translate->translate('error.newgs.exception'));
+					$errorMessage = __("Something went wrong");
 					$response['valid'] = false;
 					$response['errorMessage'] = $errorMessage;
 					echo json_encode($response);

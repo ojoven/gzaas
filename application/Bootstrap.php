@@ -32,12 +32,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 	protected function _initTranslate() {
 
+		// To use a global __() function to make the translations.
+		require_once LIBRARY_PATH . '/My/global.php';
+
     	$languageCode = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) ? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : "en";
 
 		if ($languageCode!='es'){
 			$languageCode='en';
 		}
-		$translate = new Zend_Translate('csv', APPLICATION_PATH .'/langs/'.$languageCode.'.csv', $languageCode);
+		$translate = new Zend_Translate(
+			'gettext', APPLICATION_PATH .'/langs/'.$languageCode.'.mo', $languageCode,
+			array(
+			'disableNotices' => true,
+			'clear' =>true,
+			'reload'=>true,
+			)
+		);
 		Zend_Registry::set('Zend_Translate', $translate);
 		Zend_Registry::set('languageCode',$languageCode);
     }

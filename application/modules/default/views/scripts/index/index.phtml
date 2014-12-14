@@ -12,7 +12,7 @@
 			<div class="right-stuff">
 			<?php if ($this->languageCode == 'es'){?>
 				<a class="right-stuff-option" href="<?php echo URL_COM_ES; ?>" target="_blank">
-					<?php echo $this->translate('join.the.gzaasers');?>
+					<?php echo __("Join the gzaasers");?>
 					<span id="mini_twitter" class="community_mini_icon"><i></i></span>
 					<span id="mini_facebook" class="community_mini_icon"><i></i></span>
 				</a>
@@ -35,7 +35,7 @@
 
 <!-- SIDEBAR -->
 <div id="right_sidebar">
-	<a id="random_explore" class="seegsbtn" href="<?php echo $this->baseUrl;?>/explore" title="<?php echo $this->translate('title.view.examples');?>">&gt;</a>
+	<a id="random_explore" class="seegsbtn" href="<?php echo $this->baseUrl;?>/explore" title="<?php echo __("View random gzaases");?>">&gt;</a>
 </div>
 
 <!-- CONTENEDOR: LOGO + FORMULARIO + INFO GZAAS -->
@@ -45,17 +45,17 @@
 			<h1 id="title">
 				<img id="img_title" src="<?php echo $this->baseImage?>gzaas_logo.png" alt="gzaas logo"/>
 			</h1>
-			<span class="subtitle"><?php echo $this->translate('slogan');?></span>
+			<span class="subtitle"><?php echo __("My full screen messages");?></span>
 		</div>
 
 		<div id="form_container">
 			<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
-				<textarea placeholder="<?php echo $this->translate('Enter your message...');?>" rows="1" cols="50" name="gs_form" id="gs_form"></textarea>
+				<textarea placeholder="<?php echo __("Enter your message...");?>" rows="1" cols="50" name="gs_form" id="gs_form"></textarea>
 				<input type="text" class="hidden_form" name="from" value="home"></input>
 				<input type="text" class="hidden_form" name="style" value="random"></input>
 				<div id="preview_container">
 					<span id="preview_button_container">
-					<input id="preview_button" class="large_button gs_button" type="submit" value="<?php echo $this->translate('gzaas.it');?>" title="<?php echo $this->translate('title.gzaas.it');?>"></input>
+					<input id="preview_button" class="large_button gs_button" type="submit" value="<?php echo __("gzaas it!");?>"></input>
 					</span>
 				</div>
 			</form>

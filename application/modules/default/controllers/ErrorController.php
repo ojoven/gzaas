@@ -1,24 +1,11 @@
 <?php
+require_once "My/Gzaas_Base_Controller.php";
 
-class ErrorController extends Zend_Controller_Action {
+class ErrorController extends Gzaas_Base_Controller {
 
 	public function init() {
 
-		$this->_redirector = $this->_helper->getHelper('Redirector');
-
-		$this->view->baseUrl = $this->_request->getBaseUrl();
-		$this->view->setHelperPath(LIBRARY_PATH.'/Zend/View/Helper', 'NF_View_Helper');
-		$this->view->headLink()->appendStylesheet(PUBLIC_WEB_PATH.'/css/style.css');
-		$this->view->headLink()->appendStylesheet(PUBLIC_WEB_PATH.'/css/fonts/Chewy/stylesheet.css');
-
-		$translate = Zend_Registry::get('Zend_Translate');
-		$metaDescription = utf8_encode($translate->translate('meta.description'));
-		$metaKeyWords = utf8_encode($translate->translate('meta.keywords'));
-		$metaTitle = utf8_encode($translate->translate('meta.title'));
-
-		$this->view->headMeta()->setName('description', $metaDescription);
-		$this->view->headMeta()->setName('keywords', $metaKeyWords);
-		$this->view->headTitle()->append($metaTitle);
+		parent::init();
 	}
 
 	public function indexAction() {

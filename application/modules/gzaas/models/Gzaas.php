@@ -74,7 +74,7 @@ class Gzaas_Model_Gzaas {
 			} else {
 				$db->rollback();
 				$translate = Zend_Registry::get('Zend_Translate');
-				$errorMessage = utf8_encode($translate->_('error.no.style'));
+				$errorMessage = __("You must give the gzaas some style");
 				$response = $this->constructErrorJsonResponse($errorMessage);
 				return $response;
 			}
@@ -82,7 +82,7 @@ class Gzaas_Model_Gzaas {
 		} catch (exception $e) {
 			$db->rollback();
 			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.newgs.exception'));
+			$errorMessage = __("Something went wrong");
 			$response = $this->_constructErrorJsonResponse($errorMessage);
 			return $response;
 		}
@@ -198,8 +198,7 @@ class Gzaas_Model_Gzaas {
 	private function _addSloganOnEmptyGzaas(&$textmessage) {
 
 		if (trim($textmessage) == '') {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$textmessage = utf8_encode($translate->_('meta.title'));
+			$textmessage = __("Gzaas!");
 		}
 	}
 
@@ -212,8 +211,7 @@ class Gzaas_Model_Gzaas {
 
 		$arrayNewLines = explode("\n", $formMessage);
 		if (count($arrayNewLines) > self::GZAAS_MAX_NEW_LINES + 1) {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$formMessage = utf8_encode($translate->_('error.max.lines'));
+			$formMessage = __("Too many lines, I'm afraid");
 		}
 	}
 
@@ -322,8 +320,7 @@ class Gzaas_Model_Gzaas {
 	private function _checkStyle($font, $color, $backColor, $pattern, $style, &$errorMessage, &$valid) {
 
 		if (($font == '') && ($color == '') && ($backColor == '') && ($pattern == '') && ($style == '')) {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.no.style'));
+			$errorMessage = __("You must give the gzaas some style");
 			$valid = false;
 		}
 	}
@@ -331,8 +328,7 @@ class Gzaas_Model_Gzaas {
 	private function _checkBackColorAndFontColor($color, $backcolor, &$errorMessage, &$valid) {
 
 		if (($color != '') && ($color == $backcolor)) {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.same.color'));
+			$errorMessage = __("You can't use the same color for the font and the background");
 			$valid = false;
 		}
 	}
@@ -340,8 +336,7 @@ class Gzaas_Model_Gzaas {
 	private function _checkEmptyGzaas($textmessage, &$errorMessage, &$valid) {
 
 		if (trim($textmessage) == '') {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.gzaas.blank'));
+			$errorMessage = __("Nothing to say, you hacker? ;) <br/>Please help us making gzaas more secure...");
 			$valid = false;
 		}
 	}
@@ -349,8 +344,7 @@ class Gzaas_Model_Gzaas {
 	private function _checkMessageMaxLength($textmessage, &$errorMessage, &$valid) {
 
 		if (strlen($textmessage) > self::GZAAS_MAX_SIZE) {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.max.size'));
+			$errorMessage = __("You've used more characters than allowed");
 			$valid = false;
 		}
 	}
@@ -359,8 +353,7 @@ class Gzaas_Model_Gzaas {
 
 		$arrayNewLines = explode("\n", $textmessage);
 		if (count($arrayNewLines) > self::GZAAS_MAX_NEW_LINES + 1) {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.max.lines'));
+			$errorMessage = __("Too many lines, I'm afraid");
 			$valid = false;
 		}
 	}
@@ -368,8 +361,7 @@ class Gzaas_Model_Gzaas {
 	private function _checkValidVisibility($visibility, &$errorMessage, &$valid) {
 
 		if (($visibility!=0) && ($visibility!=1)) {
-			$translate = Zend_Registry::get('Zend_Translate');
-			$errorMessage = utf8_encode($translate->_('error.no.valid.visibility'));
+			$errorMessage = __("Ooops");
 			$valid = false;
 		}
 	}

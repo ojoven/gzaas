@@ -1,29 +1,12 @@
 <?php
-require_once "Zend/Controller/Action.php";
-require_once "Zend/Loader.php";
+require_once "My/Gzaas_Base_Controller.php";
 
-class Gzaas_GzaasController extends Zend_Controller_Action {
-
-	private $_metaTitle;
+class Gzaas_GzaasController extends Gzaas_Base_Controller {
 
 	function init() {
 
-		$this->_redirector = $this->_helper->getHelper('Redirector');
+		parent::init();
 
-		$this->view->baseUrl = $this->_request->getBaseUrl();
-		$this->view->baseImage = PUBLIC_WEB_PATH.'/images/';
-		$this->view->setHelperPath(LIBRARY_PATH.'/Zend/View/Helper', 'NF_View_Helper');
-
-		$translate = Zend_Registry::get('Zend_Translate');
-		$metaDescription = utf8_encode($translate->translate('meta.description.gzaas'));
-		$metaKeyWords = utf8_encode($translate->translate('meta.keywords'));
-		$this->_metaTitle = utf8_encode($translate->translate('meta.title.gzaas'));
-
-		$this->view->headMeta()->setName('description', $metaDescription);
-		$this->view->headMeta()->setName('keywords', $metaKeyWords);
-
-		$uri = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-		$this->view->action = $uri['action'];
 	}
 
 	public function newgsAction() {
@@ -77,6 +60,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		$this->_set404ifError($urlKey);
 
 		$this->render();
+
 	}
 
 	public function randomexploreAction() {
@@ -128,8 +112,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 		$image = (!$this->_hasScreenshot($gzaas)) ? $defaultImage : "http://gzaas.s3.amazonaws.com/" . $urlKey . ".jpg";
 
 		// Description
-		$translate = Zend_Registry::get('Zend_Translate');
-		$description = utf8_encode($translate->translate('meta.description.gzaas'));
+		$description = __("Get your friends amazed by creating easy&cool full screen messages and sending them via Facebook, Twitter, Pinterest or email!");
 
 		// Let's assign the metas (name,content)
 		$facebookMeta = array(

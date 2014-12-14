@@ -52,9 +52,9 @@ body {
 <div id="shadow_select_container">
 
 		<!-- Lista de sombras añadidas -->
-		<span class="metatag_submenu_title"><?php echo $this->translate('menu.shadows');?></span>
+		<span class="metatag_submenu_title"><?php echo __("Shadows");?></span>
 		<div id="shadow_list" <?php if($shadowsUsed){echo 'style="display:block;"';} ?>>
-		<span class="metatag_submenu_options" style="margin-bottom:0px;"><?php echo $this->translate('menu.shadows');?></span>
+		<span class="metatag_submenu_options" style="margin-bottom:0px;"><?php echo __("Shadows");?></span>
 		<?php if ($shadowsUsed) {
 				$arrayShadows = explode(",",$features['shadows']['shadows']);
 				if (count($arrayShadows)>0) {
@@ -63,7 +63,7 @@ body {
 						$countShad++;
 						$arrayShad = explode(" ",trim($shadow));?>
 						<ul class="shadow_list_option">
-								<li class="shad_list_title"><?php echo $this->translate('menu.shadow');?> <?php echo $countShad; ?></li>
+								<li class="shad_list_title"><?php echo __("Shadow");?> <?php echo $countShad; ?></li>
 								<li><?php echo $arrayShad[0]; ?></li>
 								<li><?php echo $arrayShad[1]; ?></li>
 								<li><?php echo $arrayShad[2]; ?></li>
@@ -78,31 +78,31 @@ body {
 
 		<!-- Add new shadow -->
 		<div id="shad_1" class="shadow_select">
-				<span class="metatag_submenu_options" style="margin-bottom:10px;border-bottom: 1px solid #DDDDDD;"><?php echo $this->translate('add.new.shadow');?></span>
+				<span class="metatag_submenu_options" style="margin-bottom:10px;border-bottom: 1px solid #DDDDDD;"><?php echo __("Add a new shadow");?></span>
 				<ul>
 					<li>
-						<label for="hor_shad"><?php echo $this->translate('horizontal');?>:</label>
+						<label for="hor_shad"><?php echo __("Horizontal");?>:</label>
 						<input type="range" name="hor_shad" id="hor_shad" min="-<?php echo MAX_HOR_VER_SHADOW;?>" max="<?php echo MAX_HOR_VER_SHADOW;?>" value="0" readonly/>
 					</li>
 					<li>
-						<label for="hor_shad"><?php echo $this->translate('vertical');?>:</label>
+						<label for="hor_shad"><?php echo __("Vertical");?>:</label>
 						<input type="range" name="ver_shad" id="ver_shad" min="-<?php echo MAX_HOR_VER_SHADOW;?>" max="<?php echo MAX_HOR_VER_SHADOW;?>" value="0" readonly/>
 					</li>
 					<li>
-						<label for="hor_shad"><?php echo $this->translate('blur');?>:</label>
+						<label for="hor_shad"><?php echo __("Blur");?>:</label>
 						<input type="range" name="blur_shad" id="blur_shad" min="0" max="<?php echo MAX_BLUR_SHADOW;?>" value="0" readonly/>
 					</li>
 					<li>
-						<label for="hor_shad"><?php echo $this->translate('color');?>:</label>
+						<label for="hor_shad"><?php echo __("Color");?>:</label>
 						<span class="mColorPickerTrigger" id="icp_color3"><span class="shadow_fill_icon">&nbsp;</span>
 								<span id="shadow_color_span">&nbsp;</span>
 						</span>
 						<input id="color3" type="color" data-hex="true" name="color3" value="#444444" class="color" style="display:none" />
 					</li>
 				</ul>
-				<input type="button" id="set_new_shadow" value="<?php echo $this->translate('add.shadow');?>" />
+				<input type="button" id="set_new_shadow" value="<?php echo __("Add shadow");?>" />
 		</div>
-		<a id="go_to_new_shadow" href="#"><?php echo $this->translate('new.shadow');?></a>
+		<a id="go_to_new_shadow" href="#"><?php echo __("New shadow");?></a>
 		<input class="hidden_form" id="shadow_color" value="#fff" />
 </div>
 
@@ -115,7 +115,7 @@ body {
 <?php echo $this->render("partials/share.phtml"); ?>
 
 <div id="new_gs_container_error" class="center_dialog">
-	<span id="preview_error_title" class="title"><?php echo $this->translate('oops');?></span>
+	<span id="preview_error_title" class="title"><?php echo __("oops");?></span>
 
 	<div id="preview_error" class="container">
 			<span id="preview_error_message" class="subtitle" style="padding: 20px 20px 24px;"></span>
@@ -131,13 +131,13 @@ body {
 			<div class="header-bar-inside">
 				<div class="left-stuff">
 					<div id="logo_menu">
-						<a href="<?php echo $this->baseUrl('/'); ?>" title="<?php echo $this->translate('title.preview.go.home');?>">gzaas!</a>
+						<a href="<?php echo $this->baseUrl('/'); ?>">gzaas!</a>
 					</div>
 				</div>
 				<div class="central-stuff">
-					<a href="#" id="gzaas_it_preview" class="preview_top_button btn primary" title="<?php echo $this->translate('title.share.it');?>"><?php echo $this->translate('share.it');?></a>
-					<span id="in_new_gs_preview" class="preview_top_button" title="<?php echo $this->translate('title.generating.link');?>"><?php echo $this->translate('generating.link');?></span>
-					<a href="#" id="repeat_new_gs_preview" class="preview_top_button btn primary" title="<?php echo $this->translate('title.new.gzaas');?>"><?php echo $this->translate('new.gzaas');?></a>
+					<a href="#" id="gzaas_it_preview" class="preview_top_button btn primary"><?php echo __("Share it!");?></a>
+					<span id="in_new_gs_preview" class="preview_top_button btn"><?php echo __("generating link...");?></span>
+					<a href="#" id="repeat_new_gs_preview" class="preview_top_button btn primary"><?php echo __("New gzaas!");?></a>
 				</div>
 				<div class="right-stuff">
 
@@ -160,21 +160,21 @@ body {
 			<?php
 			// Styles
 			if($menuOption[0]['idM']==50){ ?>
-					<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="styles" id="mo_6"><?php echo $this->translate($menuOption[0]['metaTag']);?></span>
+					<span title="<?php echo __($menuOption[0]['description']);?>" class="styles" id="mo_6"><?php echo __($menuOption[0]['metaTag']);?></span>
 					<span class="vr">&nbsp;</span>
 					<?php }
 
 			// Fonts
 			else if ($menuOption[0]['idM']==1){?>
-					<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_1">
+					<span title="<?php echo __($menuOption[0]['description']);?>" class="metatag_option" id="mo_1">
 					<?php echo $features['font']['description']; ?>
 					</span>
 			<?php }
 
 			// Font color
 			else if ($menuOption[0]['idM']==2){?>
-			<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color1">
-					<?php echo $this->translate($menuOption[0]['metaTag']);?>
+			<span title="<?php echo __($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color1">
+					<?php echo __($menuOption[0]['metaTag']);?>
 			<span id="color_span">&nbsp;</span>
 			</span>
 			<input id="color1" type="color" data-hex="true" name="color1" value="#444444" class="color" style="display:none">
@@ -182,7 +182,7 @@ body {
 
 			// Background color
 			else if ($menuOption[0]['idM']==3){?>
-			<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color2">
+			<span title="<?php echo __($menuOption[0]['description']);?>" class="mColorPickerTrigger" id="icp_color2">
 					<span class="fill_icon">&nbsp;</span>
 					<?php if ($features['pattern']['pattern']!='') { ?>
 							<span id="backColor_span" style="display:none">&nbsp;</span>
@@ -198,7 +198,7 @@ body {
 
 			// Background patterns
 			else if ($menuOption[0]['idM']==4){?>
-			<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_4">
+			<span title="<?php echo __($menuOption[0]['description']);?>" class="metatag_option" id="mo_4">
 					<span class="pattern_icon">&nbsp;</span>
 					<?php if ($features['pattern']['pattern']!='') { ?>
 							<span id="pattern_span">&nbsp;</span>
@@ -215,22 +215,22 @@ body {
 			// Shadows
 			else if ($menuOption[0]['idM']==5) { ?>
 
-				<span title="<?php echo $this->translate($menuOption[0]['description']);?>" id="to_shadow">
-						<?php echo $this->translate($menuOption[0]['metaTag']);?>
+				<span title="<?php echo __($menuOption[0]['description']);?>" id="to_shadow">
+						<?php echo __($menuOption[0]['metaTag']);?>
 				</span>
 
 			<?php } else {?>
 
-				<span title="<?php echo $this->translate($menuOption[0]['description']);?>" class="metatag_option" id="mo_<?php echo $count;?>"><?php echo $this->translate($metaTag[0]['metaTag']);?></span>
+				<span title="<?php echo __($menuOption[0]['description']);?>" class="metatag_option" id="mo_<?php echo $count;?>"><?php echo __($metaTag[0]['metaTag']);?></span>
 
 			<?php }?>
 
 			<!-- Metatags Submenu -->
 			<ul class="metatag_submenu" id="sub_<?php echo $menuOption[0]['idM'];?>">
-				<li class="metatag_submenu_title"><?php echo $this->translate($menuOption[0]['description']);?></li>
+				<li class="metatag_submenu_title"><?php echo __($menuOption[0]['description']);?></li>
 				<li class="metatag_submenu_options">
-					<span><?php echo $this->translate('most.loved');?></span>
-					<span class="metatag_see_all"><?php echo $this->translate('see.all');?></span>
+					<span><?php echo __("Most loved");?></span>
+					<span class="metatag_see_all"><?php echo __("see all");?></span>
 					<span class="meta_key_span"><?php echo $menuOption[0]['idM']?></span>
 				</li>
 				<?php
@@ -262,7 +262,7 @@ body {
 
 							<li class="hashtag_menu" style="<?php echo $cssHashtags;?>" data-hashkey="<?php echo $hashKey;?>" data-metakey="<?php echo $menuOption[0]['idM']?>" data-urlpattern="<?php echo (isset($urlPattern)) ? $urlPattern : ""; ?>">
 								<span class="hashtag_menu_description"></span>
-								<span class="add_hashtag"><?php echo $this->translate('use.it');?></span>
+								<span class="add_hashtag"><?php echo __("use it");?></span>
 							</li>
 						</ul>
 					</li>
@@ -277,9 +277,9 @@ body {
 
 	<div id="preview_form_container">
 		<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
-			<textarea placeholder="<?php echo $this->translate('Enter your message...');?>" rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
+			<textarea placeholder="<?php echo __("Enter your message...");?>" rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
 
-			<div id="expand_form" title="<?php echo $this->translate('expand.form');?>">&nbsp;</div>
+			<div id="expand_form" title="<?php echo __("expand");?>">&nbsp;</div>
 			<input id="font" name="font" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo $features['font']['hashtag'];}?>"></input>
 			<input id="color" name="color" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($colorUsed==1)) {echo $features['color']['hashtag'];}?>"></input>
 			<input id="backColor" name="backColor" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($backColorUsed==1)) {echo $features['backColor']['hashtag'];}?>"></input>
@@ -291,12 +291,23 @@ body {
 			<input type="hidden" id="visibility" class="hidden_form" name="visibility" value="<?php echo $features['visibility']?>"></input>
 			<input type="hidden" class="hidden_form" name="from" value="preview"></input>
 
-			<input id="refresh_button" type="submit" value="" title="<?php echo $this->translate('refresh');?>"></input>
+			<input id="refresh_button" type="submit" value="" title="<?php echo __("refresh");?>"></input>
 		</form>
 	</div>
 	</div>
 <!--/end metatags-->
 </footer>
+
+<?php
+// We add this to POEdit translate the strings retrieved from DB
+$translatePlease = __("Fonts");
+$translatePlease = __("A");
+$translatePlease = __("Background Color");
+$translatePlease = __("Background Pattern");
+$translatePlease = __("S");
+$translatePlease = __("styles");
+
+?>
 
 
 <div id="mask">
@@ -325,17 +336,17 @@ var oldLineHeight = <?php echo $features['font']['fontBaseLineHeight'];?>;
 var oldLetterSpacing = <?php echo $features['font']['fontBaseLetterSpacing'];?>;
 
 // Traducciones tratadas en javascript
-var messagePublic = "<?php echo $this->translate('you.are.sharing.public');?>";
-var messagePrivate = "<?php echo $this->translate('you.are.sharing.private');?>";
-var publicTrad = "<?php echo $this->translate('public');?>";
-var privateTrad = "<?php echo $this->translate('private');?>";
-var fontcolor = "<?php echo $this->translate('menu.font.color');?>";
-var backgroundcolor = "<?php echo $this->translate('menu.background.color');?>";
-var shadowcolor = "<?php echo $this->translate('menu.shadow.color');?>";
-var messageGzaasBlank = "<?php echo $this->translate('message.gzaas.blank');?>";
-var messageNoStyle = "<?php echo $this->translate('message.no.style');?>";
-var messageSameColor = "<?php echo $this->translate('message.same.color');?>";
-var messageTitlePopup = "<?php echo $this->translate('Share this link and get your friends surprised!');?>";
+var messagePublic = "<?php echo __("You are sharing this gzaas with the world!");?>";
+var messagePrivate = "<?php echo __("Send this gzaas only to those who you decide!");?>";
+var publicTrad = "<?php echo __("public");?>";
+var privateTrad = "<?php echo __("private");?>";
+var fontcolor = "<?php echo __("Font Color");?>";
+var backgroundcolor = "<?php echo __("Background Color");?>";
+var shadowcolor = "<?php echo __("Shadow Color");?>";
+var messageGzaasBlank = "<?php echo __("What about writing something before sharing it?");?>";
+var messageNoStyle = "<?php echo __("Let's give some style to the gzaas");?>";
+var messageSameColor = "<?php echo __("Caution! You're using the same color for the font and the background...");?>";
+var messageTitlePopup = "<?php echo __("Share this link and get your friends surprised!");?>";
 
 // Shadows
 <?php if ($features['shadows']['shadows']!='') {?>

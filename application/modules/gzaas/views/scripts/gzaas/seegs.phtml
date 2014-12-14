@@ -69,7 +69,7 @@ if (!$this->screenshot) {
 			<div class="header-bar-inside">
 				<div class="left-stuff">
 					<div id="logo_menu">
-						<a href="<?php echo $this->baseUrl('/');?>" title="<?php echo $this->translate('title.preview.go.home');?>">gzaas!</a>
+						<a href="<?php echo $this->baseUrl('/');?>">gzaas!</a>
 					</div>
 					<div id="gs_social">
 						<span id="gs_twitter">
@@ -115,7 +115,7 @@ if (!$this->screenshot) {
 			<?php if ($this->languageCode == 'es'){?>
 
 				<a class="right-stuff-option" href="<?php echo URL_COM_ES; ?>" target="_blank">
-					<?php echo $this->translate('join.the.gzaasers');?>
+					<?php echo __("Join the gzaasers");?>
 					<span id="mini_twitter" class="community_mini_icon">t</span>
 					<span id="mini_facebook" class="community_mini_icon">f</span>
 				</a>
@@ -139,19 +139,19 @@ if (!$this->screenshot) {
 
 <div id="create_gzaas_container" class="center_dialog">
 	<span class="title">
-		<?php echo $this->translate('dialog.create.new.gzaas');?>
+		<?php echo __("Create a new gzaas!");?>
 		<span class="close">X</span>
 	</span>
 	<div class="container">
 		<form action="<?php echo $this->baseUrl('/');?>preview/preview" name="new_gs">
-			<input placeholder="<?php echo $this->translate('Enter your message...');?>" type="text" class="center_dialog_input" name="gs_form" id="gs_form_create_gzaas" />
+			<input placeholder="<?php echo __("Enter your message...");?>" type="text" class="center_dialog_input" name="gs_form" id="gs_form_create_gzaas" />
 			<input id="font" name="font" class="hidden_form" type="text" value="<?php if($fontUsed){ echo $features['font']['hashtag']; }?>"></input>
 			<input id="color" name="color" class="hidden_form" type="text" value="<?php if($colorUsed) { echo $features['color']['hashtag']; }?>"></input>
 			<input id="backColor" name="backColor" class="hidden_form" type="text" value="<?php if($backColorUsed) { echo $features['backColor']['hashtag']; }?>"></input>
 			<input id="pattern" name="pattern" class="hidden_form" type="text" value="<?php if($patternUsed) { echo $features['pattern']['hashtag']; }?>"></input>
 			<input id="shadows" name="shadows" class="hidden_form" type="text" value="<?php if($shadowsUsed) { echo $features['shadows']['hashtag']; }?>"></input>
 			<input id="style" name="style" class="hidden_form" type="text" value="<?php if($styleUsed) { echo $features['style']['hashtag']; }?>"></input>
-			<input id="create_button" class="dialog_button btn primary" type="submit" value="<?php echo $this->translate('gzaas.it');?>">
+			<input id="create_button" class="dialog_button btn primary" type="submit" value="<?php echo __("gzaas it!");?>">
 		</form>
 	</div>
 </div>
@@ -162,7 +162,7 @@ if (!$this->screenshot) {
 
 <script type="text/javascript">
 
-var createGzaas = "<?php echo $this->translate('create.gzaas');?>";
+var createGzaas = "<?php echo __("Create a new gzaas!");?>";
 var page = "seegzaas";
 var screenshot = <?php echo ($this->screenshot) ? '"' . $this->screenshot . '"' : "false"; ?>;
 
@@ -170,7 +170,7 @@ var oldFontSize = <?php echo $features['font']['fontBaseSize'];?>;
 var oldLineHeight = <?php echo $features['font']['fontBaseLineHeight'];?>;
 var oldLetterSpacing = <?php echo $features['font']['fontBaseLetterSpacing'];?>;
 
-var messageTitlePopup = "<?php echo $this->translate('Share this link and get your friends surprised!');?>";
+var messageTitlePopup = "<?php echo __("Share this link and get your friends surprised!");?>";
 
 var urlKey = "<?php echo $this->urlKey; ?>";
 
