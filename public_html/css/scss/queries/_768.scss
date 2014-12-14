@@ -3,6 +3,8 @@ html {
 	font-size:55%;
 }
 
+html, body { overflow:hidden; }
+
 input[type="text"] {
 	font-size:16px !important;
 }
@@ -22,6 +24,13 @@ input[type="text"] {
 #img_title {
 	max-width:170px;
 }
+
+.center-vertical-container {
+	width:85%;
+	top:-15%;
+}
+
+#right_sidebar { bottom:50px; }
 
 /** PREVIEW **/
 #header-bar, #header-bar .header-bar-inside {
@@ -93,27 +102,8 @@ input[type="text"] {
 
 
 /** SEE GZAAS **/
-#gs_social { display:none; }
-
-#right_sidebar {
-	top:auto;
-	bottom:50px;
-	left:50%;
-	width:50px;
-	margin-left:-25px;
-}
-
-#random_explore {
-	width:50px;
-	height:50px;
-	@include box-sizing(border-box);
-	padding:3px 19px;
-	font-family:'Chewy';
-	@include border-radius(50%);
-	background:#f75100;
-	color:#fff;
-	&:hover,&:focus,&:active {
-		background:#ddd;
-		color:#222;
-	}
+#gs_social {
+	display:none;
+	opacity:0;
+	visibility:hidden;
 }

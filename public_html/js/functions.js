@@ -188,7 +188,7 @@ function initializeSeeGzaasEvents()
 
 // See gzaas functions
 function _showMenuAndSidebarWithDelay(time,fade) {
-	time = 0; // tmp
+	// time = 0; // tmp
 	setTimeout(function(){
 		_showMenuAndSidebar(fade);
 	},time);
@@ -423,30 +423,41 @@ function _setEventHideAllMenuOptionsWhenDocumentClicked()
 function _setEventClickOnMenuHashtag()
 {
 	$(".hashtag_menu").click(function(e){
-		var tVal = $('#gs_form_preview').val();
-		hashtag = $(this).data('hashkey');
-		metatag = $(this).data('metakey');
-		urlPattern = $(this).data('urlpattern');
 
-		switch (metatag) {
-		case 1:
-			$("#font").val(hashtag);
-			$('#refresh_button').click();
-			break;
-		case 4:
-			setNewPattern(hashtag,urlPattern);
-			break;
-		default:
-			$("#font").val('');
-			$("#color").val('');
-			$("#backColor").val('');
-			$("#pattern").val('');
-			$("#style").val(hashtag);
-			$('#refresh_button').click();
-			break;
-		}
+		var selector = $(this);
+		reRenderPreview(selector);
 
 	});
+}
+
+function reRenderPreview(selector) {
+
+	var tVal = $('#gs_form_preview').val();
+	hashtag = selector.data('hashkey');
+	metatag = selector.data('metakey');
+	urlPattern = selector.data('urlpattern');
+
+	console.log(hashtag,metatag);
+
+	switch (metatag) {
+	case 1:
+		$("#font").val(hashtag);
+		$('#refresh_button').click();
+		break;
+	case 4:
+		setNewPattern(hashtag,urlPattern);
+		break;
+	default:
+		$("#font").val('');
+		$("#color").val('');
+		$("#backColor").val('');
+		$("#pattern").val('');
+		$("#shadows").val('');
+		$("#style").val(hashtag);
+		$('#refresh_button').click();
+		break;
+	}
+
 }
 
 function setNewPattern(hashtag,urlPattern) {

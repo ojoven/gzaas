@@ -22,5 +22,5 @@ page.open(url, function () {
 		var time = end - start;
 		phantom.exit();
 
-	},100);
+	},50);
 });

@@ -32,7 +32,23 @@ if ($languageCode=='es'){
 	letter-spacing: -<?php echo $features['font']['fontBaseLetterSpacing'];?>px;
 	color: <?php echo $features['color']['color'];?>;
 	text-shadow: <?php echo $features['shadows']['shadows'];?>;
+
 }
+
+<?php if ($this->screenshot) { ?>
+#gzaas_screen {
+	display:table-cell !important;
+	position:static;
+	vertical-align:middle;
+}
+
+#gzaas_screen_container {
+	display:table;
+	height:100%;
+	width:100%;
+}
+
+<?php } ?>
 
 body {
 	background: <?php if ($features['pattern']['used']!=0){echo $features['pattern']['pattern'].' ';}?><?php echo $features['backColor']['backColor'];?>;
@@ -70,8 +86,10 @@ if (!$this->screenshot) {
 </div>
 <?php }?>
 
-<div id="gzaas_screen">
-	<?php echo $message;?>
+<div id="gzaas_screen_container">
+	<div id="gzaas_screen">
+		<?php echo $message;?>
+	</div>
 </div>
 
 <?php

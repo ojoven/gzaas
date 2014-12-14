@@ -11,11 +11,12 @@ $messageModel = new Gzaas_Model_Message();
 $urlKeys = $messageModel->getAllUrlKeysMessages();
 
 // Slice (testing)
-$urlKeys = array_slice($urlKeys,0,10);
+// $urlKeys = array_slice($urlKeys,1000,10);
 
 $screenshotModel = new Gzaas_Model_Screenshot();
-foreach ($urlKeys as $urlKey) {
-	echo "generating screenshot for: " . $urlKey . PHP_EOL;
+$totalUrlKeys = count($urlKeys);
+foreach ($urlKeys as $index=>$urlKey) {
+	echo "generating screenshot " . $index . " of " . $totalUrlKeys . ": " . $urlKey . PHP_EOL;
 	$screenshotModel->createScreenshotGzaas($urlKey);
 }
 

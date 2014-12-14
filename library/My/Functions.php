@@ -44,6 +44,10 @@ class My_Functions {
 
 	}
 
+	public static function getEnv() {
+		return self::getConfigValue('env');
+	}
+
 	public static function getConfigValue($key,$index = false) {
 
 		global $application;
