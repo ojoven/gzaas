@@ -44,4 +44,15 @@ class My_Functions {
 
 	}
 
+	public static function getConfigValue($key,$index = false) {
+
+		global $application;
+		$config = $application->getBootstrap();
+		$value = $config->getOption($key);
+
+		$value = ($index && isset($value[$index])) ? $value[$index] : $value;
+
+		return $value;
+	}
+
 }

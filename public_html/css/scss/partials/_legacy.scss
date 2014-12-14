@@ -62,6 +62,7 @@
 ******************************************/
 
 $maincolor:#F75100;
+$maincolorhover:#e64000;
 
 /******************************************
 
@@ -401,20 +402,20 @@ footer .vr {
 	@include transition(background,300ms,linear);
 	@include box-sizing(border-box);
 	@include border-radius(50%);
-	
+
 	display:inline-block;
 	margin-right:10px;
 	font-size: 40px;
 	font-weight: 700;
 	width:50px;
 	height:50px;
-	
+
 	padding:3px 19px;
 	font-family:'Chewy';
 	background:rgba(0,0,0,0.7);
 	color:#fff;
-	
-	&.plusbtn { padding: 4px 15px; }
+
+	&.plusbtn { padding: 3px 15px; }
 	&.sharebtn {
 		// Because of the line-height we have to position this one
 		position: relative;
@@ -433,7 +434,7 @@ footer .vr {
 			i { background-position: 0 -25px; height:26px; }
 		}
 	}
-	
+
 	&:last-child { margin-right:0; }
 	&:hover,&:focus,&:active {
 		background:rgba(0,0,0,0.9);
@@ -563,7 +564,7 @@ footer .vr {
 .index #container {
 	width: 700px;
 	margin: 0 auto;
-	display: table-cell;	
+	display: table-cell;
 	vertical-align: middle;
 }
 
@@ -676,13 +677,13 @@ border: 4px solid $maincolor;
 .seegs {
 	#header, #footer, #right_sidebar {
 		display:none;
-	}	
+	}
 }
 
 .index {
 	#header, #footer {
 		display:none;
-	}	
+	}
 }
 
 #new_gzaas_text {
@@ -1036,7 +1037,7 @@ border: 4px solid $maincolor;
 #set_new_shadow {
 	@extend .fontbrand;
 	@include border-radius(7px);
-	border: medium none;	
+	border: medium none;
 	display: block;
 	float: right;
 	font-size: 16px;
@@ -1252,19 +1253,9 @@ border: 4px solid $maincolor;
 }
 
 #result_social {
-	display: none;
 	font-size: 23px;
-	margin-top:u(0.7rem);
+	margin-top:u(0.4rem);
 	text-align: right;
-}
-
-.social_preview {
-	@extend .fontbrand;
-	@include border-radius(7px);
-	color: #f4f4f4;
-	margin: 1px;
-	padding: 4px;
-	font-size:u(1.5rem);
 }
 
 #result_private {
@@ -1286,15 +1277,92 @@ border: 4px solid $maincolor;
 	font-size: 12px;
 }
 
-.social_preview:hover {
-	color: #fff;
+.social_preview {
+	@include border-radius(7px);
+    color: #f4f4f4;
+    display: inline-block;
+    height: 40px;
+    margin: 1px;
+    width: 40px;
+    position:relative;
+	i {
+		display:inline-block;
+		background:url(../images/icons/social-sprite.png) no-repeat;
+		background-size:128px;
+		position:relative;
+		width:30px;
+		height:30px;
+		left: -2px;
+	    top: 7px;
+	}
+	span {
+		@include transition(opacity,300ms,linear);
+		opacity:0;
+		@extend .fonttext;
+		color: #444;
+	    font-size: 12px;
+	    left: -4px;
+	    line-height: 10px;
+	    position: absolute;
+	    text-align: center;
+	    top: 44px;
+	    width: 46px;
+	}
 }
 
-#new_gs_twitter { background: #6acaee; }
-#new_gs_twitter:hover {	background: #7bdbff; }
+.social_preview:hover {
+	color: #fff;
+	span {
+		opacity:1;
+	}
+}
 
-#new_gs_facebook { background: #3961b5; }
-#new_gs_facebook:hover { background: #2850a4; }
+#to_preview {
+	background:$maincolor;
+	i {
+		background-position: -101px 0;
+    	left: -3px;
+	}
+	&:hover,&:focus,&:active { background: $maincolorhover; }
+}
+
+#new_gs_save {
+	background: #ccc;
+	i {
+		background-position:-71px 0;
+		left:-5px;
+	}
+	&:hover,&:focus,&:active { background: #aaa; }
+}
+
+#new_gs_pinterest {
+	background: #bd071d;
+	i {
+		background-position: -26px 0;
+		left:-4px;
+	}
+	&:hover,&:focus,&:active { background: #ac160e; }
+}
+
+#new_gs_twitter {
+	background: #6acaee;
+	i {
+		background-position:0 0;
+		left: -2px;
+	    top: 7px;
+	}
+	&:hover,&:focus,&:active { background: #7bdbff; }
+}
+
+#new_gs_facebook {
+	background: #3961b5;
+	i {
+		background-position:-52px 0;
+		width:19px;
+		left:-10px;
+	}
+	&:hover,&:focus,&:active { background: #2850a4; }
+}
 
 /* PREVIEW POPUPS AND CONTAINERS */
 

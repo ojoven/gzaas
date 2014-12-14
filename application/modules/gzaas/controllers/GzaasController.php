@@ -21,9 +21,9 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 		$this->view->headMeta()->setName('description', $metaDescription);
 		$this->view->headMeta()->setName('keywords', $metaKeyWords);
-		
+
 		$uri = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-		$this->view->classes = $uri['action'];
+		$this->view->action = $uri['action'];
 	}
 
 	public function newgsAction() {
@@ -47,7 +47,7 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 
 
 	public function seegsAction() {
-		
+
 		$urlKey = $this->getRequest()->getParam("urlKey");
 		$menu = $this->getRequest()->getParam("menu");
 		$screenshot = $this->getRequest()->getParam("screenshot");
@@ -68,14 +68,12 @@ class Gzaas_GzaasController extends Zend_Controller_Action {
 			$this->_setFontHeadStylesheetIfFontFaceUsed($gzaas['features']['font']);
 		}
 		$this->view->twitterMessage = $gzaas['twitterMessage'];
-		$this->view->url = $gzaas['url'];
+		$this->view->urlKey = $urlKey;
 		$this->view->menu = $menu;
 		$this->_setSearchEngineRobotsFromGzaasVisibility($gzaas['message']['visibility']);
 		$this->_setFacebookMeta($gzaas);
 		$this->_setTwitterMeta($gzaas);
 		$this->_setUserLanguageCode();
-
-		My_Functions::log('we arrive here');
 
 		$this->render();
 	}

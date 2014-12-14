@@ -174,11 +174,7 @@ class Gzaas_Model_Font {
 	// Google Webfonts
 	public function getGoogleWebfonts() {
 
-		global $application;
-		$config = $application->getBootstrap();
-		$google = $config->getOption('google');
-
-		$apiKey = $google['key'];
+		$apiKey = My_Functions::getConfigValue('google','key');
 		$url = "https://www.googleapis.com/webfonts/v1/webfonts?key=" . $apiKey;
 		$fonts = My_Functions::curl($url);
 		$fonts = json_decode($fonts,true);

@@ -3,7 +3,6 @@ require_once 'Zend/Service/Amazon/S3.php';
 
 class My_AmazonFunctions {
 
-	const BUCKET_NAME = "gzaas";
 	const PATH_TO_AMAZON = "http://gzaas.s3.amazonaws.com/";
 	const JPEG_CONTENT_TYPE = "image/jpeg";
 	const PUBLIC_READ_ACL = "public-read";
@@ -59,9 +58,7 @@ class My_AmazonFunctions {
 	private static function _getClient() {
 
 		// We retrieve the keys from application.ini
-		global $application;
-		$config = $application->getBootstrap();
-		$amazon = $config->getOption('amazon');
+		$amazon = My_Functions::getConfigValue('amazon');
 		$client = new Zend_Service_Amazon_S3($amazon['key'], $amazon['secret']);
 		return $client;
 	}

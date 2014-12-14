@@ -34,7 +34,7 @@ class Gzaas_Model_Screenshot {
 		if (file_exists($filename)) {
 
 			$remoteImagePath = $urlKey . '.jpg';
-			$bucket = "gzaas";
+			$bucket = My_Functions::getConfigValue('amazon','bucket');
 			$contentType = "image/jpeg";
 			$cache = true;
 
@@ -54,11 +54,7 @@ class Gzaas_Model_Screenshot {
 	private function _getParamsScreenshot($urlKey) {
 
 		$pathToApplication = APPLICATION_PATH;
-
-		global $application;
-		$config = $application->getBootstrap();
-		$generalSettings = $config->getOption('general');
-		$baseUrl = $generalSettings['url'] . "/";
+		$baseUrl = My_Functions::getConfigValue('general','url') . "/";
 
 		$params = array(
 			$urlKey,

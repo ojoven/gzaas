@@ -119,13 +119,16 @@ function adaptSizesAndSpacesToWindowResolution() {
 	marginTop = (windowHeight/2)-(divHeight/2);
 	$("#gzaas_screen").css('top',marginTop+'px');
 
-	// If menu open, let's move it with the buttons
-	$("#sub_50").css('left',$("#mo_6").offset().left);
-	$("#sub_1").css('left',$("#mo_1").offset().left);
-	$("#sub_4").css('left',$("#mo_4").offset().left);
-	$("#shadow_select_container").css('left',$("#to_shadow").offset().left);
-	if (typeof $("#mColorPicker").attr('data-trigger') != "undefined") {
-		$("#mColorPicker").css('left',$("#icp_"+$("#mColorPicker").attr('data-trigger')).offset().left);
+	// If preview page, menu open, let's move it with the buttons
+	if ($("body").hasClass('preview')) {
+
+		$("#sub_50").css('left',$("#mo_6").offset().left);
+		$("#sub_1").css('left',$("#mo_1").offset().left);
+		$("#sub_4").css('left',$("#mo_4").offset().left);
+		$("#shadow_select_container").css('left',$("#to_shadow").offset().left);
+		if (typeof $("#mColorPicker").attr('data-trigger') != "undefined") {
+			$("#mColorPicker").css('left',$("#icp_"+$("#mColorPicker").attr('data-trigger')).offset().left);
+		}
 	}
 
 }
@@ -185,7 +188,7 @@ function initializeSeeGzaasEvents()
 
 // See gzaas functions
 function _showMenuAndSidebarWithDelay(time,fade) {
-	//time = 0; // tmp
+	time = 0; // tmp
 	setTimeout(function(){
 		_showMenuAndSidebar(fade);
 	},time);
@@ -222,23 +225,28 @@ function _setEventKeyMapping()
 	});
 }
 
-function _setEventClickOnNewGzaas()
-{
+function _setEventClickOnNewGzaas() {
+
 	$("#to-new-gzaas").click(function(){
+		$(".center_dialog").hide();
 		$("#create_gzaas_container").fadeIn(150);
 		$('#gs_form_create_gzaas').focus();
 	});
-}
 
-function _setEventClickOnCloseNewGzaasContainer()
-{
-	$("#create_gzaas_container .title .close").click(function(){
-		$("#create_gzaas_container").hide();
+	$("#to-share").click(function(){
+		showSharePopup(urlKey);
 	});
 }
 
-function _setEventKeyDownOnNewGzaasForm()
-{
+function _setEventClickOnCloseNewGzaasContainer() {
+
+	$(".center_dialog .title .close").click(function(){
+		$(".center_dialog").hide();
+	});
+}
+
+function _setEventKeyDownOnNewGzaasForm() {
+
 	$("#gs_form_create_gzaas").keydown(function(e) {
 		if (e.which == '13') {
 			$('#create_button').click();
@@ -683,26 +691,36 @@ function response_ajax_new_gs(data){
 	// Valid data
 	if (data.valid==true) {
 		$("#to_preview").attr('href',data.urlGs);
-		if (data.visibility==1) {
-			$("#result_social").show();
-			$("#new_gs_subtitle").html(messageGzaasedPublic);
-			$("#new_gs_facebook").attr('href','http://www.facebook.com/sharer.php?u='+urlBase+data.urlKey+'&t='+urlBase+data.urlKey);
-			$("#new_gs_twitter").attr('href','http://twitter.com/home?status='+urlBase+data.urlKey+' /via @gzaas');
-			$("#url_result").val(urlBase+data.urlKey);
-			$("#url_result").show();
-		} else {
-			$("#new_gs_subtitle").html(messageGzaasedPublic);
-			$("#url_result").val(urlBase+data.urlKey);
-			$("#url_result").show();
-			$("#result_private").show();
-		}
-	// Interface
-	$("#new_gs_container_preview").fadeIn(2000);
-	}
-	else {
+		showSharePopup(data.urlKey);
+	} else {
 		$("#preview_error_message").html(data.errorMessage);
 		$("#new_gs_container_error").fadeIn(2000);
 	}
+
+}
+
+var sharePopupShown = false;
+
+function showSharePopup(urlKey) {
+
+	if (!sharePopupShown) {
+
+		urlKey = "NqQU";
+
+		$("#new_gs_subtitle").html(messageTitlePopup);
+		$("#new_gs_save").attr('href',urlAmazonS3 + urlKey + '.jpg');
+		$("#new_gs_facebook").attr('href','http://www.facebook.com/sharer.php?u=' + urlBase + urlKey + '&t=' + urlBase + urlKey);
+		$("#new_gs_twitter").attr('href','http://twitter.com/home?status=' + urlBase + urlKey + ' /via @gzaas');
+		$("#new_gs_pinterest").attr('href','http://www.pinterest.com/pin/create/button/?url=' + urlBase + urlKey + '&media=' + urlAmazonS3 + urlKey + ".jpg&description=via http://gzaas.com");
+		$("#url_result").val(urlBase + urlKey);
+
+		sharePopupShown = true;
+	}
+
+	$(".center_dialog").hide();
+	$("#url_result").show();
+	// Interface
+	$("#new_gs_container_preview").fadeIn(500);
 
 }
 

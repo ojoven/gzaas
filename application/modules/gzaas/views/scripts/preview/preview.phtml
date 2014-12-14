@@ -112,29 +112,7 @@ body {
 
 
 <!-- New Gzaas Created Popup -->
-<div id="new_gs_container_preview" class="center_dialog">
-
-	<span id="new_gs_title" class="title">
-		<?php echo $this->translate('new.gs.title');?>
-	</span>
-
-	<div class="container">
-
-		<span id="new_gs_subtitle" class="subtitle"></span>
-		<input name="url_result" id="url_result" value="" type="text">
-
-		<p id="result_social">
-			<a href="#" target="_blank" id="new_gs_twitter" class="social_preview" title="<?php echo $this->translate('title.share.twitter');?>">twitter</a>
-			<a href="#" target="_blank" id="new_gs_facebook" class="social_preview" title="<?php echo $this->translate('title.share.facebook');?>">facebook</a>
-			<a href="#" id="to_preview" class="social_preview btn primary" title="<?php echo $this->translate('see it!');?>"><?php echo $this->translate('see it!');?></a>
-		</p>
-
-		<p id="result_private">
-			<span id="result_private_advice"><?php echo $this->translate('private');?></span>
-			<span id="result_private_message"><?php echo $this->translate('new.gs.private');?></span>
-		</p>
-	</div>
-</div>
+<?php echo $this->render("partials/share.phtml"); ?>
 
 <div id="new_gs_container_error" class="center_dialog">
 	<span id="preview_error_title" class="title"><?php echo $this->translate('oops');?></span>
@@ -357,7 +335,7 @@ var shadowcolor = "<?php echo $this->translate('menu.shadow.color');?>";
 var messageGzaasBlank = "<?php echo $this->translate('message.gzaas.blank');?>";
 var messageNoStyle = "<?php echo $this->translate('message.no.style');?>";
 var messageSameColor = "<?php echo $this->translate('message.same.color');?>";
-var messageGzaasedPublic = "<?php echo $this->translate('Share this link and get your friends surprised!');?>";
+var messageTitlePopup = "<?php echo $this->translate('Share this link and get your friends surprised!');?>";
 
 // Shadows
 <?php if ($features['shadows']['shadows']!='') {?>

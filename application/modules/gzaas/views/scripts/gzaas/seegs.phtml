@@ -57,7 +57,7 @@ if (!$this->screenshot) {
 					</div>
 					<div id="gs_social">
 						<span id="gs_twitter">
-							<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php echo $this->url;?>" data-count="none" data-via="gzaas" data-lang="<?php echo $languageCode;?>">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+							<a href="http://twitter.com/share" class="twitter-share-button" data-url="<?php echo $this->serverUrl() . $this->baseUrl('/',true) . $this->urlKey;?>" data-count="none" data-via="gzaas" data-lang="<?php echo $languageCode;?>">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 						</span>
 						<span id="gs_facebook">
 							<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fgzaas.com%2F<?php echo $this->urlKey; ?>&amp;send=false&amp;layout=button_count&amp;show_faces=false&amp;width=450&amp;action=like&amp;font=tahoma&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:21px;" allowTransparency="true"></iframe>
@@ -70,7 +70,6 @@ if (!$this->screenshot) {
 </div>
 <?php }?>
 
-
 <div id="gzaas_screen">
 	<?php echo $message;?>
 </div>
@@ -79,11 +78,16 @@ if (!$this->screenshot) {
 // If we're taking an screenshot we won't render header, footer and options
 if (!$this->screenshot) {
 ?>
+
+<!-- OPTIONS -->
 <div id="right_sidebar">
 	<a id="to-share" class="seegsbtn sharebtn" href="#"><i></i></a>
 	<a id="to-new-gzaas" class="seegsbtn plusbtn" href="#">+</a>
 	<a id="random_explore" class="seegsbtn" href="<?php echo URL_BASE;?>explore">&gt;</a>
 </div>
+
+<!-- SHARE POPUP -->
+<?php echo $this->render("partials/share.phtml"); ?>
 
 <!-- FOOTER -->
 <div id="footer">
@@ -147,6 +151,10 @@ var screenshot = <?php echo ($this->screenshot) ? '"' . $this->screenshot . '"' 
 var oldFontSize = <?php echo $features['font']['fontBaseSize'];?>;
 var oldLineHeight = <?php echo $features['font']['fontBaseLineHeight'];?>;
 var oldLetterSpacing = <?php echo $features['font']['fontBaseLetterSpacing'];?>;
+
+var messageTitlePopup = "<?php echo $this->translate('Share this link and get your friends surprised!');?>";
+
+var urlKey = "<?php echo $this->urlKey; ?>";
 
 </script>
 

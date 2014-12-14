@@ -53,12 +53,13 @@
 	</script>
 
 </head>
-<body class="<?php if(isset($this->classes)) { echo $this->classes; } ?>">
+<body class="<?php if(isset($this->action)) { echo $this->action; } ?>">
 	<?php echo $this->layout()->content; ?>
 </body>
 
 <script>
 var urlBase = "<?php echo $this->serverUrl() . $this->baseUrl('/'); ?>";
+var urlAmazonS3 = "<?php echo My_Functions::getConfigValue('general','protocol')?>://<?php echo My_Functions::getConfigValue('amazon','bucket'); ?>.s3.amazonaws.com/";
 </script>
 
 	<!-- JAVASCRIPT / JQUERY -->
