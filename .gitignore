@@ -1,8 +1,6 @@
-application/tmp/*
-application/logs/*
-public_html/.sass-cache
-.project
-.buildpath
-.settings
-deploy.sh
-*~
+vendor
+node_modules
+www/assets
+*.lock
+db/gzaas.sqlite
+npm-debug.log
