@@ -1,7 +1,0 @@
-
-#gzaas_screen {
-	display:none;
-	&.animate {
-		@include animation(0s, 1.2s, gzaas, 1, ease-in, both);
-	}
-}
