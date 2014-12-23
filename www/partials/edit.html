@@ -1,0 +1,25 @@
+<link ng-href='{{view.fontUrl}}' rel='stylesheet' type='text/css'>
+
+<div class="jumbotron" style="{{view.backgroundStyle}}">
+    <h1 style="{{view.fontStyle}}" class="animated zoomInUp">{{ gzaas.text }}</h1>
+</div>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <form class="navbar-form navbar-center" role="form">
+                <div class="form-group">
+                    <button class="btn btn-success" ng-click="openModal('font')">Fuente</button>
+                    <button class="btn btn-success" ng-click="openModal('texture')">Textura</button>
+                    <input type="text" placeholder="{{ text }}" class="form-control" ng-model="gzaas.text">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success animated swing" ng-click="save()">¡Compártelo!</button>
+                </div>
+            </form>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+        </div>
+    </div>
+</nav>
