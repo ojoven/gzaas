@@ -428,8 +428,8 @@ class Api_ApiController extends Zend_Controller_Action {
 
 					// Font
 					if ($font!=''){
-						$fontModel = new Gzaas_Model_DbTable_Font();
-						$idF = $fontModel->validFont($font);
+						$fontModel = new Gzaas_Model_Font();
+						$idF = $fontModel->checkValidFont($font);
 						if ($idF){
 							$fontMessageModel = new Gzaas_Model_DbTable_Fontmessage();
 							$fontMessageModel->addFontMessage($idF,$idMessage);
