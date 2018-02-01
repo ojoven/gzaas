@@ -1,4 +1,4 @@
-<?php
+c<?php
 /** Script to generate screenshots for current gzaases **/
 require_once('../../application/bin/loadzend.php');
 define('MIGRATION', true);
@@ -11,7 +11,7 @@ $messageModel = new Gzaas_Model_Message();
 $urlKeys = $messageModel->getAllUrlKeysMessages();
 
 // Slice (testing)
-// $urlKeys = array_slice($urlKeys,1000,10);
+$urlKeys = array_slice($urlKeys,0,1);
 
 $screenshotModel = new Gzaas_Model_Screenshot();
 $totalUrlKeys = count($urlKeys);

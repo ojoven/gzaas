@@ -415,7 +415,8 @@ class Api_ApiController extends Zend_Controller_Action {
 						'date' => $date,
 						'ip' => $ip,
 						'languageUser' => $languageUser,
-						'api' => $api
+						'api' => $api,
+						'status' => 1
 					);
 
 					$idMessage = $messageModel->addMessage($newMessage);

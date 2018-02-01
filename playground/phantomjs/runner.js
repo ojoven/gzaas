@@ -4,7 +4,7 @@ var start = new Date().getTime();
 var page = require('webpage').create();
 page.viewportSize = { width: 600, height: 400 };
 
-page.open('http://gzaas.local.host/AAyQq2', function () {
+page.open('http://gzaas.com/AAyQq2?screenshot=true', function () {
     var frame = 1;
     // Add an interval every 25th second
     setInterval(function() {
