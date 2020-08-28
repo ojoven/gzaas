@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "silex/silex": "2.0.*@dev",
+    "silex/silex": "1.3.6",
     "gonzalo123/angularpostrequestserviceprovider": "1.0.*@dev",
     "doctrine/dbal": "2.6.*@dev"
   },
