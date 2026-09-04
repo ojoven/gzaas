@@ -271,8 +271,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
 --
 
 INSERT INTO `messages` (`id`, `urlKey`, `message`, `date`, `ip`, `visibility`, `languageUser`, `api`, `status`) VALUES
-(1, 'Tvnok7', 'Hello World!', '2014-11-22 00:33:30', '127.0.0.1', 1, 'es', 0, 1),
-(2, 'b5rSbn8', 'And another gzaas! Yay!', '2014-11-22 00:34:29', '127.0.0.1', 1, 'es', 0, 1);
+(1, 'Tvnok7', 'Hello World!', '2014-11-22 00:33:30', '127.0.0.1', 1, 'en', 0, 1),
+(2, 'b5rSbn8', 'And another gzaas! Yay!', '2014-11-22 00:34:29', '127.0.0.1', 1, 'en', 0, 1);
 
 -- --------------------------------------------------------
 

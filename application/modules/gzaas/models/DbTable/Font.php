@@ -62,32 +62,29 @@ class Gzaas_Model_DbTable_Font extends Zend_Db_Table_Abstract {
 	// LIMITED (API Feature)
 	public function getLimitedFeaturedFonts($numResults) {
 
-		$columns = $this->_fields;
-		$table = $this->_name;
-		$condition = "inUse = 1 AND featured = 1";
-		$orderMethod = "font ASC";
-		$limit = "0,".$numResults;
+		$select = $this->_db->select()
+			->from($this->_name, array_map('trim', explode(',', $this->_fields)))
+			->where('inUse = ?', 1)
+			->where('featured = ?', 1)
+			->order('font ASC')
+			->limit($this->_normalizeLimit($numResults));
 
-		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." ORDER BY ".$orderMethod.' LIMIT '.$limit;
-		$stmt = $this->_db->query($query);
-		$limitedFeaturedFonts = $stmt->fetchAll();
-
-		return $limitedFeaturedFonts;
+		return $this->_db->fetchAll($select);
 	}
 
 	public function getLimitedFonts($numResults) {
 
-		$columns = $this->_fields;
-		$table = $this->_name;
-		$condition = "inUse = 1";
-		$orderMethod = "font ASC";
-		$limit = "0,".$numResults;
+		$select = $this->_db->select()
+			->from($this->_name, array_map('trim', explode(',', $this->_fields)))
+			->where('inUse = ?', 1)
+			->order('font ASC')
+			->limit($this->_normalizeLimit($numResults));
 
-		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." ORDER BY ".$orderMethod.' LIMIT '.$limit;
-		$stmt = $this->_db->query($query);
-		$limitedFonts = $stmt->fetchAll();
+		return $this->_db->fetchAll($select);
+	}
 
-		return $limitedFonts;
+	private function _normalizeLimit($numResults) {
+		return max(1, min(100, (int) $numResults));
 	}
 
 	// FONT CREDITS (Blog / Project Credits Area)

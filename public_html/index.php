@@ -18,7 +18,7 @@ set_include_path(
 
 define('URL_BASE', 'http://gzaas.local.host/');
 
-define('DEFAULT_LANGUAGE_CODE', 'ES');
+define('DEFAULT_LANGUAGE_CODE', 'EN');
 define('RANDOM_GZAAS_NUM_BASE', 5);
 define('ERROR_KEY', "error");
 define('GZAAS_MAX_SIZE', 1024);
@@ -44,8 +44,24 @@ define('GENERIC_SALT', 'definehereyourowngenericsalt');
 /**
 * Define application environment
 */
-if( !defined('APPLICATION_ENV') ) {
-	define('APPLICATION_ENV', 'development');
+if (!defined('APPLICATION_ENV')) {
+	$applicationEnvironment = getenv('APPLICATION_ENV');
+	$allowedEnvironments = array('production', 'staging', 'testing', 'development');
+	if (!in_array($applicationEnvironment, $allowedEnvironments, true)) {
+		$applicationEnvironment = 'production';
+	}
+	define('APPLICATION_ENV', $applicationEnvironment);
+}
+
+// Set these before Zend starts the session. Production is the safe default.
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+ini_set('log_errors', '1');
+ini_set('session.use_only_cookies', '1');
+ini_set('session.cookie_httponly', '1');
+ini_set('session.cookie_samesite', 'Lax');
+if (APPLICATION_ENV === 'production' || APPLICATION_ENV === 'staging') {
+	ini_set('session.cookie_secure', '1');
 }
 /** Zend_Application */
 require_once 'Zend/Application.php';
@@ -55,4 +71,3 @@ $application = new Zend_Application(
 	APPLICATION_PATH . '/configs/application.ini'
 );
 $application->bootstrap()->run();
-

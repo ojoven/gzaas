@@ -218,7 +218,7 @@ class Gzaas_Model_Gzaas {
 	private function _cleanFormMessageOnPreview(&$formMessage) {
 
 			$formMessage = stripSlashes($formMessage);
-			$formMessage = htmlspecialchars($formMessage, ENT_NOQUOTES);
+				$formMessage = htmlspecialchars($formMessage, ENT_QUOTES, 'UTF-8');
 	}
 
 	private function _setRenderedMessageFromFormMessage($formMessage) {

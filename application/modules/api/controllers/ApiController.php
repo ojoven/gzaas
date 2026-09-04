@@ -4,6 +4,7 @@ require_once "Zend/Controller/Action.php";
 require_once "Zend/Loader.php";
 
 class Api_ApiController extends Zend_Controller_Action {
+	const MAX_API_RESULTS = 100;
 
 	function init() {
 
@@ -13,6 +14,9 @@ class Api_ApiController extends Zend_Controller_Action {
 	public function getapikeyAction() {
 
 		$this->_setJsonHeader();
+		if (!$this->_allowJsonRequest('api-key', 5, 3600)) {
+			return;
+		}
 
 		$parameters = $this->_getAllParams();
 		$web = (isset($parameters['web'])) ? $parameters['web'] : false;
@@ -59,17 +63,25 @@ class Api_ApiController extends Zend_Controller_Action {
 	public function fontsAction() {
 
 		$this->_setJsonHeader();
+		if (!$this->_allowJsonRequest('api-read', 120, 60)) {
+			return;
+		}
 
 		// GET / POST
 		$method = $_SERVER['REQUEST_METHOD'];
 
 		// We take the different parameter options
 		$parameters = $this->_getAllParams();
-		$numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
+		$validNumResults = true;
+		$numResults = $this->_getValidatedNumResults($parameters, $validNumResults);
+		if (!$validNumResults) {
+			$this->_sendJsonError('numResults must be an integer between 1 and ' . self::MAX_API_RESULTS . '.', 400);
+			return;
+		}
 		$nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
 
 		$fontModel = new Gzaas_Model_DbTable_Font();
-		if (!$numResults) {
+		if ($numResults === null) {
 			if (!$nowFeatured) {
 				$fonts = $fontModel->getFonts();
 			} else {
@@ -127,17 +139,25 @@ class Api_ApiController extends Zend_Controller_Action {
 	public function patternsAction() {
 
 		$this->_setJsonHeader();
+		if (!$this->_allowJsonRequest('api-read', 120, 60)) {
+			return;
+		}
 
 		// GET / POST
 		$method = $_SERVER['REQUEST_METHOD'];
 
 		// We take the different parameter options
 		$parameters = $this->_getAllParams();
-		$numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
+		$validNumResults = true;
+		$numResults = $this->_getValidatedNumResults($parameters, $validNumResults);
+		if (!$validNumResults) {
+			$this->_sendJsonError('numResults must be an integer between 1 and ' . self::MAX_API_RESULTS . '.', 400);
+			return;
+		}
 		$nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
 
 		$patternModel = new Gzaas_Model_DbTable_Pattern();
-		if (!$numResults) {
+		if ($numResults === null) {
 			if (!$nowFeatured) {
 				$patterns = $patternModel->getPatterns();
 			} else {
@@ -182,17 +202,25 @@ class Api_ApiController extends Zend_Controller_Action {
 	public function stylesAction()
 	{
 		$this->_setJsonHeader();
+		if (!$this->_allowJsonRequest('api-read', 120, 60)) {
+			return;
+		}
 
 		// GET / POST
 		$method = $_SERVER['REQUEST_METHOD'];
 
 		// We take the different parameter options
 		$parameters = $this->_getAllParams();
-		$numResults = (isset($parameters['numResults'])) ? $parameters['numResults'] : false;
+		$validNumResults = true;
+		$numResults = $this->_getValidatedNumResults($parameters, $validNumResults);
+		if (!$validNumResults) {
+			$this->_sendJsonError('numResults must be an integer between 1 and ' . self::MAX_API_RESULTS . '.', 400);
+			return;
+		}
 		$nowFeatured = (isset($parameters['nowFeatured'])) ? $parameters['nowFeatured'] : false;
 
 		$styleModel = new Gzaas_Model_DbTable_Style();
-		if (!$numResults) {
+		if ($numResults === null) {
 			if (!$nowFeatured) {
 				$styles = $styleModel->getStyles();
 			} else {
@@ -289,9 +317,15 @@ class Api_ApiController extends Zend_Controller_Action {
 	public function writeAction() {
 
 		$this->_setJsonHeader();
+		if (!$this->_allowJsonRequest('api-write', 20, 60)) {
+			return;
+		}
 
-		// GET / POST
-		$_SERVER['REQUEST_METHOD'] = "POST";
+		if (!$this->getRequest()->isPost()) {
+			$this->getResponse()->setHeader('Allow', 'POST', true);
+			$this->_sendJsonError('This endpoint only accepts POST requests.', 405);
+			return;
+		}
 
 		// We take the different parameter options
 		$parameters = $this->_getAllParams();
@@ -395,8 +429,8 @@ class Api_ApiController extends Zend_Controller_Action {
 					}
 				}
 
-				// We're saving user's browser's language
-				$languageUser = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2);
+				// The site supports English only.
+				$languageUser = 'en';
 
 				// This gzaas has been created via API, yes
 				$api = 1;
@@ -602,6 +636,49 @@ class Api_ApiController extends Zend_Controller_Action {
 		header('Cache-Control: no-cache, must-revalidate');
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Content-type: application/json');
+	}
+
+	private function _getValidatedNumResults($parameters, &$valid)
+	{
+		$valid = true;
+		if (!isset($parameters['numResults']) || $parameters['numResults'] === '') {
+			return null;
+		}
+
+		$value = filter_var(
+			$parameters['numResults'],
+			FILTER_VALIDATE_INT,
+			array('options' => array('min_range' => 1, 'max_range' => self::MAX_API_RESULTS))
+		);
+
+		if ($value === false) {
+			$valid = false;
+			return null;
+		}
+
+		return (int) $value;
+	}
+
+	private function _allowJsonRequest($bucket, $limit, $windowSeconds)
+	{
+		$identifier = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
+		$result = My_RateLimiter::check($bucket, $identifier, $limit, $windowSeconds);
+		My_RateLimiter::applyHeaders($this->getResponse(), $result);
+
+		if ($result['allowed']) {
+			return true;
+		}
+
+		$this->_sendJsonError('Too many requests. Try again later.', 429);
+		return false;
+	}
+
+	private function _sendJsonError($message, $statusCode)
+	{
+		$this->getResponse()->setHttpResponseCode((int) $statusCode);
+		echo json_encode(array('valid' => false, 'errorMessage' => $message));
+		$this->_helper->viewRenderer->setNoRender();
+		$this->_helper->layout->disableLayout();
 	}
 
 	private function keyGenerator($minlength, $maxlength, $useupper, $usespecial, $usenumbers) {

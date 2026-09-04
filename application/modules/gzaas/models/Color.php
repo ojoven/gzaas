@@ -2,10 +2,14 @@
 
 class Gzaas_Model_Color {
 
-	const HEXADECIMAL_COLOR_REGEXP = "/([A-F|a-f|0-9]){3}(([A-F|a-f|0-9]){3})?/";
+	const HEXADECIMAL_COLOR_REGEXP = "/\A(?:[A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\z/";
 
 	public function getColorFeatures($color) {
 
+		$color = ltrim((string) $color, '#');
+		if (!$this->checkValidColor($color)) {
+			$color = '444';
+		}
 		$colorFeatures['color'] = '#'.$color;
 		$colorFeatures['used'] = 1;
 		$colorFeatures['hashtag'] = $color;
@@ -14,8 +18,7 @@ class Gzaas_Model_Color {
 
 	public function checkValidColor($color) {
 
-		preg_match(self::HEXADECIMAL_COLOR_REGEXP, $color, $validColor);
-		return $validColor;
+		return (bool) preg_match(self::HEXADECIMAL_COLOR_REGEXP, (string) $color);
 	}
 
 }

@@ -21,7 +21,8 @@ class Gzaas_PreviewController extends Gzaas_Base_Controller {
 		$this->view->renderedMessage    = $previewGzaas['renderedMessage'];
 		$this->view->features     		= $previewGzaas['features'];
 		$this->view->menuOptions  		= $previewGzaas['menuOptions'];
-		$this->view->from				= (isset($parameters['from'])) ? $parameters['from'] : 'home';
+		$from = (isset($parameters['from'])) ? $parameters['from'] : 'home';
+		$this->view->from = in_array($from, array('home', 'preview'), true) ? $from : 'home';
 
 		$this->_setFontHeadStylesheetIfFontFaceUsed($previewGzaas['features']['font']);
 		$this->_setUserLanguageCode();

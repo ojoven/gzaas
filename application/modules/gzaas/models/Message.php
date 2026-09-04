@@ -60,7 +60,7 @@ class Gzaas_Model_Message {
 	private function _getDefaultMessageParameters() {
 
 		$defaultMessageParameters['ip'] = $_SERVER['REMOTE_ADDR'];
-		$defaultMessageParameters['languageUser'] = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+		$defaultMessageParameters['languageUser'] = 'en';
 		$defaultMessageParameters['date'] = date("Y-m-d H:i:s");
 		$defaultMessageParameters['api'] = self::NOT_FROM_API;
 		$defaultMessageParameters['visibility'] = self::DEFAULT_VISIBILITY;

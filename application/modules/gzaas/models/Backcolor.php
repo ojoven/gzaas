@@ -2,10 +2,14 @@
 
 class Gzaas_Model_Backcolor {
 
-	const HEXADECIMAL_COLOR_REGEXP = "/([A-F|a-f|0-9]){3}(([A-F|a-f|0-9]){3})?/";
+	const HEXADECIMAL_COLOR_REGEXP = "/\A(?:[A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})\z/";
 
 	public function getBackColorFeatures($backColor) {
 
+		$backColor = ltrim((string) $backColor, '#');
+		if (!$this->checkValidBackColor($backColor)) {
+			$backColor = 'fcfcfc';
+		}
 		$backColorFeatures['backColor'] = '#'.$backColor;
 		$backColorFeatures['used'] = 1;
 		$backColorFeatures['hashtag'] = $backColor;
@@ -14,8 +18,7 @@ class Gzaas_Model_Backcolor {
 
 	public function checkValidBackColor($backColor) {
 
-		preg_match(self::HEXADECIMAL_COLOR_REGEXP, $backColor, $validBackColor);
-		return $validBackColor;
+		return (bool) preg_match(self::HEXADECIMAL_COLOR_REGEXP, (string) $backColor);
 	}
 
 }

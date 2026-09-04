@@ -10,6 +10,37 @@ class Gzaas_GzaasController extends Gzaas_Base_Controller {
 	}
 
 	public function newgsAction() {
+		$this->getResponse()->setHeader('Content-Type', 'application/json; charset=UTF-8', true);
+		$result = My_RateLimiter::check(
+			'new-gzaas',
+			isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown',
+			10,
+			60
+		);
+		My_RateLimiter::applyHeaders($this->getResponse(), $result);
+
+		if (!$result['allowed']) {
+			$this->getResponse()->setHttpResponseCode(429);
+			echo json_encode(array(
+				'valid' => false,
+				'errorMessage' => 'Too many requests. Try again later.'
+			));
+			$this->_helper->viewRenderer->setNoRender();
+			$this->_helper->layout->disableLayout();
+			return;
+		}
+
+		if (!$this->getRequest()->isPost()) {
+			$this->getResponse()->setHeader('Allow', 'POST', true);
+			$this->getResponse()->setHttpResponseCode(405);
+			echo json_encode(array(
+				'valid' => false,
+				'errorMessage' => 'This endpoint only accepts POST requests.'
+			));
+			$this->_helper->viewRenderer->setNoRender();
+			$this->_helper->layout->disableLayout();
+			return;
+		}
 
 		$parameters = $this->getRequest()->getPost();
 		$gzaasModel = new Gzaas_Model_Gzaas();

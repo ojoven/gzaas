@@ -41,9 +41,6 @@ class My_Session_Manager implements Zend_Session_SaveHandler_Interface
 
     public function write($id, $sessionData)
     {
-        $profiler = self::$sessionData->getAdapter()->getProfiler();
-        $profiler->setEnabled(true);
-
         $data = array
         (
             'session_data' => $sessionData,

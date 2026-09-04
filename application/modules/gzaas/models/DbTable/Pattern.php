@@ -63,32 +63,28 @@ class Gzaas_Model_DbTable_Pattern extends Zend_Db_Table_Abstract {
 	// LIMITED (API Feature)
 	public function getLimitedFeaturedPatterns($numResults) {
 
-		$columns = $this->_fields;
-		$table = $this->_name;
-		$condition = "featured = 1";
-		$orderMethod = "pattern ASC";
-		$limit = "0,".$numResults;
+		$select = $this->_db->select()
+			->from($this->_name, array_map('trim', explode(',', $this->_fields)))
+			->where('featured = ?', 1)
+			->order('pattern ASC')
+			->limit($this->_normalizeLimit($numResults));
 
-		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." ORDER BY ".$orderMethod.' LIMIT '.$limit;
-		$stmt = $this->_db->query($query);
-		$limitedFeaturedPatterns = $stmt->fetchAll();
-
-		return $limitedFeaturedPatterns;
+		return $this->_db->fetchAll($select);
 	}
 
 
 	public function getLimitedPatterns($numResults) {
 
-		$columns = $this->_fields;
-		$table = $this->_name;
-		$orderMethod = "pattern ASC";
-		$limit = "0,".$numResults;
+		$select = $this->_db->select()
+			->from($this->_name, array_map('trim', explode(',', $this->_fields)))
+			->order('pattern ASC')
+			->limit($this->_normalizeLimit($numResults));
 
-		$query = "SELECT ".$columns." FROM ".$table." ORDER BY ".$orderMethod.' LIMIT '.$limit;
-		$stmt = $this->_db->query($query);
-		$limitedPatterns = $stmt->fetchAll();
+		return $this->_db->fetchAll($select);
+	}
 
-		return $limitedPatterns;
+	private function _normalizeLimit($numResults) {
+		return max(1, min(100, (int) $numResults));
 	}
 
 	public function getPatternCredits() {

@@ -14,6 +14,15 @@ $patternUsed = $features['pattern']['used'];
 $styleUsed = $features['style']['used'];
 $shadowsUsed = $features['shadows']['used'];
 
+$safeFontFamily = My_Output::cssFontFamily($features['font']['fontFamily']);
+$safeFontSize = My_Output::cssNumber($features['font']['fontBaseSize'], 40);
+$safeLineHeight = My_Output::cssNumber($features['font']['fontBaseLineHeight'], 36);
+$safeLetterSpacing = My_Output::cssNumber($features['font']['fontBaseLetterSpacing'], 0);
+$safeColor = My_Output::cssColor($features['color']['color'], '#444');
+$safeBackColor = My_Output::cssColor($features['backColor']['backColor'], '#fcfcfc');
+$safePattern = My_Output::cssBackgroundImage($features['pattern']['pattern']);
+$safeShadows = My_Output::cssShadows($features['shadows']['shadows']);
+
 $explodeStyle = 1;
 
 ?>
@@ -24,24 +33,24 @@ $explodeStyle = 1;
 	position: absolute;
 	text-align:center;
 
-	font-family: <?php echo $features['font']['fontFamily'];?>, Verdana, Arial;
-	font-size: <?php echo $features['font']['fontBaseSize'];?>px;
-	line-height:<?php echo $features['font']['fontBaseLineHeight'];?>px;
-	letter-spacing: -<?php echo $features['font']['fontBaseLetterSpacing'];?>px;
-	color: <?php echo $features['color']['color'];?>;
+		font-family: <?php echo $safeFontFamily;?>, Verdana, Arial;
+		font-size: <?php echo $safeFontSize;?>px;
+		line-height:<?php echo $safeLineHeight;?>px;
+		letter-spacing: -<?php echo $safeLetterSpacing;?>px;
+		color: <?php echo $safeColor;?>;
 }
 
 
 body {
-	background: <?php if ($features['pattern']['used']!=''){echo $features['pattern']['pattern'].' ';}?><?php echo $features['backColor']['backColor'];?>;
+		background: <?php if ($safePattern !== '') { echo $safePattern . ' '; }?><?php echo $safeBackColor;?>;
 	overflow:hidden;
 }
 
 
-#color_span { background: <?php echo $features['color']['color'];?>; }
-#backColor_span { background: <?php echo $features['backColor']['backColor'];?>; }
-#pattern_span { background: <?php echo $features['pattern']['pattern'];?>; }
-#mo_1 { font-family:<?php echo $features['font']['fontFamily'];?>; }
+#color_span { background: <?php echo $safeColor;?>; }
+#backColor_span { background: <?php echo $safeBackColor;?>; }
+#pattern_span { background: <?php echo $safePattern;?>; }
+#mo_1 { font-family:<?php echo $safeFontFamily;?>; }
 
 #header, #right_sidebar, #footer { display:block; }
 
@@ -55,8 +64,8 @@ body {
 		<span class="metatag_submenu_title"><?php echo __("Shadows");?></span>
 		<div id="shadow_list" <?php if($shadowsUsed){echo 'style="display:block;"';} ?>>
 		<span class="metatag_submenu_options" style="margin-bottom:0px;"><?php echo __("Shadows");?></span>
-		<?php if ($shadowsUsed) {
-				$arrayShadows = explode(",",$features['shadows']['shadows']);
+			<?php if ($shadowsUsed && $safeShadows !== '') {
+					$arrayShadows = explode(",", $safeShadows);
 				if (count($arrayShadows)>0) {
 						$countShad = 0;
 						foreach ($arrayShadows as $shadow) {
@@ -64,10 +73,10 @@ body {
 						$arrayShad = explode(" ",trim($shadow));?>
 						<ul class="shadow_list_option">
 								<li class="shad_list_title"><?php echo __("Shadow");?> <?php echo $countShad; ?></li>
-								<li><?php echo $arrayShad[0]; ?></li>
-								<li><?php echo $arrayShad[1]; ?></li>
-								<li><?php echo $arrayShad[2]; ?></li>
-								<li class="shad_list_opt_col" style="background:<?php echo $arrayShad[3]; ?>"></li>
+									<li><?php echo My_Output::html($arrayShad[0]); ?></li>
+									<li><?php echo My_Output::html($arrayShad[1]); ?></li>
+									<li><?php echo My_Output::html($arrayShad[2]); ?></li>
+									<li class="shad_list_opt_col" style="background:<?php echo My_Output::cssColor($arrayShad[3], '#444'); ?>"></li>
 								<li class="shadow_clear">X</li>
 								<span class="position" style="display:none"><?php echo $countShad; ?></span>
 						</ul>
@@ -167,7 +176,7 @@ body {
 			// Fonts
 			else if ($menuOption[0]['idM']==1){?>
 					<span title="<?php echo __($menuOption[0]['description']);?>" class="metatag_option" id="mo_1">
-					<?php echo $features['font']['description']; ?>
+						<?php echo My_Output::html($features['font']['description']); ?>
 					</span>
 			<?php }
 
@@ -241,8 +250,10 @@ body {
 					<li>
 						<ul class="hashtag_menu_ul">
 						<?php
-						$cssHashtags = '';
-						switch ($menuOption[0]['idM']){
+							$cssHashtags = '';
+							$hashKey = '';
+							$urlPattern = '';
+							switch ($menuOption[0]['idM']){
 							case 1:
 								$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/ffonts.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
 								$hashKey = $hashtag['font'];
@@ -256,11 +267,11 @@ body {
 								$cssHashtags = 'padding:0px;height:33px;background-image:url('.$this->baseImage.'/fstyles.png);background-repeat: no-repeat;background-position: 0px -'.($countHashtags*34).'px';
 								$hashKey = $hashtag['style'];
 								break;
-							default:
-								$cssHashtags = '';
-						}?>
+								default:
+									$cssHashtags = '';
+							}?>
 
-							<li class="hashtag_menu" style="<?php echo $cssHashtags;?>" data-hashkey="<?php echo $hashKey;?>" data-metakey="<?php echo $menuOption[0]['idM']?>" data-urlpattern="<?php echo (isset($urlPattern)) ? $urlPattern : ""; ?>">
+								<li class="hashtag_menu" style="<?php echo My_Output::html($cssHashtags);?>" data-hashkey="<?php echo My_Output::html($hashKey);?>" data-metakey="<?php echo (int) $menuOption[0]['idM']?>" data-urlpattern="<?php echo My_Output::html($urlPattern); ?>">
 								<span class="hashtag_menu_description"></span>
 								<span class="add_hashtag"><?php echo __("use it");?></span>
 							</li>
@@ -277,18 +288,18 @@ body {
 
 	<div id="preview_form_container">
 		<form action="<?php echo $this->baseUrl?>/preview/preview" name="new_gs">
-			<textarea placeholder="<?php echo __("Enter your message...");?>" rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
+			<textarea placeholder="<?php echo My_Output::html(__("Enter your message..."));?>" rows="1" cols="50" name="gs_form" id="gs_form_preview"><?php echo $formMessage;?></textarea>
 
 			<div id="expand_form" title="<?php echo __("expand");?>">&nbsp;</div>
-			<input id="font" name="font" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo $features['font']['hashtag'];}?>"></input>
-			<input id="color" name="color" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($colorUsed==1)) {echo $features['color']['hashtag'];}?>"></input>
-			<input id="backColor" name="backColor" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($backColorUsed==1)) {echo $features['backColor']['hashtag'];}?>"></input>
-			<input id="pattern" name="pattern" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($patternUsed==1)) {echo $features['pattern']['hashtag'];}?>"></input>
-			<input id="style" name="style" class="hidden_form" type="hidden" value="<?php if ($explodeStyle==0) {echo $features['style']['hashtag'];}?>"></input>
+				<input id="font" name="font" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($fontUsed==1)) {echo My_Output::html($features['font']['hashtag']);}?>"></input>
+				<input id="color" name="color" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($colorUsed==1)) {echo My_Output::html($features['color']['hashtag']);}?>"></input>
+				<input id="backColor" name="backColor" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($backColorUsed==1)) {echo My_Output::html($features['backColor']['hashtag']);}?>"></input>
+				<input id="pattern" name="pattern" class="hidden_form" type="hidden" value="<?php if (($explodeStyle==1) && ($patternUsed==1)) {echo My_Output::html($features['pattern']['hashtag']);}?>"></input>
+				<input id="style" name="style" class="hidden_form" type="hidden" value="<?php if ($explodeStyle==0) {echo My_Output::html($features['style']['hashtag']);}?>"></input>
 
-			<input id="shadows" name="shadows" type="hidden" class="hidden_form" value="<?php if (($explodeStyle==1) && ($shadowsUsed==1)) { echo $features['shadows']['hashtag']; }?>"/>
+				<input id="shadows" name="shadows" type="hidden" class="hidden_form" value="<?php if (($explodeStyle==1) && ($shadowsUsed==1)) { echo My_Output::html($safeShadows); }?>"/>
 
-			<input type="hidden" id="visibility" class="hidden_form" name="visibility" value="<?php echo $features['visibility']?>"></input>
+				<input type="hidden" id="visibility" class="hidden_form" name="visibility" value="<?php echo (int) $features['visibility']?>"></input>
 			<input type="hidden" class="hidden_form" name="from" value="preview"></input>
 
 			<input id="refresh_button" type="submit" value="" title="<?php echo __("refresh");?>"></input>
@@ -331,32 +342,32 @@ var flagGalleryFonts = 0;
 var flagGalleryPatterns = 0;
 var flagGalleryStyles = 0;
 
-var oldFontSize = <?php echo $features['font']['fontBaseSize'];?>;
-var oldLineHeight = <?php echo $features['font']['fontBaseLineHeight'];?>;
-var oldLetterSpacing = <?php echo $features['font']['fontBaseLetterSpacing'];?>;
+var oldFontSize = <?php echo $safeFontSize;?>;
+var oldLineHeight = <?php echo $safeLineHeight;?>;
+var oldLetterSpacing = <?php echo $safeLetterSpacing;?>;
 
 // Traducciones tratadas en javascript
-var messagePublic = "<?php echo __("You are sharing this gzaas with the world!");?>";
-var messagePrivate = "<?php echo __("Send this gzaas only to those who you decide!");?>";
-var publicTrad = "<?php echo __("public");?>";
-var privateTrad = "<?php echo __("private");?>";
-var fontcolor = "<?php echo __("Font Color");?>";
-var backgroundcolor = "<?php echo __("Background Color");?>";
-var shadowcolor = "<?php echo __("Shadow Color");?>";
-var messageGzaasBlank = "<?php echo __("What about writing something before sharing it?");?>";
-var messageNoStyle = "<?php echo __("Let's give some style to the gzaas");?>";
-var messageSameColor = "<?php echo __("Caution! You're using the same color for the font and the background...");?>";
-var messageTitlePopup = "<?php echo __("Share this link and get your friends surprised!");?>";
+var messagePublic = <?php echo My_Output::javascript(__("You are sharing this gzaas with the world!"));?>;
+var messagePrivate = <?php echo My_Output::javascript(__("Send this gzaas only to those who you decide!"));?>;
+var publicTrad = <?php echo My_Output::javascript(__("public"));?>;
+var privateTrad = <?php echo My_Output::javascript(__("private"));?>;
+var fontcolor = <?php echo My_Output::javascript(__("Font Color"));?>;
+var backgroundcolor = <?php echo My_Output::javascript(__("Background Color"));?>;
+var shadowcolor = <?php echo My_Output::javascript(__("Shadow Color"));?>;
+var messageGzaasBlank = <?php echo My_Output::javascript(__("What about writing something before sharing it?"));?>;
+var messageNoStyle = <?php echo My_Output::javascript(__("Let's give some style to the gzaas"));?>;
+var messageSameColor = <?php echo My_Output::javascript(__("Caution! You're using the same color for the font and the background..."));?>;
+var messageTitlePopup = <?php echo My_Output::javascript(__("Share this link and get your friends surprised!"));?>;
 
 // Shadows
-<?php if ($features['shadows']['shadows']!='') {?>
-stringShadows = "<?php echo $features['shadows']['shadows']; ?>";
-arrayShadows = stringShadows.split(',');
+<?php if ($safeShadows !== '') {?>
+var stringShadows = <?php echo My_Output::javascript($safeShadows); ?>;
+var arrayShadows = stringShadows.split(',');
 <?php } else {?>
 var arrayShadows = new Array();
 <?php } ?>
 
-var from = "<?php echo $from;?>";
+var from = <?php echo My_Output::javascript($from);?>;
 var page = "preview";
 
 </script>

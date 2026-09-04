@@ -2,6 +2,27 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+	protected function _initSecurityHeaders()
+	{
+		if (headers_sent()) {
+			return;
+		}
+
+		header('X-Content-Type-Options: nosniff');
+		header('X-Frame-Options: SAMEORIGIN');
+		header('Referrer-Policy: strict-origin-when-cross-origin');
+		header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
+		if (APPLICATION_ENV !== 'development') {
+			header("Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://ssl.google-analytics.com https://www.google-analytics.com https://platform.twitter.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com; frame-src 'self' https://www.facebook.com; upgrade-insecure-requests");
+		}
+
+		$isHttps = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+			|| (isset($_SERVER['SERVER_PORT']) && (int) $_SERVER['SERVER_PORT'] === 443);
+		if ($isHttps) {
+			header('Strict-Transport-Security: max-age=31536000');
+		}
+	}
+
 	protected function _initAutoloader()
     {
         $autoloader = new Zend_Application_Module_Autoloader(array(
@@ -35,11 +56,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		// To use a global __() function to make the translations.
 		require_once LIBRARY_PATH . '/My/global.php';
 
-    	$languageCode = (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) ? substr($_SERVER["HTTP_ACCEPT_LANGUAGE"],0,2) : "en";
-
-		if ($languageCode!='es'){
-			$languageCode='en';
-		}
+		$languageCode = 'en';
 		$translate = new Zend_Translate(
 			'gettext', APPLICATION_PATH .'/langs/'.$languageCode.'.mo', $languageCode,
 			array(

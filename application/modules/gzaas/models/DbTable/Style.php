@@ -36,32 +36,29 @@ class Gzaas_Model_DbTable_Style extends Zend_Db_Table_Abstract {
 	// LIMITED (API calls)
 	public function getLimitedFeaturedStyles($numResults) {
 
-		$columns = $this->_fields;
-		$table = $this->_name;
-		$condition = "publicUse = 1 AND featured = 1";
-		$orderMethod = "description ASC";
-		$limit = "0,".$numResults;
+		$select = $this->_db->select()
+			->from($this->_name, array_map('trim', explode(',', $this->_fields)))
+			->where('publicUse = ?', 1)
+			->where('featured = ?', 1)
+			->order('description ASC')
+			->limit($this->_normalizeLimit($numResults));
 
-		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." ORDER BY ".$orderMethod.' LIMIT '.$limit;
-		$stmt = $this->_db->query($query);
-		$limitedFeaturedStyles = $stmt->fetchAll();
-
-		return $limitedFeaturedStyles;
+		return $this->_db->fetchAll($select);
 	}
 
 	public function getLimitedStyles($numResults) {
 
-		$columns = $this->_fields;
-		$table = $this->_name;
-		$condition = "publicUse = 1";
-		$orderMethod = "description ASC";
-		$limit = "0,".$numResults;
+		$select = $this->_db->select()
+			->from($this->_name, array_map('trim', explode(',', $this->_fields)))
+			->where('publicUse = ?', 1)
+			->order('description ASC')
+			->limit($this->_normalizeLimit($numResults));
 
-		$query = "SELECT ".$columns." FROM ".$table." WHERE ".$condition." ORDER BY ".$orderMethod.' LIMIT '.$limit;
-		$stmt = $this->_db->query($query);
-		$limitedStyles = $stmt->fetchAll();
+		return $this->_db->fetchAll($select);
+	}
 
-		return $limitedStyles;
+	private function _normalizeLimit($numResults) {
+		return max(1, min(100, (int) $numResults));
 	}
 
 	public function getIdStyles() {
